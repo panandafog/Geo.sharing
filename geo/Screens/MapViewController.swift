@@ -43,7 +43,6 @@ class MapViewController: UIViewController {
             self?.startUpdatingLocation()
         }
         
-        print("-=-=- present")
         present(loginViewController, animated: true)
     }
     

@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var submitButton: UIButton!
+    @IBOutlet var createAccountButton: UIButton!
     
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
@@ -38,6 +39,10 @@ class LoginViewController: UIViewController {
         logIn()
     }
     
+    @IBAction func signupButtonTouched(_ sender: UIButton) {
+        signUp()
+    }
+    
     private func verifyCreds() {
         let credsAreValid = (usernameTextField.text?.count ?? 0) >= AuthorizationService.minUsernameLength
         && (passwordTextField.text?.count ?? 0) >= AuthorizationService.minPasswordLength
@@ -52,6 +57,7 @@ class LoginViewController: UIViewController {
         
         activityIndicator.startAnimating()
         submitButton.isEnabled = false
+        createAccountButton.isEnabled = false
         
         authorizationService.login(
             username: username,
@@ -60,6 +66,7 @@ class LoginViewController: UIViewController {
             
             self?.activityIndicator.stopAnimating()
             self?.submitButton.isEnabled = true
+            self?.createAccountButton.isEnabled = true
             
             switch result {
             case .success(_):
@@ -69,6 +76,18 @@ class LoginViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func signUp() {
+        let signupViewController = UIViewController.instantiate(name: "SignupViewController") as! SignupViewController
+        
+        signupViewController.successCompletion = { [weak self] username in
+            signupViewController.dismiss(animated: true)
+            DispatchQueue.main.async {
+                self?.usernameTextField.text = username
+            }
+        }
+        present(signupViewController, animated: true)
     }
 }
 

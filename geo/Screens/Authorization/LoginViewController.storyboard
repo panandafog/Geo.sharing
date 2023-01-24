@@ -33,36 +33,50 @@
                                     <action selector="passwordChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="bqv-dU-Y9m"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k18-Nv-Il7">
-                                <rect key="frame" x="168" y="473" width="78" height="35"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Lnf-tg-p3z">
+                                <rect key="frame" x="197" y="516" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jCR-XX-2b3">
+                                <rect key="frame" x="40" y="473" width="163.33333333333334" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Submit"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Create an account"/>
+                                <connections>
+                                    <action selector="signupButtonTouched:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="2jj-1t-b5u"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k18-Nv-Il7">
+                                <rect key="frame" x="304" y="473" width="70" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Log in"/>
                                 <connections>
                                     <action selector="submitButtonTouched:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="HG2-wt-3tA"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Lnf-tg-p3z">
-                                <rect key="frame" x="197" y="516" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="jCR-XX-2b3" firstAttribute="leading" secondItem="qea-og-6yU" secondAttribute="leading" id="5h9-E7-oWC"/>
                             <constraint firstItem="qea-og-6yU" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="65w-bp-CSN"/>
                             <constraint firstItem="5jt-Wa-Qo4" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BiT-E6-eYA"/>
+                            <constraint firstItem="jCR-XX-2b3" firstAttribute="top" secondItem="qea-og-6yU" secondAttribute="bottom" constant="8" symbolic="YES" id="IEX-wV-1SY"/>
+                            <constraint firstItem="jCR-XX-2b3" firstAttribute="leading" secondItem="qea-og-6yU" secondAttribute="leading" id="L32-uu-lwS"/>
                             <constraint firstItem="Lnf-tg-p3z" firstAttribute="top" secondItem="k18-Nv-Il7" secondAttribute="bottom" constant="8" symbolic="YES" id="NPw-er-jSK"/>
                             <constraint firstItem="qea-og-6yU" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="OFB-Rt-vzl"/>
                             <constraint firstItem="qea-og-6yU" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="Ujz-ry-T5Q"/>
+                            <constraint firstItem="k18-Nv-Il7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jCR-XX-2b3" secondAttribute="trailing" constant="8" symbolic="YES" id="aNy-Ba-3v5"/>
                             <constraint firstItem="Lnf-tg-p3z" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="aeX-ow-BWJ"/>
                             <constraint firstItem="k18-Nv-Il7" firstAttribute="top" secondItem="qea-og-6yU" secondAttribute="bottom" constant="8" symbolic="YES" id="foy-K2-gip"/>
                             <constraint firstItem="qea-og-6yU" firstAttribute="width" secondItem="5jt-Wa-Qo4" secondAttribute="width" id="ocO-RW-diM"/>
                             <constraint firstItem="qea-og-6yU" firstAttribute="top" secondItem="5jt-Wa-Qo4" secondAttribute="bottom" constant="8" symbolic="YES" id="pgv-Yw-FyQ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="qea-og-6yU" secondAttribute="trailing" constant="40" id="seC-wW-7Ap"/>
-                            <constraint firstItem="k18-Nv-Il7" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="yqg-dO-1qe"/>
+                            <constraint firstItem="k18-Nv-Il7" firstAttribute="trailing" secondItem="qea-og-6yU" secondAttribute="trailing" id="tYj-HI-svZ"/>
+                            <constraint firstItem="k18-Nv-Il7" firstAttribute="bottom" secondItem="jCR-XX-2b3" secondAttribute="bottom" id="xxY-fD-0Zx"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="Lnf-tg-p3z" id="MU7-wK-apX"/>
+                        <outlet property="createAccountButton" destination="jCR-XX-2b3" id="cbb-R2-HFu"/>
                         <outlet property="passwordTextField" destination="qea-og-6yU" id="shp-jP-yFw"/>
                         <outlet property="submitButton" destination="k18-Nv-Il7" id="vPj-jh-2QS"/>
                         <outlet property="usernameTextField" destination="5jt-Wa-Qo4" id="ghA-H6-odS"/>

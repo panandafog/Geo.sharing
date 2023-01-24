@@ -9,20 +9,80 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Signup View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="SignupViewController" id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupViewController" id="Y6W-OH-hqX" customClass="SignupViewController" customModule="geo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password confirmation" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a2a-cv-bQJ">
+                                <rect key="frame" x="40" y="431" width="334" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="passwordConfirmationChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="ntH-QO-gP2"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CGB-Qg-Y1N">
+                                <rect key="frame" x="40" y="389" width="334" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="passwordChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="X2M-ZN-Xmk"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YVj-hh-2M9">
+                                <rect key="frame" x="40" y="347" width="334" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="usernameChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="OM2-jk-X4l"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rqe-cZ-8Zh">
+                                <rect key="frame" x="125.33333333333333" y="473" width="163.33333333333337" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Create an account"/>
+                                <connections>
+                                    <action selector="submitButtonTouched:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="hRh-VF-KzY"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ifU-r6-hjT">
+                                <rect key="frame" x="197" y="516" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CGB-Qg-Y1N" firstAttribute="top" secondItem="YVj-hh-2M9" secondAttribute="bottom" constant="8" symbolic="YES" id="09w-r2-2PQ"/>
+                            <constraint firstItem="a2a-cv-bQJ" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="2Bn-oJ-BhH"/>
+                            <constraint firstItem="CGB-Qg-Y1N" firstAttribute="width" secondItem="YVj-hh-2M9" secondAttribute="width" id="2j3-YA-MMM"/>
+                            <constraint firstItem="a2a-cv-bQJ" firstAttribute="top" secondItem="CGB-Qg-Y1N" secondAttribute="bottom" constant="8" symbolic="YES" id="2ki-IF-kWi"/>
+                            <constraint firstItem="ifU-r6-hjT" firstAttribute="top" secondItem="rqe-cZ-8Zh" secondAttribute="bottom" constant="8" symbolic="YES" id="7BX-TA-5eb"/>
+                            <constraint firstItem="a2a-cv-bQJ" firstAttribute="width" secondItem="YVj-hh-2M9" secondAttribute="width" id="FWN-0W-tls"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="a2a-cv-bQJ" secondAttribute="trailing" constant="40" id="InD-dA-Xyv"/>
+                            <constraint firstItem="a2a-cv-bQJ" firstAttribute="width" secondItem="YVj-hh-2M9" secondAttribute="width" id="WPY-WC-W9t"/>
+                            <constraint firstItem="rqe-cZ-8Zh" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Yc9-Bb-XqU"/>
+                            <constraint firstItem="YVj-hh-2M9" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="aXl-oJ-CJN"/>
+                            <constraint firstItem="ifU-r6-hjT" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="dPz-my-feA"/>
+                            <constraint firstItem="rqe-cZ-8Zh" firstAttribute="top" secondItem="a2a-cv-bQJ" secondAttribute="bottom" constant="8" symbolic="YES" id="oT9-4z-Wrx"/>
+                            <constraint firstItem="a2a-cv-bQJ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="vpr-Io-n9T"/>
+                            <constraint firstItem="CGB-Qg-Y1N" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="wTO-H8-jxm"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="ifU-r6-hjT" id="nJ3-mw-RqE"/>
+                        <outlet property="passwordConfirmTextField" destination="a2a-cv-bQJ" id="R4o-Uh-42x"/>
+                        <outlet property="passwordTextField" destination="CGB-Qg-Y1N" id="Lnd-pP-kXL"/>
+                        <outlet property="submitButton" destination="rqe-cZ-8Zh" id="o6h-1P-5GU"/>
+                        <outlet property="usernameTextField" destination="YVj-hh-2M9" id="dG9-5a-WJ8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117" y="-2"/>
+            <point key="canvasLocation" x="115.94202898550725" y="-2.0089285714285712"/>
         </scene>
     </scenes>
     <resources>

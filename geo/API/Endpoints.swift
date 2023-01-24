@@ -26,4 +26,12 @@ enum Endpopints {
         
         return loginComponents
     }()
+    
+    static let signupComponents: URLComponents = {
+        var loginComponents = baseComponents
+        
+        loginComponents.path = "/user/signup"
+        
+        return loginComponents
+    }()
 }
