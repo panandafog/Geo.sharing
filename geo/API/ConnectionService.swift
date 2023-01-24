@@ -5,51 +5,61 @@
 //  Created by Andrey on 18.12.2022.
 //
 
+import Alamofire
 import CoreLocation
 
 enum ConnectionService {
     
-    static func sendLocation(_ location: CLLocation) {
-        sendLocation(LocationModel(from: location))
+    typealias SendingLocationCompletion = (Result<Void, LocationError>) -> Void
+    
+    private static var authorizationHeader: HTTPHeader? {
+        guard let token = AuthorizationService.shared.token else {
+            return nil
+        }
+        return .authorization(bearerToken: token)
     }
     
-    static func sendLocation(_ location: LocationModel) {
-        
-        var components = URLComponents()
-        components.scheme = "http"
-        components.host = "94.19.109.140"
-        components.port = 5555
-        components.path = "/save_geo"
-        
-        guard let url = components.url else {
-            print("url error")
+    static func sendLocation(_ location: CLLocation, completion: @escaping SendingLocationCompletion) {
+        sendLocation(
+            latitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude,
+            completion: completion
+        )
+    }
+    
+    static func sendLocation(latitude: Double, longitude: Double, completion: @escaping SendingLocationCompletion) {
+        guard let authorizationHeader = Self.authorizationHeader else {
             return
         }
+        let headers: HTTPHeaders = [
+            authorizationHeader
+        ]
+        let parameters = [
+            "latitude": latitude,
+            "longitude": longitude
+        ]
         
-        print(url.absoluteString)
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = try! JSONEncoder().encode(location)
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard
-                let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil
-            else {                                                               // check for fundamental networking error
-                print("error", error ?? URLError(.badServerResponse))
+        _ = AF.request(
+            Endpopints.saveLocationComponents.url!,
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: headers
+        ).response { (response) in
+            guard let _ = response.value  else {
+                completion(.failure(.parsingResponse))
                 return
             }
-            
-            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
-                print("statusCode should be 2xx, but is \(response.statusCode)")
-                print("response = \(response)")
-                return
-            }
-            
-            print(String(data: data, encoding: .utf8))
-        }.resume()
-        
+            completion(.success(()))
+        }
+    }
+}
+
+extension ConnectionService {
+    
+    enum LocationError: Error {
+        case wrongCreds
+        case parsingResponse
+        case unknown
     }
 }

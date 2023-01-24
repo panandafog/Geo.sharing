@@ -20,18 +20,20 @@ enum Endpopints {
     }()
     
     static let loginComponents: URLComponents = {
-        var loginComponents = baseComponents
-        
-        loginComponents.path = "/user/login"
-        
-        return loginComponents
+        var components = baseComponents
+        components.path = "/user/login"
+        return components
     }()
     
     static let signupComponents: URLComponents = {
-        var loginComponents = baseComponents
-        
-        loginComponents.path = "/user/signup"
-        
-        return loginComponents
+        var components = baseComponents
+        components.path = "/user/signup"
+        return components
+    }()
+    
+    static let saveLocationComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/location/save"
+        return components
     }()
 }
