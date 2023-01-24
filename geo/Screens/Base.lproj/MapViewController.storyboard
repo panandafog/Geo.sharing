@@ -45,6 +45,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v04-pW-cOr">
+                                <rect key="frame" x="344" y="793" width="50" height="35"/>
+                                <buttonConfiguration key="configuration" style="tinted" image="location.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="mylocationButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K4O-i8-b1X"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -52,15 +59,18 @@
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Azp-QH-AI3"/>
                             <constraint firstItem="DeM-qf-Kb8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JCM-LO-PxL"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="aM0-yh-DdA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v04-pW-cOr" secondAttribute="trailing" constant="20" id="eeK-gM-lm1"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mwS-sx-q5B"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="nvy-8T-yyh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="v04-pW-cOr" secondAttribute="bottom" constant="34" id="uk0-ld-tpS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DeM-qf-Kb8" secondAttribute="bottom" id="yju-SR-Lrh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DJV-0I-48V"/>
                     <connections>
-                        <outlet property="lat" destination="DeM-qf-Kb8" id="ukM-hk-TC3"/>
+                        <outlet property="debugLocationLabel" destination="DeM-qf-Kb8" id="ukM-hk-TC3"/>
                         <outlet property="map" destination="q9K-H5-oi9" id="OVZ-9L-2wB"/>
+                        <outlet property="myLocationButton" destination="v04-pW-cOr" id="DXf-Wt-88u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -69,6 +79,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="location.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
