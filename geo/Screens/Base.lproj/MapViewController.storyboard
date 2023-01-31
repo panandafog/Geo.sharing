@@ -38,6 +38,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCz-Kh-HJT">
+                                <rect key="frame" x="335" y="148" width="59" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" image="bell.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="notificationsButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EoD-Bu-8Fx"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeM-qf-Kb8">
                                 <rect key="frame" x="186.33333333333334" y="841.66666666666663" width="41.333333333333343" height="20.333333333333371"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
@@ -46,10 +54,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v04-pW-cOr">
-                                <rect key="frame" x="344" y="793" width="50" height="35"/>
+                                <rect key="frame" x="335" y="793" width="59" height="35"/>
                                 <buttonConfiguration key="configuration" style="tinted" image="location.fill" catalog="system"/>
                                 <connections>
                                     <action selector="mylocationButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K4O-i8-b1X"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLr-4V-caj">
+                                <rect key="frame" x="335" y="740" width="59" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" image="person.2.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="usersButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jbS-bc-dyL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -57,12 +73,20 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Azp-QH-AI3"/>
+                            <constraint firstItem="gLr-4V-caj" firstAttribute="height" secondItem="GCz-Kh-HJT" secondAttribute="height" id="Cqp-Pu-GlH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gLr-4V-caj" secondAttribute="trailing" constant="20" id="E1E-qS-iSk"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GCz-Kh-HJT" secondAttribute="trailing" constant="20" id="Gzq-fe-iuQ"/>
+                            <constraint firstItem="v04-pW-cOr" firstAttribute="width" secondItem="GCz-Kh-HJT" secondAttribute="width" id="IBl-fN-XeZ"/>
                             <constraint firstItem="DeM-qf-Kb8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JCM-LO-PxL"/>
+                            <constraint firstItem="GCz-Kh-HJT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="Ks9-Rf-bbl"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="aM0-yh-DdA"/>
+                            <constraint firstItem="v04-pW-cOr" firstAttribute="top" secondItem="gLr-4V-caj" secondAttribute="bottom" constant="18" id="d92-Nr-g3U"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v04-pW-cOr" secondAttribute="trailing" constant="20" id="eeK-gM-lm1"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mwS-sx-q5B"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="nvy-8T-yyh"/>
+                            <constraint firstItem="gLr-4V-caj" firstAttribute="width" secondItem="GCz-Kh-HJT" secondAttribute="width" id="sIU-z0-423"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="v04-pW-cOr" secondAttribute="bottom" constant="34" id="uk0-ld-tpS"/>
+                            <constraint firstItem="v04-pW-cOr" firstAttribute="height" secondItem="GCz-Kh-HJT" secondAttribute="height" id="wdy-OR-OOz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DeM-qf-Kb8" secondAttribute="bottom" id="yju-SR-Lrh"/>
                         </constraints>
                     </view>
@@ -71,6 +95,8 @@
                         <outlet property="debugLocationLabel" destination="DeM-qf-Kb8" id="ukM-hk-TC3"/>
                         <outlet property="map" destination="q9K-H5-oi9" id="OVZ-9L-2wB"/>
                         <outlet property="myLocationButton" destination="v04-pW-cOr" id="DXf-Wt-88u"/>
+                        <outlet property="notificationsButton" destination="GCz-Kh-HJT" id="0j7-c9-K7s"/>
+                        <outlet property="usersButton" destination="gLr-4V-caj" id="05M-2R-GE5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -79,7 +105,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
+        <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

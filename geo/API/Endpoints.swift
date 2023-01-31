@@ -31,9 +31,63 @@ enum Endpopints {
         return components
     }()
     
+    static let searchUsersComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/user/search"
+        return components
+    }()
+    
     static let saveLocationComponents: URLComponents = {
         var components = baseComponents
         components.path = "/location/save"
+        return components
+    }()
+    
+    static let getFriendsComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/friends/get"
+        return components
+    }()
+    
+    static let deleteFriendComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/friends/delete"
+        return components
+    }()
+    
+    static let getIncomingFriendshipRequestsComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/friendship/get_incoming_requests"
+        return components
+    }()
+    
+    static let getOutgoingFriendshipRequestsComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/friendship/get_outgoing_requests"
+        return components
+    }()
+    
+    static let acceptFriendshipRequestComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/friendship/accept_request"
+        return components
+    }()
+    
+    static let rejectFriendshipRequestComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/friendship/reject_request"
+        return components
+    }()
+    
+    static let createFriendshipRequestComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/friendship/create_request"
+        return components
+    }()
+    
+    static let deleteFriendshipRequestComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/friendship/delete_request"
         return components
     }()
 }

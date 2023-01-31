@@ -41,7 +41,6 @@ class LocationManager: NSObject, ObservableObject {
     }
     
     func startUpdatingLocation() {
-        print(String(locationManager.authorizationStatus == .authorizedAlways))
         if status == .needToRequest {
             locationManager.requestAlwaysAuthorization()
         }
@@ -57,7 +56,7 @@ extension LocationManager: CLLocationManagerDelegate {
     ) {
         self.location = locations.first
         if let location = self.location {
-            ConnectionService.sendLocation(location, completion: { _ in })
+            LocationService.sendLocation(location, completion: { _ in })
         }
     }
     

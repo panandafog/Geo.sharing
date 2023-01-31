@@ -72,7 +72,6 @@ class LoginViewController: UIViewController {
             case .success(_):
                 self?.successCompletion?()
             case .failure(let error):
-                print("ERROR")
                 print(error.localizedDescription)
             }
         }

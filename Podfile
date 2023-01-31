@@ -8,6 +8,7 @@ target 'geo' do
   # Pods for geo
 
   pod 'Alamofire'
+  pod 'SnapKit'
 
   target 'geoTests' do
     inherit! :search_paths

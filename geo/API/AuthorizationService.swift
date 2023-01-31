@@ -7,7 +7,7 @@
 
 import Alamofire
 
-class AuthorizationService {
+class AuthorizationService: ApiService {
     
     var uid: String?
     var token: String?
@@ -22,7 +22,7 @@ class AuthorizationService {
     
     private init() {}
     
-    func login(username: String, password: String, completion: @escaping (Result<Void, LoginError>) -> Void) {
+    func login(username: String, password: String, completion: @escaping (Result<Void, ApiError>) -> Void) {
         let parameters = [
             "username": username,
             "password": password
@@ -43,7 +43,7 @@ class AuthorizationService {
         }
     }
     
-    func signup(username: String, password: String, completion: @escaping (Result<Void, LoginError>) -> Void) {
+    func signup(username: String, password: String, completion: @escaping (Result<Void, ApiError>) -> Void) {
         let parameters = [
             "username": username,
             "password": password
@@ -72,11 +72,5 @@ extension AuthorizationService {
     
     struct SignupResponse: Decodable {
         let id: String
-    }
-    
-    enum LoginError: Error {
-        case wrongCreds
-        case parsingResponse
-        case unknown
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ConnectionService.swift
+//  LocationService.swift
 //  geo
 //
 //  Created by Andrey on 18.12.2022.
@@ -8,16 +8,9 @@
 import Alamofire
 import CoreLocation
 
-enum ConnectionService {
+enum LocationService: ApiService {
     
-    typealias SendingLocationCompletion = (Result<Void, LocationError>) -> Void
-    
-    private static var authorizationHeader: HTTPHeader? {
-        guard let token = AuthorizationService.shared.token else {
-            return nil
-        }
-        return .authorization(bearerToken: token)
-    }
+    typealias SendingLocationCompletion = (Result<Void, ApiError>) -> Void
     
     static func sendLocation(_ location: CLLocation, completion: @escaping SendingLocationCompletion) {
         sendLocation(
@@ -52,14 +45,5 @@ enum ConnectionService {
             }
             completion(.success(()))
         }
-    }
-}
-
-extension ConnectionService {
-    
-    enum LocationError: Error {
-        case wrongCreds
-        case parsingResponse
-        case unknown
     }
 }

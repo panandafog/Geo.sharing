@@ -63,7 +63,6 @@ class SignupViewController: UIViewController {
             case .success(_):
                 self?.successCompletion?(username)
             case .failure(let error):
-                print("ERROR")
                 print(error.localizedDescription)
             }
         }

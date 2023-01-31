@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B00E69529842DAE0049DC49 /* UserTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B00E69429842DAE0049DC49 /* UserTableCell.xib */; };
+		0B00E698298866DF0049DC49 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B00E697298866DF0049DC49 /* NotificationsViewController.swift */; };
+		0B00E69A298866E90049DC49 /* NotificationsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B00E699298866E90049DC49 /* NotificationsViewController.storyboard */; };
+		0B00E69C298868F30049DC49 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B00E69B298868F30049DC49 /* NotificationCell.swift */; };
+		0B00E69E298869030049DC49 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B00E69D298869030049DC49 /* NotificationCell.xib */; };
+		0B00E6A02988695B0049DC49 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B00E69F2988695B0049DC49 /* FriendsService.swift */; };
+		0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B00E6A129886A6E0049DC49 /* ApiService.swift */; };
 		0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016D294E68C300EBE854 /* AppDelegate.swift */; };
 		0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016F294E68C300EBE854 /* SceneDelegate.swift */; };
 		0B400172294E68C300EBE854 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400171294E68C300EBE854 /* MapViewController.swift */; };
@@ -17,16 +24,25 @@
 		0B40018F294E68C500EBE854 /* geoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40018E294E68C500EBE854 /* geoUITests.swift */; };
 		0B400191294E68C500EBE854 /* geoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400190294E68C500EBE854 /* geoUITestsLaunchTests.swift */; };
 		0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40019D294E6D7900EBE854 /* LocationManager.swift */; };
+		0B51D86C298928C500200B63 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D86B298928C500200B63 /* ApiError.swift */; };
+		0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D86D298940E800200B63 /* FriendshipRequestType.swift */; };
+		0B51D8722989448000200B63 /* SearchedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D8712989448000200B63 /* SearchedUser.swift */; };
 		0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B07297F006A00E9806A /* Secrets.swift */; };
 		0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B09297F00B600E9806A /* Endpoints.swift */; };
-		0B843017294FA7EC000D5EDF /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B843016294FA7EC000D5EDF /* ConnectionService.swift */; };
-		0B843019294FAB33000D5EDF /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B843018294FAB33000D5EDF /* LocationModel.swift */; };
+		0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B843016294FA7EC000D5EDF /* LocationService.swift */; };
 		0BC08A3D29798DB00026BA27 /* SignupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */; };
 		0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */; };
 		0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4229798E090026BA27 /* SignupViewController.swift */; };
 		0BC08A4529798E1A0026BA27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4429798E1A0026BA27 /* LoginViewController.swift */; };
 		0BC08A4729798F5E0026BA27 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4629798F5E0026BA27 /* UIViewController+Extensions.swift */; };
 		0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4929798FEE0026BA27 /* AuthorizationService.swift */; };
+		0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC443F02983FA5F00D31C15 /* UserTableCell.swift */; };
+		0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */; };
+		0BD2DEC92981582B00CCAF28 /* UsersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */; };
+		0BE75A8929830EDB00439A71 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8829830EDB00439A71 /* User.swift */; };
+		0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */; };
+		0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8D2983152F00439A71 /* Friendship.swift */; };
+		0BE75A90298321CB00439A71 /* UsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8F298321CB00439A71 /* UsersService.swift */; };
 		34776518DF498107C0DB9019 /* Pods_geo_geoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62C3D2B408446137E37CE866 /* Pods_geo_geoUITests.framework */; };
 		B9E3D064F6E537CDE36C9CC5 /* Pods_geoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023E14CC0E8604CAFDF94E21 /* Pods_geoTests.framework */; };
 		CAA8D5C2BB5F3B400F2C6BE4 /* Pods_geo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F6761DA7FA097D17F161003 /* Pods_geo.framework */; };
@@ -51,6 +67,13 @@
 
 /* Begin PBXFileReference section */
 		023E14CC0E8604CAFDF94E21 /* Pods_geoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_geoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B00E69429842DAE0049DC49 /* UserTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableCell.xib; sourceTree = "<group>"; };
+		0B00E697298866DF0049DC49 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		0B00E699298866E90049DC49 /* NotificationsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationsViewController.storyboard; sourceTree = "<group>"; };
+		0B00E69B298868F30049DC49 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		0B00E69D298869030049DC49 /* NotificationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
+		0B00E69F2988695B0049DC49 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
+		0B00E6A129886A6E0049DC49 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		0B40016A294E68C300EBE854 /* geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B40016D294E68C300EBE854 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B40016F294E68C300EBE854 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,16 +88,25 @@
 		0B40018E294E68C500EBE854 /* geoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geoUITests.swift; sourceTree = "<group>"; };
 		0B400190294E68C500EBE854 /* geoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0B40019D294E6D7900EBE854 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		0B51D86B298928C500200B63 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		0B51D86D298940E800200B63 /* FriendshipRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequestType.swift; sourceTree = "<group>"; };
+		0B51D8712989448000200B63 /* SearchedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedUser.swift; sourceTree = "<group>"; };
 		0B5A0B07297F006A00E9806A /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0B5A0B09297F00B600E9806A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		0B843016294FA7EC000D5EDF /* ConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
-		0B843018294FAB33000D5EDF /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		0B843016294FA7EC000D5EDF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A4229798E090026BA27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0BC08A4429798E1A0026BA27 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0BC08A4629798F5E0026BA27 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		0BC08A4929798FEE0026BA27 /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
+		0BC443F02983FA5F00D31C15 /* UserTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableCell.swift; sourceTree = "<group>"; };
+		0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
+		0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UsersViewController.storyboard; sourceTree = "<group>"; };
+		0BE75A8829830EDB00439A71 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequest.swift; sourceTree = "<group>"; };
+		0BE75A8D2983152F00439A71 /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
+		0BE75A8F298321CB00439A71 /* UsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersService.swift; sourceTree = "<group>"; };
 		203BC3B2CB7265B713F74E14 /* Pods-geo-geoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-geo-geoUITests.debug.xcconfig"; path = "Target Support Files/Pods-geo-geoUITests/Pods-geo-geoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3F6761DA7FA097D17F161003 /* Pods_geo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_geo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44140F237301627B8AEC6A38 /* Pods-geoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-geoTests.release.xcconfig"; path = "Target Support Files/Pods-geoTests/Pods-geoTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,6 +145,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B00E696298866CA0049DC49 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				0B00E697298866DF0049DC49 /* NotificationsViewController.swift */,
+				0B00E699298866E90049DC49 /* NotificationsViewController.storyboard */,
+				0B00E69B298868F30049DC49 /* NotificationCell.swift */,
+				0B00E69D298869030049DC49 /* NotificationCell.xib */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		0B400161294E68C300EBE854 = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +230,8 @@
 		0BC08A4029798DE00026BA27 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				0B00E696298866CA0049DC49 /* Notifications */,
+				0BC443EF2983FA4A00D31C15 /* Users */,
 				0BC08A4129798DEC0026BA27 /* Authorization */,
 				0B400171294E68C300EBE854 /* MapViewController.swift */,
 				0B400173294E68C300EBE854 /* MapViewController.storyboard */,
@@ -208,13 +253,40 @@
 		0BC08A4829798FC90026BA27 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				0B00E6A129886A6E0049DC49 /* ApiService.swift */,
+				0B51D86B298928C500200B63 /* ApiError.swift */,
 				0BC08A4929798FEE0026BA27 /* AuthorizationService.swift */,
-				0B843016294FA7EC000D5EDF /* ConnectionService.swift */,
+				0B843016294FA7EC000D5EDF /* LocationService.swift */,
+				0B00E69F2988695B0049DC49 /* FriendsService.swift */,
+				0BE75A8F298321CB00439A71 /* UsersService.swift */,
 				0B5A0B09297F00B600E9806A /* Endpoints.swift */,
-				0B843018294FAB33000D5EDF /* LocationModel.swift */,
 				0B5A0B07297F006A00E9806A /* Secrets.swift */,
+				0BE75A8A29830EE800439A71 /* Models */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		0BC443EF2983FA4A00D31C15 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */,
+				0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */,
+				0BC443F02983FA5F00D31C15 /* UserTableCell.swift */,
+				0B00E69429842DAE0049DC49 /* UserTableCell.xib */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		0BE75A8A29830EE800439A71 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0BE75A8829830EDB00439A71 /* User.swift */,
+				0B51D8712989448000200B63 /* SearchedUser.swift */,
+				0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */,
+				0BE75A8D2983152F00439A71 /* Friendship.swift */,
+				0B51D86D298940E800200B63 /* FriendshipRequestType.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		16EF89132D6E9EEFCE53FE00 /* Frameworks */ = {
@@ -349,10 +421,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B00E69529842DAE0049DC49 /* UserTableCell.xib in Resources */,
 				0B40017A294E68C500EBE854 /* LaunchScreen.storyboard in Resources */,
+				0B00E69E298869030049DC49 /* NotificationCell.xib in Resources */,
 				0B400177294E68C500EBE854 /* Assets.xcassets in Resources */,
 				0BC08A3D29798DB00026BA27 /* SignupViewController.storyboard in Resources */,
 				0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */,
+				0BD2DEC92981582B00CCAF28 /* UsersViewController.storyboard in Resources */,
+				0B00E69A298866E90049DC49 /* NotificationsViewController.storyboard in Resources */,
 				0B400175294E68C300EBE854 /* MapViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,14 +559,26 @@
 			files = (
 				0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */,
 				0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */,
+				0B51D8722989448000200B63 /* SearchedUser.swift in Sources */,
+				0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */,
 				0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */,
-				0B843017294FA7EC000D5EDF /* ConnectionService.swift in Sources */,
+				0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */,
+				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
+				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
+				0B00E69C298868F30049DC49 /* NotificationCell.swift in Sources */,
+				0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */,
 				0BC08A4729798F5E0026BA27 /* UIViewController+Extensions.swift in Sources */,
+				0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */,
+				0B51D86C298928C500200B63 /* ApiError.swift in Sources */,
+				0B00E698298866DF0049DC49 /* NotificationsViewController.swift in Sources */,
 				0BC08A4529798E1A0026BA27 /* LoginViewController.swift in Sources */,
+				0B00E6A02988695B0049DC49 /* FriendsService.swift in Sources */,
+				0BE75A8929830EDB00439A71 /* User.swift in Sources */,
 				0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */,
-				0B843019294FAB33000D5EDF /* LocationModel.swift in Sources */,
+				0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */,
 				0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */,
+				0BE75A90298321CB00439A71 /* UsersService.swift in Sources */,
 				0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */,
 				0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */,
 			);
@@ -598,7 +686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -652,7 +740,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -680,7 +768,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = MapViewController;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -712,7 +800,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = MapViewController;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
