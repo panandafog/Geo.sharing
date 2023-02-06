@@ -40,6 +40,10 @@
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCz-Kh-HJT">
                                 <rect key="frame" x="335" y="148" width="59" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="59" id="UIO-9I-PME"/>
+                                    <constraint firstAttribute="height" constant="35" id="htq-vD-wMT"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" image="bell.fill" catalog="system"/>
                                 <connections>
@@ -68,10 +72,20 @@
                                     <action selector="usersButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jbS-bc-dyL"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJb-lY-ZQa">
+                                <rect key="frame" x="335" y="201" width="59" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" image="gear.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="settingsButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XcY-9p-eaf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="yJb-lY-ZQa" firstAttribute="width" secondItem="GCz-Kh-HJT" secondAttribute="width" id="2Fh-Dl-g5t"/>
+                            <constraint firstItem="yJb-lY-ZQa" firstAttribute="top" secondItem="GCz-Kh-HJT" secondAttribute="bottom" constant="18" id="4xv-tb-VuH"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Azp-QH-AI3"/>
                             <constraint firstItem="gLr-4V-caj" firstAttribute="height" secondItem="GCz-Kh-HJT" secondAttribute="height" id="Cqp-Pu-GlH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gLr-4V-caj" secondAttribute="trailing" constant="20" id="E1E-qS-iSk"/>
@@ -79,8 +93,10 @@
                             <constraint firstItem="v04-pW-cOr" firstAttribute="width" secondItem="GCz-Kh-HJT" secondAttribute="width" id="IBl-fN-XeZ"/>
                             <constraint firstItem="DeM-qf-Kb8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JCM-LO-PxL"/>
                             <constraint firstItem="GCz-Kh-HJT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="Ks9-Rf-bbl"/>
+                            <constraint firstItem="yJb-lY-ZQa" firstAttribute="trailing" secondItem="GCz-Kh-HJT" secondAttribute="trailing" id="Uzd-uM-ZEh"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="aM0-yh-DdA"/>
                             <constraint firstItem="v04-pW-cOr" firstAttribute="top" secondItem="gLr-4V-caj" secondAttribute="bottom" constant="18" id="d92-Nr-g3U"/>
+                            <constraint firstItem="yJb-lY-ZQa" firstAttribute="height" secondItem="GCz-Kh-HJT" secondAttribute="height" id="eVl-SX-06t"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v04-pW-cOr" secondAttribute="trailing" constant="20" id="eeK-gM-lm1"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mwS-sx-q5B"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="nvy-8T-yyh"/>
@@ -96,6 +112,7 @@
                         <outlet property="map" destination="q9K-H5-oi9" id="OVZ-9L-2wB"/>
                         <outlet property="myLocationButton" destination="v04-pW-cOr" id="DXf-Wt-88u"/>
                         <outlet property="notificationsButton" destination="GCz-Kh-HJT" id="0j7-c9-K7s"/>
+                        <outlet property="settingsButton" destination="yJb-lY-ZQa" id="mea-KB-hQo"/>
                         <outlet property="usersButton" destination="gLr-4V-caj" id="05M-2R-GE5"/>
                     </connections>
                 </viewController>
@@ -106,6 +123,7 @@
     </scenes>
     <resources>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
+        <image name="gear.circle" catalog="system" width="128" height="123"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
         <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <systemColor name="systemBackgroundColor">

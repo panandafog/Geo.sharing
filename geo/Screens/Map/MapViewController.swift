@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
     @IBOutlet var map: MKMapView!
     
     @IBOutlet var notificationsButton: UIButton!
+    @IBOutlet var settingsButton: UIButton!
     @IBOutlet var usersButton: UIButton!
     @IBOutlet var myLocationButton: UIButton!
     
@@ -34,13 +35,15 @@ class MapViewController: UIViewController {
     ]
     
     private lazy var friendsViewController: UsersViewController = {
-        let viewController = UIViewController.instantiate(name: "UsersViewController") as! UsersViewController
-        return viewController
+        UIViewController.instantiate(name: "UsersViewController") as! UsersViewController
     }()
     
     private lazy var notificationsViewController: NotificationsViewController = {
-        let viewController = UIViewController.instantiate(name: "NotificationsViewController") as! NotificationsViewController
-        return viewController
+        UIViewController.instantiate(name: "NotificationsViewController") as! NotificationsViewController
+    }()
+    
+    private lazy var settingsViewController: SettingsViewController = {
+        UIViewController.instantiate(name: "SettingsViewController") as! SettingsViewController
     }()
     
     override func viewDidLoad() {
@@ -115,23 +118,6 @@ class MapViewController: UIViewController {
         friendsViewController.didMove(toParent: self)
     }
     
-    private func showUsers() {
-//        self.friendsViewController.view.snp.remakeConstraints { make in
-//            make.width.equalToSuperview()
-//            make.height.equalToSuperview()
-//            make.top.equalToSuperview()
-//            make.centerX.equalToSuperview()
-//        }
-//        UIView.animate(withDuration: 0.5) {
-//            self.view.layoutIfNeeded()
-//        }
-        navigationController?.pushViewController(friendsViewController, animated: true)
-    }
-    
-    private func showNotifications() {
-        navigationController?.pushViewController(notificationsViewController, animated: true)
-    }
-    
     private func addDebugUsersAnnotations() {
         for user in debugUsers {
             guard let annotation = FriendMKPointAnnotation(user: user) else {
@@ -142,11 +128,16 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func notificationsButtonTouched(_ sender: UIButton) {
-        showNotifications()
+        navigationController?.pushViewController(notificationsViewController, animated: true)
+    }
+    
+    
+    @IBAction func settingsButtonTouched(_ sender: UIButton) {
+        navigationController?.pushViewController(settingsViewController, animated: true)
     }
     
     @IBAction func usersButtonTouched(_ sender: UIButton) {
-        showUsers()
+        navigationController?.pushViewController(friendsViewController, animated: true)
     }
     
     @IBAction func mylocationButtonTouched(_ sender: UIButton) {
