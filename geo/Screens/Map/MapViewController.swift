@@ -19,7 +19,6 @@ class MapViewController: UIViewController {
     @IBOutlet var usersButton: UIButton!
     @IBOutlet var myLocationButton: UIButton!
     
-    
     private let locationManager = LocationManager.shared
     private let authorizationService = AuthorizationService.shared
     
@@ -27,6 +26,12 @@ class MapViewController: UIViewController {
     private let friendsBarHeight = 20
     
     private var cancellableBag = Set<AnyCancellable>()
+    
+    private var debugUsers: [User] = [
+        .init(id: "user1", username: "user1", latitude: 60, longitude: 30.2),
+        .init(id: "user2", username: "user2", latitude: 60.1, longitude: 30.2),
+        .init(id: "user3", username: "user3", latitude: 60.2, longitude: 30.2),
+    ]
     
     private lazy var friendsViewController: UsersViewController = {
         let viewController = UIViewController.instantiate(name: "UsersViewController") as! UsersViewController
@@ -49,7 +54,13 @@ class MapViewController: UIViewController {
 //            self?.initFriends()
         }
         
+        setupMap()
         authorizeAndStart()
+    }
+    
+    private func setupMap() {
+        map.register(FriendAnnotationView.self, forAnnotationViewWithReuseIdentifier: "FriendAnnotationView")
+        map.delegate = self
     }
     
     private func authorizeAndStart() {
@@ -89,7 +100,7 @@ class MapViewController: UIViewController {
             }
         }.store(in: &cancellableBag)
         
-        testAnnotation()
+        addDebugUsersAnnotations()
     }
     
     private func initFriends() {
@@ -121,12 +132,13 @@ class MapViewController: UIViewController {
         navigationController?.pushViewController(notificationsViewController, animated: true)
     }
     
-    func testAnnotation() {
-        let annotation1 = MKPointAnnotation()
-        annotation1.coordinate = CLLocationCoordinate2D(latitude: 60, longitude: 30.2)
-        annotation1.title = "Example 0" // Optional
-        annotation1.subtitle = "Example 0 subtitle" // Optional
-        map.addAnnotation(annotation1)
+    private func addDebugUsersAnnotations() {
+        for user in debugUsers {
+            guard let annotation = FriendMKPointAnnotation(user: user) else {
+                continue
+            }
+            map.addAnnotation(annotation)
+        }
     }
     
     @IBAction func notificationsButtonTouched(_ sender: UIButton) {
@@ -154,3 +166,24 @@ class MapViewController: UIViewController {
     }
 }
 
+extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is FriendMKPointAnnotation else {
+            return nil
+        }
+
+        let identifier = "FriendAnnotationView"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? FriendAnnotationView
+
+        if annotationView == nil {
+            annotationView = FriendAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView!.annotation = annotation
+        }
+
+        annotationView?.setupUI()
+        return annotationView
+    }
+}
