@@ -43,7 +43,12 @@ class MapViewController: UIViewController {
     }()
     
     private lazy var settingsViewController: SettingsViewController = {
-        UIViewController.instantiate(name: "SettingsViewController") as! SettingsViewController
+        let viewController = UIViewController.instantiate(name: "SettingsViewController") as! SettingsViewController
+        viewController.signOutHandler = { [weak self] in
+            self?.authorizationService.signOut()
+            self?.authorizeAndStart()
+        }
+        return viewController
     }()
     
     override func viewDidLoad() {
@@ -51,10 +56,6 @@ class MapViewController: UIViewController {
         
         DispatchQueue.main.async { [weak self] in
             self?.debugLocationLabel.text = "init"
-            //            if let friendsViewController = self?.friendsViewController {
-            //                self?.addChild(friendsViewController)
-            //            }
-//            self?.initFriends()
         }
         
         setupMap()

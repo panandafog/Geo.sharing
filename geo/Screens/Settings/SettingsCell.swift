@@ -25,6 +25,7 @@ class SettingsCell: UITableViewCell {
     func setup(_ entry: SettingsViewController.SettingsEntry) {
         titleLabel.text = entry.title
         iconImageView.image = entry.image
+        iconImageView.tintColor = entry.iconColor
     }
     
     private func commonInit() {

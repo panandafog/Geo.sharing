@@ -56,6 +56,7 @@ class NotificationsViewController: UIViewController {
     
     private func setupStyling() {
         navigationItem.title = "Notifications"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc private func refresh(_ sender: AnyObject) {

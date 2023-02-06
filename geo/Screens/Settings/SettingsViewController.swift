@@ -9,26 +9,48 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    var settingGroups = [
+    let authorizationService = AuthorizationService.shared
+    var signOutHandler: (() -> Void)?
+    
+    lazy var settingGroups = [
         SettingsGroup(
             title: "Profile",
             entries: [
                 SettingsEntry(
                     title: "Profile picture",
-                    image: UIImage(systemName: "person.crop.rectangle")
+                    image: UIImage(systemName: "person.crop.rectangle"),
+                    iconColor: .tintColor,
+                    action: nil
                 ),
                 SettingsEntry(
                     title: "Username",
-                    image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis")
+                    image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis"),
+                    iconColor: .tintColor,
+                    action: nil
                 ),
                 SettingsEntry(
                     title: "Email",
-                    image: UIImage(systemName: "envelope")
+                    image: UIImage(systemName: "envelope"),
+                    iconColor: .tintColor,
+                    action: nil
                 ),
                 SettingsEntry(
                     title: "Password",
-                    image: UIImage(systemName: "lock")
+                    image: UIImage(systemName: "lock"),
+                    iconColor: .tintColor,
+                    action: nil
                 ),
+                SettingsEntry(
+                    title: "Sign out",
+                    image: UIImage(systemName: "person.fill.xmark"),
+                    iconColor: .systemRed,
+                    action: { [weak self] in
+                        DispatchQueue.main.async {
+                            self?.navigationController?.popViewController(animated: true)
+                        }
+                        self?.signOutHandler?()
+                    }
+                )
             ]
         )
     ]
@@ -59,6 +81,11 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        table.deselectRow(at: indexPath, animated: true)
+        let entry = settingGroups[indexPath.section].entries[indexPath.row]
+        entry.action?()
+    }
 }
 
 extension SettingsViewController: UITableViewDataSource {
@@ -93,5 +120,7 @@ extension SettingsViewController {
     struct SettingsEntry {
         let title: String?
         let image: UIImage?
+        let iconColor: UIColor?
+        let action: (() -> Void)?
     }
 }

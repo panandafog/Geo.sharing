@@ -9,8 +9,25 @@ import Alamofire
 
 class AuthorizationService: ApiService {
     
-    var uid: String?
-    var token: String?
+    let defaults = UserDefaults.standard
+    
+    var uid: String? {
+        get {
+            defaults.string(forKey: "uid")
+        }
+        set {
+            defaults.set(newValue, forKey: "uid")
+        }
+    }
+    
+    var token: String? {
+        get {
+            defaults.string(forKey: "token")
+        }
+        set {
+            defaults.set(newValue, forKey: "token")
+        }
+    }
     
     var authorized: Bool {
         token != nil && uid != nil
@@ -60,6 +77,11 @@ class AuthorizationService: ApiService {
             }
             completion(.success(()))
         }
+    }
+    
+    func signOut() {
+        uid = nil
+        token = nil
     }
 }
 
