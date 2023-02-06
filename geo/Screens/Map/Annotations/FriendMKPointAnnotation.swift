@@ -6,9 +6,10 @@
 //
 
 import MapKit
+import UIKit
 
-class FriendMKPointAnnotation: MKPointAnnotation {
-    
+class FriendMKPointAnnotation: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
     var user: User
     
     init?(user: User) {
@@ -16,7 +17,7 @@ class FriendMKPointAnnotation: MKPointAnnotation {
             return nil
         }
         self.user = user
+        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         super.init()
-        coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 }

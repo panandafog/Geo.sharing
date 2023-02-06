@@ -11,10 +11,19 @@ import UIKit
 
 class FriendAnnotationView: MKAnnotationView {
     
+    private var user: User?
+    private var titleLabel: UILabel!
+    
+    private let rect = CGRect(x: 0, y: 0, width: 80, height: 50)
+    
     // MARK: Initialization
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        
+        titleLabel = UILabel(frame: rect)
+        titleLabel.backgroundColor = .tintColor
+        addSubview(titleLabel)
     }
 
     @available(*, unavailable)
@@ -22,21 +31,15 @@ class FriendAnnotationView: MKAnnotationView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Setup
-
     func setupUI() {
-        let user = (annotation as? FriendMKPointAnnotation)?.user
-        
-        frame = CGRect(x: 0, y: 0, width: 100, height: 60)
+        user = (annotation as? FriendMKPointAnnotation)?.user
+        titleLabel.text = user?.username ?? "..."
+    }
+    
+    override func prepareForDisplay() {
+        super.prepareForDisplay()
+
+        frame = rect
         centerOffset = CGPoint(x: 0, y: -frame.size.height / 2)
-        backgroundColor = .systemRed
-
-        let view = UINib(nibName: "FriendPinView", bundle: nil).instantiate(withOwner: self, options: nil).first as! FriendPinView
-        addSubview(view)
-
-        view.frame = bounds
-        view.setup(user: user)
-        view.layoutSubviews()
-        layoutSubviews()
     }
 }
