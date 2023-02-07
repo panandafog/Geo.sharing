@@ -37,6 +37,12 @@ enum Endpopints {
         return components
     }()
     
+    static let profilePictureRequestComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/user/profile_picture"
+        return components
+    }()
+    
     static let saveLocationComponents: URLComponents = {
         var components = baseComponents
         components.path = "/location/save"

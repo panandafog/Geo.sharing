@@ -12,6 +12,7 @@ enum UsersService: ApiService {
     typealias UsersCompletion = (Result<[User], ApiError>) -> Void
     typealias SearchedUsersCompletion = (Result<[SearchedUser], ApiError>) -> Void
     typealias FriendsipsCompletion = (Result<[Friendship], ApiError>) -> Void
+    typealias ImageCompletion = (Result<UIImage, ApiError>) -> Void
     
     private static let friendsService = FriendsService.self
     
@@ -97,6 +98,68 @@ enum UsersService: ApiService {
             case .failure(let error):
                 completion(.failure(error))
             }
+        }
+    }
+    
+    static func setProfilePicture(_ image: UIImage, completion: @escaping EmptyCompletion) {
+        guard let authorizationHeader = Self.authorizationHeader else {
+            return
+        }
+        let headers: HTTPHeaders = [
+            authorizationHeader
+        ]
+        
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else {
+            return
+        }
+        
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(
+                    imageData,
+                    withName: "picture",
+                    fileName: "picture",
+                    mimeType: "image/jpg"
+                )
+            },
+            to: Endpopints.profilePictureRequestComponents.url!,
+            method: .post,
+            headers: headers
+        )
+        .uploadProgress { progress in
+            print("Upload Progress: \(progress.fractionCompleted)")
+        }
+        .response { (response) in
+            guard let _ = response.value  else {
+                completion(.failure(.parsingResponse))
+                return
+            }
+            completion(.success(()))
+        }
+    }
+    
+    static func getProfilePicture(userID: String, completion: @escaping ImageCompletion) {
+        guard let authorizationHeader = Self.authorizationHeader else {
+            return
+        }
+        let headers: HTTPHeaders = [
+            authorizationHeader
+        ]
+        let parameters = [
+            "user_id": userID
+        ]
+        
+        _ = AF.request(
+            Endpopints.profilePictureRequestComponents.url!,
+            method: .get,
+            parameters: parameters,
+            headers: headers
+        ).responseData { (response) in
+            guard let data = response.data, let image = UIImage(data: data) else {
+                completion(.failure(.parsingResponse))
+                return
+            }
+            completion(.success(image))
         }
     }
 }
