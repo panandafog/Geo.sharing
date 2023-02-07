@@ -46,6 +46,10 @@ class LocationManager: NSObject, ObservableObject {
         }
         locationManager.startUpdatingLocation()
     }
+    
+    func stopUpdatingLocation() {
+        locationManager.stopUpdatingLocation()
+    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {

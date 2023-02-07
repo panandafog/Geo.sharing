@@ -8,16 +8,19 @@
 import MapKit
 import UIKit
 
-class FriendMKPointAnnotation: NSObject, MKAnnotation {
-    var coordinate: CLLocationCoordinate2D
-    var user: User
+class FriendMKPointAnnotation: MKPointAnnotation {
+//    var coordinate: CLLocationCoordinate2D
+    var user: User {
+        didSet {
+            guard let latitude = user.latitude, let longitude = user.longitude else {
+                return
+            }
+            coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
+    }
     
     init?(user: User) {
-        guard let latitude = user.latitude, let longitude = user.longitude else {
-            return nil
-        }
         self.user = user
-        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         super.init()
     }
 }

@@ -40,6 +40,8 @@
 		0BB0A05F2991C51300AB48DD /* ProfilePictureViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */; };
 		0BB0A0612991C53600AB48DD /* PropertyChangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0602991C53600AB48DD /* PropertyChangerViewController.swift */; };
 		0BB0A0632991C54B00AB48DD /* PropertyChangerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A0622991C54B00AB48DD /* PropertyChangerViewController.storyboard */; };
+		0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */; };
+		0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */; };
 		0BC08A3D29798DB00026BA27 /* SignupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */; };
 		0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */; };
 		0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4229798E090026BA27 /* SignupViewController.swift */; };
@@ -114,6 +116,8 @@
 		0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfilePictureViewController.storyboard; sourceTree = "<group>"; };
 		0BB0A0602991C53600AB48DD /* PropertyChangerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyChangerViewController.swift; sourceTree = "<group>"; };
 		0BB0A0622991C54B00AB48DD /* PropertyChangerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PropertyChangerViewController.storyboard; sourceTree = "<group>"; };
+		0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extensions.swift"; sourceTree = "<group>"; };
+		0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKAnnotation+Extensions.swift"; sourceTree = "<group>"; };
 		0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A4229798E090026BA27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				0BC08A4629798F5E0026BA27 /* UIViewController+Extensions.swift */,
+				0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */,
+				0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -621,6 +627,7 @@
 				0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */,
 				0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */,
 				0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */,
+				0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */,
 				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
 				0BB0A0612991C53600AB48DD /* PropertyChangerViewController.swift in Sources */,
@@ -639,6 +646,7 @@
 				0B00E6A02988695B0049DC49 /* FriendsService.swift in Sources */,
 				0BE75A8929830EDB00439A71 /* User.swift in Sources */,
 				0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */,
+				0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */,
 				0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */,
 				0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */,
 				0BE75A90298321CB00439A71 /* UsersService.swift in Sources */,
