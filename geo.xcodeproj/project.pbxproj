@@ -51,6 +51,7 @@
 		0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC443F02983FA5F00D31C15 /* UserTableCell.swift */; };
 		0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */; };
 		0BD2DEC92981582B00CCAF28 /* UsersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */; };
+		0BE07F7D2992F0830040CECA /* ImagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE07F7C2992F0830040CECA /* ImagesService.swift */; };
 		0BE75A8929830EDB00439A71 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8829830EDB00439A71 /* User.swift */; };
 		0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */; };
 		0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8D2983152F00439A71 /* Friendship.swift */; };
@@ -127,6 +128,7 @@
 		0BC443F02983FA5F00D31C15 /* UserTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableCell.swift; sourceTree = "<group>"; };
 		0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UsersViewController.storyboard; sourceTree = "<group>"; };
+		0BE07F7C2992F0830040CECA /* ImagesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesService.swift; sourceTree = "<group>"; };
 		0BE75A8829830EDB00439A71 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequest.swift; sourceTree = "<group>"; };
 		0BE75A8D2983152F00439A71 /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
@@ -266,8 +268,8 @@
 		0B70166D298C3DA300E0E353 /* Annotations */ = {
 			isa = PBXGroup;
 			children = (
-				0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */,
 				0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */,
+				0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */,
 			);
 			path = Annotations;
 			sourceTree = "<group>";
@@ -317,6 +319,7 @@
 				0B51D86B298928C500200B63 /* ApiError.swift */,
 				0BC08A4929798FEE0026BA27 /* AuthorizationService.swift */,
 				0B843016294FA7EC000D5EDF /* LocationService.swift */,
+				0BE07F7C2992F0830040CECA /* ImagesService.swift */,
 				0B00E69F2988695B0049DC49 /* FriendsService.swift */,
 				0BE75A8F298321CB00439A71 /* UsersService.swift */,
 				0B5A0B09297F00B600E9806A /* Endpoints.swift */,
@@ -648,6 +651,7 @@
 				0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */,
 				0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */,
 				0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */,
+				0BE07F7D2992F0830040CECA /* ImagesService.swift in Sources */,
 				0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */,
 				0BE75A90298321CB00439A71 /* UsersService.swift in Sources */,
 				0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */,

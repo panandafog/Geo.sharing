@@ -9,7 +9,6 @@ import MapKit
 import UIKit
 
 class FriendMKPointAnnotation: MKPointAnnotation {
-//    var coordinate: CLLocationCoordinate2D
     var user: User {
         didSet {
             guard let latitude = user.latitude, let longitude = user.longitude else {

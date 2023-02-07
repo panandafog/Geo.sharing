@@ -30,12 +30,6 @@ class MapViewController: UIViewController {
     private var cancellableBag = Set<AnyCancellable>()
     private var annotationsTimer: Timer?
     
-    private var debugUsers: [User] = [
-        .init(id: "user1", username: "user1", latitude: 60, longitude: 30.2),
-        .init(id: "user2", username: "user2", latitude: 60.1, longitude: 30.2),
-        .init(id: "user3", username: "user3", latitude: 60.2, longitude: 30.2),
-    ]
-    
     private lazy var friendsViewController: UsersViewController = {
         UIViewController.instantiate(name: "UsersViewController") as! UsersViewController
     }()
