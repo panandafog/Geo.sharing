@@ -36,6 +36,10 @@
 		0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */; };
 		0BB0A0592991A2AD00AB48DD /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0582991A2AD00AB48DD /* SettingsCell.swift */; };
 		0BB0A05B2991A2B900AB48DD /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05A2991A2B900AB48DD /* SettingsCell.xib */; };
+		0BB0A05D2991C4F900AB48DD /* ProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */; };
+		0BB0A05F2991C51300AB48DD /* ProfilePictureViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */; };
+		0BB0A0612991C53600AB48DD /* PropertyChangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0602991C53600AB48DD /* PropertyChangerViewController.swift */; };
+		0BB0A0632991C54B00AB48DD /* PropertyChangerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A0622991C54B00AB48DD /* PropertyChangerViewController.storyboard */; };
 		0BC08A3D29798DB00026BA27 /* SignupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */; };
 		0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */; };
 		0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4229798E090026BA27 /* SignupViewController.swift */; };
@@ -106,6 +110,10 @@
 		0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
 		0BB0A0582991A2AD00AB48DD /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		0BB0A05A2991A2B900AB48DD /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureViewController.swift; sourceTree = "<group>"; };
+		0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfilePictureViewController.storyboard; sourceTree = "<group>"; };
+		0BB0A0602991C53600AB48DD /* PropertyChangerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyChangerViewController.swift; sourceTree = "<group>"; };
+		0BB0A0622991C54B00AB48DD /* PropertyChangerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PropertyChangerViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A4229798E090026BA27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -265,6 +273,10 @@
 				0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */,
 				0BB0A0582991A2AD00AB48DD /* SettingsCell.swift */,
 				0BB0A05A2991A2B900AB48DD /* SettingsCell.xib */,
+				0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */,
+				0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */,
+				0BB0A0602991C53600AB48DD /* PropertyChangerViewController.swift */,
+				0BB0A0622991C54B00AB48DD /* PropertyChangerViewController.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -466,6 +478,7 @@
 				0B00E69529842DAE0049DC49 /* UserTableCell.xib in Resources */,
 				0B40017A294E68C500EBE854 /* LaunchScreen.storyboard in Resources */,
 				0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */,
+				0BB0A0632991C54B00AB48DD /* PropertyChangerViewController.storyboard in Resources */,
 				0BB0A05B2991A2B900AB48DD /* SettingsCell.xib in Resources */,
 				0B00E69E298869030049DC49 /* NotificationCell.xib in Resources */,
 				0B400177294E68C500EBE854 /* Assets.xcassets in Resources */,
@@ -473,6 +486,7 @@
 				0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */,
 				0BD2DEC92981582B00CCAF28 /* UsersViewController.storyboard in Resources */,
 				0B00E69A298866E90049DC49 /* NotificationsViewController.storyboard in Resources */,
+				0BB0A05F2991C51300AB48DD /* ProfilePictureViewController.storyboard in Resources */,
 				0B400175294E68C300EBE854 /* MapViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -609,12 +623,14 @@
 				0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */,
 				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
+				0BB0A0612991C53600AB48DD /* PropertyChangerViewController.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,
 				0B00E69C298868F30049DC49 /* NotificationCell.swift in Sources */,
 				0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */,
 				0BC08A4729798F5E0026BA27 /* UIViewController+Extensions.swift in Sources */,
 				0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */,
+				0BB0A05D2991C4F900AB48DD /* ProfilePictureViewController.swift in Sources */,
 				0BB0A0592991A2AD00AB48DD /* SettingsCell.swift in Sources */,
 				0B51D86C298928C500200B63 /* ApiError.swift in Sources */,
 				0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */,

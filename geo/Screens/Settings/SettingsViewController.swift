@@ -9,10 +9,15 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    let authorizationService = AuthorizationService.shared
     var signOutHandler: (() -> Void)?
     
-    lazy var settingGroups = [
+    private let authorizationService = AuthorizationService.shared
+    
+    private lazy var profilePictureViewController: ProfilePictureViewController = {
+        UIViewController.instantiate(name: "ProfilePictureViewController") as! ProfilePictureViewController
+    }()
+    
+    private lazy var settingGroups = [
         SettingsGroup(
             title: "Profile",
             entries: [
@@ -20,7 +25,11 @@ class SettingsViewController: UIViewController {
                     title: "Profile picture",
                     image: UIImage(systemName: "person.crop.rectangle"),
                     iconColor: .tintColor,
-                    action: nil
+                    action: { [weak self] in
+                        DispatchQueue.main.async {
+                            self?.navigationController?.pushViewController(self!.profilePictureViewController, animated: true)
+                        }
+                    }
                 ),
                 SettingsEntry(
                     title: "Username",
