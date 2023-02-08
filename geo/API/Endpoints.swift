@@ -31,6 +31,12 @@ enum Endpopints {
         return components
     }()
     
+    static let confirmEmailComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/user/confirm_email"
+        return components
+    }()
+    
     static let searchUsersComponents: URLComponents = {
         var components = baseComponents
         components.path = "/user/search"

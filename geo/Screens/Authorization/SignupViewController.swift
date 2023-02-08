@@ -12,6 +12,7 @@ class SignupViewController: UIViewController {
     private let authorizationService = AuthorizationService.shared
     
     @IBOutlet var usernameTextField: UITextField!
+    @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var passwordConfirmTextField: UITextField!
     
@@ -32,6 +33,10 @@ class SignupViewController: UIViewController {
         verifyCreds()
     }
     
+    @IBAction func emailChanged(_ sender: UITextField) {
+        verifyCreds()
+    }
+    
     @IBAction func passwordChanged(_ sender: UITextField) {
         verifyCreds()
     }
@@ -42,6 +47,7 @@ class SignupViewController: UIViewController {
     
     @IBAction func submitButtonTouched(_ sender: UIButton) {
         guard let username = usernameTextField.text,
+              let email = emailTextField.text,
               let password = passwordTextField.text,
               password == passwordConfirmTextField.text
         else {
@@ -53,6 +59,7 @@ class SignupViewController: UIViewController {
         
         authorizationService.signup(
             username: username,
+            email: email,
             password: password
         ) { [weak self] result in
             
@@ -60,8 +67,19 @@ class SignupViewController: UIViewController {
             self?.submitButton.isEnabled = true
             
             switch result {
-            case .success(_):
-                self?.successCompletion?(username)
+            case .success(let signupResponse):
+                DispatchQueue.main.async {
+                    let emailConfirmationViewController = UIViewController.instantiate(
+                        name: "EmailConfirmationViewController"
+                    ) as! EmailConfirmationViewController
+                    emailConfirmationViewController.email = email
+                    emailConfirmationViewController.signupResponse = signupResponse
+                    emailConfirmationViewController.successCompletion = { [weak self] email in
+                        emailConfirmationViewController.dismiss(animated: true)
+                        self?.successCompletion?(email)
+                    }
+                    self?.present(emailConfirmationViewController, animated: true)
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -69,11 +87,10 @@ class SignupViewController: UIViewController {
     }
     
     private func verifyCreds() {
-        let credsAreValid = (usernameTextField.text?.count ?? 0) >= AuthorizationService.minUsernameLength
+        submitButton.isEnabled = (usernameTextField.text?.count ?? 0) >= AuthorizationService.minUsernameLength
         && (passwordTextField.text?.count ?? 0) >= AuthorizationService.minPasswordLength
         && passwordConfirmTextField.text == passwordTextField.text
-        
-        submitButton.isEnabled = credsAreValid
+        && (emailTextField.text?.isValidEmailAddress ?? false)
     }
 }
 

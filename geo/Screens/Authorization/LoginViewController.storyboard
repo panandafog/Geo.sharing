@@ -17,10 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5jt-Wa-Qo4">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5jt-Wa-Qo4">
                                 <rect key="frame" x="40" y="389" width="334" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="username"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                 <connections>
                                     <action selector="usernameChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="6Gz-BZ-p8w"/>
                                 </connections>
@@ -77,9 +77,9 @@
                     <connections>
                         <outlet property="activityIndicator" destination="Lnf-tg-p3z" id="MU7-wK-apX"/>
                         <outlet property="createAccountButton" destination="jCR-XX-2b3" id="cbb-R2-HFu"/>
+                        <outlet property="emailTextField" destination="5jt-Wa-Qo4" id="ghA-H6-odS"/>
                         <outlet property="passwordTextField" destination="qea-og-6yU" id="shp-jP-yFw"/>
                         <outlet property="submitButton" destination="k18-Nv-Il7" id="vPj-jh-2QS"/>
-                        <outlet property="usernameTextField" destination="5jt-Wa-Qo4" id="ghA-H6-odS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

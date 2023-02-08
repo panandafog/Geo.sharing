@@ -11,7 +11,7 @@ class LoginViewController: UIViewController {
     
     private let authorizationService = AuthorizationService.shared
     
-    @IBOutlet var usernameTextField: UITextField!
+    @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var submitButton: UIButton!
     @IBOutlet var createAccountButton: UIButton!
@@ -44,13 +44,13 @@ class LoginViewController: UIViewController {
     }
     
     private func verifyCreds() {
-        let credsAreValid = (usernameTextField.text?.count ?? 0) >= AuthorizationService.minUsernameLength
+        submitButton.isEnabled = (emailTextField.text?.count ?? 0) >= AuthorizationService.minUsernameLength
         && (passwordTextField.text?.count ?? 0) >= AuthorizationService.minPasswordLength
-        submitButton.isEnabled = credsAreValid
+        && (emailTextField.text?.isValidEmailAddress ?? false)
     }
     
     private func logIn() {
-        guard let username = usernameTextField.text,
+        guard let email = emailTextField.text,
               let password = passwordTextField.text else {
             return
         }
@@ -60,7 +60,7 @@ class LoginViewController: UIViewController {
         createAccountButton.isEnabled = false
         
         authorizationService.login(
-            username: username,
+            email: email,
             password: password
         ) { [weak self] result in
             
@@ -83,7 +83,7 @@ class LoginViewController: UIViewController {
         signupViewController.successCompletion = { [weak self] username in
             signupViewController.dismiss(animated: true)
             DispatchQueue.main.async {
-                self?.usernameTextField.text = username
+                self?.emailTextField.text = username
             }
         }
         present(signupViewController, animated: true)

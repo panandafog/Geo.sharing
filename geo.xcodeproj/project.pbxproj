@@ -52,6 +52,9 @@
 		0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */; };
 		0BD2DEC92981582B00CCAF28 /* UsersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */; };
 		0BE07F7D2992F0830040CECA /* ImagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE07F7C2992F0830040CECA /* ImagesService.swift */; };
+		0BE07F7F2993D7BB0040CECA /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE07F7E2993D7BB0040CECA /* String+Extensions.swift */; };
+		0BE07F812993D9350040CECA /* EmailConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE07F802993D9350040CECA /* EmailConfirmationViewController.swift */; };
+		0BE07F832993D9470040CECA /* EmailConfirmationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BE07F822993D9470040CECA /* EmailConfirmationViewController.storyboard */; };
 		0BE75A8929830EDB00439A71 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8829830EDB00439A71 /* User.swift */; };
 		0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */; };
 		0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8D2983152F00439A71 /* Friendship.swift */; };
@@ -129,6 +132,9 @@
 		0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UsersViewController.storyboard; sourceTree = "<group>"; };
 		0BE07F7C2992F0830040CECA /* ImagesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesService.swift; sourceTree = "<group>"; };
+		0BE07F7E2993D7BB0040CECA /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		0BE07F802993D9350040CECA /* EmailConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailConfirmationViewController.swift; sourceTree = "<group>"; };
+		0BE07F822993D9470040CECA /* EmailConfirmationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EmailConfirmationViewController.storyboard; sourceTree = "<group>"; };
 		0BE75A8829830EDB00439A71 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequest.swift; sourceTree = "<group>"; };
 		0BE75A8D2983152F00439A71 /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
@@ -251,6 +257,7 @@
 				0BC08A4629798F5E0026BA27 /* UIViewController+Extensions.swift */,
 				0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */,
 				0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */,
+				0BE07F7E2993D7BB0040CECA /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -308,6 +315,8 @@
 				0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */,
 				0BC08A4429798E1A0026BA27 /* LoginViewController.swift */,
 				0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */,
+				0BE07F802993D9350040CECA /* EmailConfirmationViewController.swift */,
+				0BE07F822993D9470040CECA /* EmailConfirmationViewController.storyboard */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -485,6 +494,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B00E69529842DAE0049DC49 /* UserTableCell.xib in Resources */,
+				0BE07F832993D9470040CECA /* EmailConfirmationViewController.storyboard in Resources */,
 				0B40017A294E68C500EBE854 /* LaunchScreen.storyboard in Resources */,
 				0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */,
 				0BB0A0632991C54B00AB48DD /* PropertyChangerViewController.storyboard in Resources */,
@@ -636,6 +646,7 @@
 				0BB0A0612991C53600AB48DD /* PropertyChangerViewController.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,
+				0BE07F7F2993D7BB0040CECA /* String+Extensions.swift in Sources */,
 				0B00E69C298868F30049DC49 /* NotificationCell.swift in Sources */,
 				0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */,
 				0BC08A4729798F5E0026BA27 /* UIViewController+Extensions.swift in Sources */,
@@ -656,6 +667,7 @@
 				0BE75A90298321CB00439A71 /* UsersService.swift in Sources */,
 				0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */,
 				0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */,
+				0BE07F812993D9350040CECA /* EmailConfirmationViewController.swift in Sources */,
 				0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

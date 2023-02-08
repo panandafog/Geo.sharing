@@ -39,9 +39,9 @@ class AuthorizationService: ApiService {
     
     private init() {}
     
-    func login(username: String, password: String, completion: @escaping (Result<Void, ApiError>) -> Void) {
+    func login(email: String, password: String, completion: @escaping (Result<Void, ApiError>) -> Void) {
         let parameters = [
-            "username": username,
+            "email": email,
             "password": password
         ]
         _ = AF.request(
@@ -60,9 +60,10 @@ class AuthorizationService: ApiService {
         }
     }
     
-    func signup(username: String, password: String, completion: @escaping (Result<Void, ApiError>) -> Void) {
+    func signup(username: String, email: String, password: String, completion: @escaping (Result<SignupResponse, ApiError>) -> Void) {
         let parameters = [
             "username": username,
+            "email": email,
             "password": password
         ]
         _ = AF.request(
@@ -71,6 +72,25 @@ class AuthorizationService: ApiService {
             parameters: parameters,
             encoding: JSONEncoding.default
         ).responseDecodable(of: SignupResponse.self) { (response) in
+            guard let response = response.value  else {
+                completion(.failure(.parsingResponse))
+                return
+            }
+            completion(.success(response))
+        }
+    }
+    
+    func verifyEmail(code: Int, signupResponse: SignupResponse, completion: @escaping (Result<Void, ApiError>) -> Void) {
+        let parameters = [
+            "user_id": signupResponse.id,
+            "code": String(code)
+        ]
+        _ = AF.request(
+            Endpopints.confirmEmailComponents.url!,
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default
+        ).responseDecodable(of: EmailConfirmationResponse.self) { (response) in
             guard let _ = response.value  else {
                 completion(.failure(.parsingResponse))
                 return
@@ -93,6 +113,10 @@ extension AuthorizationService {
     }
     
     struct SignupResponse: Decodable {
+        let id: String
+    }
+    
+    struct EmailConfirmationResponse: Decodable {
         let id: String
     }
 }
