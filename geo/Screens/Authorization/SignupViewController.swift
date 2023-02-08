@@ -26,7 +26,6 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
         
         activityIndicator.stopAnimating()
-        submitButton.isEnabled = false
     }
     
     @IBAction func usernameChanged(_ sender: UITextField) {
@@ -55,7 +54,7 @@ class SignupViewController: UIViewController {
         }
         
         activityIndicator.startAnimating()
-        submitButton.isEnabled = false
+        setControls(enabled: false)
         
         authorizationService.signup(
             username: username,
@@ -63,8 +62,10 @@ class SignupViewController: UIViewController {
             password: password
         ) { [weak self] result in
             
-            self?.activityIndicator.stopAnimating()
-            self?.submitButton.isEnabled = true
+            DispatchQueue.main.async {
+                self?.activityIndicator.stopAnimating()
+                self?.setControls(enabled: true)
+            }
             
             switch result {
             case .success(let signupResponse):
@@ -91,6 +92,14 @@ class SignupViewController: UIViewController {
         && (passwordTextField.text?.count ?? 0) >= AuthorizationService.minPasswordLength
         && passwordConfirmTextField.text == passwordTextField.text
         && (emailTextField.text?.isValidEmailAddress ?? false)
+    }
+    
+    private func setControls(enabled: Bool) {
+        submitButton.isEnabled = enabled
+        usernameTextField.isEnabled = enabled
+        emailTextField.isEnabled = enabled
+        passwordTextField.isEnabled = enabled
+        passwordConfirmTextField.isEnabled = enabled
     }
 }
 

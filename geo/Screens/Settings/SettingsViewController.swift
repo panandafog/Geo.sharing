@@ -17,47 +17,50 @@ class SettingsViewController: UIViewController {
         UIViewController.instantiate(name: "ProfilePictureViewController") as! ProfilePictureViewController
     }()
     
+    private lazy var resetPasswordViewController: ResetPasswordViewController = {
+        let vc = UIViewController.instantiate(name: "ResetPasswordViewController") as! ResetPasswordViewController
+        vc.successCompletion = { [weak self] in
+            DispatchQueue.main.async {
+                vc.navigationController?.popViewController(animated: true)
+            }
+            self?.signOut()
+        }
+        return vc
+    }()
+    
     private lazy var settingGroups = [
         SettingsGroup(
             title: "Profile",
             entries: [
                 SettingsEntry(
-                    title: "Profile picture",
-                    image: UIImage(systemName: "person.crop.rectangle"),
-                    iconColor: .tintColor,
+                    kind: .profilePicture,
+                    value: nil,
                     action: { [weak self] in
-                        DispatchQueue.main.async {
-                            self?.navigationController?.pushViewController(self!.profilePictureViewController, animated: true)
-                        }
+                        self?.editProfilePicture()
                     }
                 ),
                 SettingsEntry(
-                    title: "Username",
-                    image: UIImage(systemName: "rectangle.and.pencil.and.ellipsis"),
-                    iconColor: .tintColor,
+                    kind: .username,
+                    value: authorizationService.username,
                     action: nil
                 ),
                 SettingsEntry(
-                    title: "Email",
-                    image: UIImage(systemName: "envelope"),
-                    iconColor: .tintColor,
+                    kind: .email,
+                    value: authorizationService.email,
                     action: nil
                 ),
                 SettingsEntry(
-                    title: "Password",
-                    image: UIImage(systemName: "lock"),
-                    iconColor: .tintColor,
-                    action: nil
-                ),
-                SettingsEntry(
-                    title: "Sign out",
-                    image: UIImage(systemName: "person.fill.xmark"),
-                    iconColor: .systemRed,
+                    kind: .password,
+                    value: nil,
                     action: { [weak self] in
-                        DispatchQueue.main.async {
-                            self?.navigationController?.popViewController(animated: true)
-                        }
-                        self?.signOutHandler?()
+                        self?.resetPassword()
+                    }
+                ),
+                SettingsEntry(
+                    kind: .signOut,
+                    value: nil,
+                    action: { [weak self] in
+                        self?.signOut()
                     }
                 )
             ]
@@ -86,6 +89,35 @@ class SettingsViewController: UIViewController {
         navigationItem.title = "Settings"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
+    private func editProfilePicture() {
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(self.profilePictureViewController, animated: true)
+        }
+    }
+    
+    private func resetPassword() {
+        authorizationService.requestPasswordChange { [weak self] result in
+            switch result {
+            case .success(()):
+                DispatchQueue.main.async {
+                    self?.navigationController?.pushViewController(
+                        self!.resetPasswordViewController,
+                        animated: true
+                    )
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func signOut() {
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
+        signOutHandler?()
+    }
 }
 
 extension SettingsViewController: UITableViewDelegate {
@@ -94,6 +126,11 @@ extension SettingsViewController: UITableViewDelegate {
         table.deselectRow(at: indexPath, animated: true)
         let entry = settingGroups[indexPath.section].entries[indexPath.row]
         entry.action?()
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let entry = settingGroups[indexPath.section].entries[indexPath.row]
+        return (entry.action == nil) ? nil : indexPath
     }
 }
 
@@ -127,9 +164,55 @@ extension SettingsViewController {
     }
     
     struct SettingsEntry {
-        let title: String?
-        let image: UIImage?
-        let iconColor: UIColor?
+        let kind: EntryKind
+        let value: String?
         let action: (() -> Void)?
+    }
+    
+    enum EntryKind {
+        case profilePicture
+        case username
+        case email
+        case password
+        case signOut
+        
+        var title: String {
+            switch self {
+            case .profilePicture:
+                return "Profile picture"
+            case .username:
+                return "Username"
+            case .email:
+                return "Email"
+            case .password:
+                return "Password"
+            case .signOut:
+                return "Sign out"
+            }
+        }
+        
+        var image: UIImage? {
+            switch self {
+            case .profilePicture:
+                return UIImage(systemName: "person.crop.rectangle")
+            case .username:
+                return UIImage(systemName: "rectangle.and.pencil.and.ellipsis")
+            case .email:
+                return UIImage(systemName: "envelope")
+            case .password:
+                return UIImage(systemName: "lock")
+            case .signOut:
+                return UIImage(systemName: "person.fill.xmark")
+            }
+        }
+        
+        var iconColor: UIColor? {
+            switch self {
+            case .signOut:
+                return .systemRed
+            default:
+                return .tintColor
+            }
+        }
     }
 }

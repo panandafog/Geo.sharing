@@ -37,6 +37,18 @@ enum Endpopints {
         return components
     }()
     
+    static let requestPasswordChangeComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/user/request_password_change"
+        return components
+    }()
+    
+    static let confirmPasswordChangeComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/user/change_password"
+        return components
+    }()
+    
     static let searchUsersComponents: URLComponents = {
         var components = baseComponents
         components.path = "/user/search"

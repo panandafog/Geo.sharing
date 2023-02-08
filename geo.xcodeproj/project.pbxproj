@@ -38,8 +38,8 @@
 		0BB0A05B2991A2B900AB48DD /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05A2991A2B900AB48DD /* SettingsCell.xib */; };
 		0BB0A05D2991C4F900AB48DD /* ProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */; };
 		0BB0A05F2991C51300AB48DD /* ProfilePictureViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */; };
-		0BB0A0612991C53600AB48DD /* PropertyChangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0602991C53600AB48DD /* PropertyChangerViewController.swift */; };
-		0BB0A0632991C54B00AB48DD /* PropertyChangerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A0622991C54B00AB48DD /* PropertyChangerViewController.storyboard */; };
+		0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0602991C53600AB48DD /* ResetPasswordViewController.swift */; };
+		0BB0A0632991C54B00AB48DD /* ResetPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A0622991C54B00AB48DD /* ResetPasswordViewController.storyboard */; };
 		0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */; };
 		0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */; };
 		0BC08A3D29798DB00026BA27 /* SignupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */; };
@@ -118,8 +118,8 @@
 		0BB0A05A2991A2B900AB48DD /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureViewController.swift; sourceTree = "<group>"; };
 		0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfilePictureViewController.storyboard; sourceTree = "<group>"; };
-		0BB0A0602991C53600AB48DD /* PropertyChangerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyChangerViewController.swift; sourceTree = "<group>"; };
-		0BB0A0622991C54B00AB48DD /* PropertyChangerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PropertyChangerViewController.storyboard; sourceTree = "<group>"; };
+		0BB0A0602991C53600AB48DD /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		0BB0A0622991C54B00AB48DD /* ResetPasswordViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResetPasswordViewController.storyboard; sourceTree = "<group>"; };
 		0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extensions.swift"; sourceTree = "<group>"; };
 		0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKAnnotation+Extensions.swift"; sourceTree = "<group>"; };
 		0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupViewController.storyboard; sourceTree = "<group>"; };
@@ -290,8 +290,8 @@
 				0BB0A05A2991A2B900AB48DD /* SettingsCell.xib */,
 				0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */,
 				0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */,
-				0BB0A0602991C53600AB48DD /* PropertyChangerViewController.swift */,
-				0BB0A0622991C54B00AB48DD /* PropertyChangerViewController.storyboard */,
+				0BB0A0602991C53600AB48DD /* ResetPasswordViewController.swift */,
+				0BB0A0622991C54B00AB48DD /* ResetPasswordViewController.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -497,7 +497,7 @@
 				0BE07F832993D9470040CECA /* EmailConfirmationViewController.storyboard in Resources */,
 				0B40017A294E68C500EBE854 /* LaunchScreen.storyboard in Resources */,
 				0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */,
-				0BB0A0632991C54B00AB48DD /* PropertyChangerViewController.storyboard in Resources */,
+				0BB0A0632991C54B00AB48DD /* ResetPasswordViewController.storyboard in Resources */,
 				0BB0A05B2991A2B900AB48DD /* SettingsCell.xib in Resources */,
 				0B00E69E298869030049DC49 /* NotificationCell.xib in Resources */,
 				0B400177294E68C500EBE854 /* Assets.xcassets in Resources */,
@@ -643,7 +643,7 @@
 				0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */,
 				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
-				0BB0A0612991C53600AB48DD /* PropertyChangerViewController.swift in Sources */,
+				0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,
 				0BE07F7F2993D7BB0040CECA /* String+Extensions.swift in Sources */,

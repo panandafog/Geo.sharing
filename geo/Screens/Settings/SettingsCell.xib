@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0Z-ww-1tH">
-                    <rect key="frame" x="70" y="10" width="298" height="41"/>
+                    <rect key="frame" x="70" y="10" width="41.333333333333343" height="41"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -28,14 +28,23 @@
                         <constraint firstAttribute="width" constant="30" id="jpH-OC-nBK"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJy-zP-fh5">
+                    <rect key="frame" x="121.33333333333333" y="10" width="246.66666666666669" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="ZJy-zP-fh5" firstAttribute="leading" secondItem="o0Z-ww-1tH" secondAttribute="trailing" constant="10" id="1UZ-4J-OAt"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ZJy-zP-fh5" secondAttribute="bottom" constant="10" id="CDx-Dq-Ey0"/>
+                <constraint firstAttribute="trailing" secondItem="ZJy-zP-fh5" secondAttribute="trailing" constant="20" id="CGi-lO-IMb"/>
                 <constraint firstItem="t7W-Ie-Bh8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="NrT-8h-LGf"/>
                 <constraint firstItem="o0Z-ww-1tH" firstAttribute="leading" secondItem="t7W-Ie-Bh8" secondAttribute="trailing" constant="20" id="SFs-eg-rEE"/>
                 <constraint firstItem="t7W-Ie-Bh8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="W0f-0i-4x4"/>
-                <constraint firstAttribute="trailing" secondItem="o0Z-ww-1tH" secondAttribute="trailing" constant="20" symbolic="YES" id="hEG-nJ-kJa"/>
+                <constraint firstItem="ZJy-zP-fh5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="ZrK-1P-yCP"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="t7W-Ie-Bh8" secondAttribute="bottom" constant="15" id="o40-If-uGm"/>
                 <constraint firstItem="o0Z-ww-1tH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="tei-tu-cvi"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="o0Z-ww-1tH" secondAttribute="bottom" constant="10" id="yXy-Tj-5kd"/>
@@ -44,11 +53,15 @@
             <connections>
                 <outlet property="iconImageView" destination="t7W-Ie-Bh8" id="BSc-c2-zJj"/>
                 <outlet property="titleLabel" destination="o0Z-ww-1tH" id="Mrs-7m-SvV"/>
+                <outlet property="valueLabel" destination="ZJy-zP-fh5" id="xEQ-Jh-xG7"/>
             </connections>
             <point key="canvasLocation" x="119.08396946564885" y="-241.19718309859155"/>
         </view>
     </objects>
     <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

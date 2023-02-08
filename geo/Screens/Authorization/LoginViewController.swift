@@ -56,17 +56,17 @@ class LoginViewController: UIViewController {
         }
         
         activityIndicator.startAnimating()
-        submitButton.isEnabled = false
-        createAccountButton.isEnabled = false
+        setControls(enabled: false)
         
         authorizationService.login(
             email: email,
             password: password
         ) { [weak self] result in
             
-            self?.activityIndicator.stopAnimating()
-            self?.submitButton.isEnabled = true
-            self?.createAccountButton.isEnabled = true
+            DispatchQueue.main.async {
+                self?.activityIndicator.stopAnimating()
+                self?.setControls(enabled: true)
+            }
             
             switch result {
             case .success(_):
@@ -87,6 +87,13 @@ class LoginViewController: UIViewController {
             }
         }
         present(signupViewController, animated: true)
+    }
+    
+    private func setControls(enabled: Bool) {
+        submitButton.isEnabled = enabled
+        emailTextField.isEnabled = enabled
+        passwordTextField.isEnabled = enabled
+        createAccountButton.isEnabled = enabled
     }
 }
 

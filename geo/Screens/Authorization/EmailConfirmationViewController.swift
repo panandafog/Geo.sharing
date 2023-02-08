@@ -23,7 +23,7 @@ class EmailConfirmationViewController: UIViewController {
     @IBOutlet var submitButton: UIButton!
     
     private func verifyCode() {
-        submitButton.isEnabled = (code ?? 0) >= 100000
+        submitButton.isEnabled = String(code ?? 0).count == AuthorizationService.confirmationCodeLength
     }
     
     @IBAction func codeChanged(_ sender: UITextField) {
