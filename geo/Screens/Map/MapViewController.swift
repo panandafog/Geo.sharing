@@ -12,7 +12,6 @@ import UIKit
 
 class MapViewController: UIViewController {
     
-    @IBOutlet var debugLocationLabel: UILabel!
     @IBOutlet var map: MKMapView!
     
     @IBOutlet var notificationsButton: UIButton!
@@ -51,10 +50,6 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.debugLocationLabel.text = "init"
-        }
         
         setupMap()
         authorizeAndStart()
@@ -97,10 +92,6 @@ class MapViewController: UIViewController {
                     self?.zoomMapToUserLocation()
                     zoomed = true
                 }
-                
-                self?.debugLocationLabel.text = String(newLocation.coordinate.latitude)
-                + "\n"
-                + String(newLocation.coordinate.longitude)
             }
         }.store(in: &cancellableBag)
     }

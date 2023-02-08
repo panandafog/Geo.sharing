@@ -849,6 +849,7 @@
 				DEVELOPMENT_TEAM = 3HG9ZBM8AV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = geo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GeoShare;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = please...;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "please... (2)";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -861,7 +862,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.panandafog.geo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -881,6 +882,7 @@
 				DEVELOPMENT_TEAM = 3HG9ZBM8AV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = geo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GeoShare;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = please...;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "please... (2)";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -893,7 +895,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.panandafog.geo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
