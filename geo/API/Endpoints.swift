@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Endpopints {
+enum Endpoints {
     
     private static let baseComponents: URLComponents = {
         var baseComponents = URLComponents()

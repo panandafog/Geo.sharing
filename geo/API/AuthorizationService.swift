@@ -9,6 +9,11 @@ import Alamofire
 
 class AuthorizationService: ApiService {
     
+    static let shared = AuthorizationService()
+    static let minUsernameLength = 6
+    static let minPasswordLength = 6
+    static let confirmationCodeLength = 6
+    
     let defaults = UserDefaults.standard
     
     private let uidKey = "uid"
@@ -55,11 +60,6 @@ class AuthorizationService: ApiService {
         token != nil && uid != nil
     }
     
-    static let shared = AuthorizationService()
-    static let minUsernameLength = 6
-    static let minPasswordLength = 6
-    static let confirmationCodeLength = 6
-    
     private init() {}
     
     func login(email: String, password: String, completion: @escaping EmptyCompletion) {
@@ -68,11 +68,12 @@ class AuthorizationService: ApiService {
             "password": password
         ]
         _ = AF.request(
-            Endpopints.loginComponents.url!,
+            Endpoints.loginComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default
-        ).responseDecodable(of: LoginResponse.self) { (response) in
+        )
+        .responseDecodable(of: LoginResponse.self) { response in
             guard let value = response.value  else {
                 completion(.failure(.parsingResponse))
                 return
@@ -92,11 +93,12 @@ class AuthorizationService: ApiService {
             "password": password
         ]
         _ = AF.request(
-            Endpopints.signupComponents.url!,
+            Endpoints.signupComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default
-        ).responseDecodable(of: SignupResponse.self) { (response) in
+        )
+        .responseDecodable(of: SignupResponse.self) { response in
             guard let response = response.value  else {
                 completion(.failure(.parsingResponse))
                 return
@@ -111,12 +113,13 @@ class AuthorizationService: ApiService {
             "code": String(code)
         ]
         _ = AF.request(
-            Endpopints.confirmEmailComponents.url!,
+            Endpoints.confirmEmailComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default
-        ).responseDecodable(of: EmailConfirmationResponse.self) { (response) in
-            guard let _ = response.value  else {
+        )
+        .responseDecodable(of: EmailConfirmationResponse.self) { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }
@@ -133,11 +136,12 @@ class AuthorizationService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.requestPasswordChangeComponents.url!,
+            Endpoints.requestPasswordChangeComponents.url!,
             method: .get,
             headers: headers
-        ).response { (response) in
-            guard let _ = response.value  else {
+        )
+        .response { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }
@@ -158,13 +162,14 @@ class AuthorizationService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.confirmPasswordChangeComponents.url!,
+            Endpoints.confirmPasswordChangeComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: headers
-        ).response { (response) in
-            guard let _ = response.value  else {
+        )
+        .response { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }

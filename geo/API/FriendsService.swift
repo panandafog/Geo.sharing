@@ -22,16 +22,17 @@ enum FriendsService: ApiService {
         let urlComponents: URLComponents
         switch type {
         case .incoming:
-            urlComponents = Endpopints.getIncomingFriendshipRequestsComponents
+            urlComponents = Endpoints.getIncomingFriendshipRequestsComponents
         case .outgoing:
-            urlComponents = Endpopints.getOutgoingFriendshipRequestsComponents
+            urlComponents = Endpoints.getOutgoingFriendshipRequestsComponents
         }
         
         _ = AF.request(
             urlComponents.url!,
             method: .get,
             headers: headers
-        ).responseDecodable(of: [FriendshipRequest].self) { (response) in
+        )
+        .responseDecodable(of: [FriendshipRequest].self) { response in
             guard let response = response.value  else {
                 completion(.failure(.parsingResponse))
                 return
@@ -53,9 +54,9 @@ enum FriendsService: ApiService {
         
         let urlComponents: URLComponents
         if accept {
-            urlComponents = Endpopints.acceptFriendshipRequestComponents
+            urlComponents = Endpoints.acceptFriendshipRequestComponents
         } else {
-            urlComponents = Endpopints.rejectFriendshipRequestComponents
+            urlComponents = Endpoints.rejectFriendshipRequestComponents
         }
         
         _ = AF.request(
@@ -64,8 +65,9 @@ enum FriendsService: ApiService {
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: headers
-        ).response { (response) in
-            guard let _ = response.value  else {
+        )
+        .response { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }
@@ -85,13 +87,14 @@ enum FriendsService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.createFriendshipRequestComponents.url!,
+            Endpoints.createFriendshipRequestComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: headers
-        ).response { (response) in
-            guard let _ = response.value  else {
+        )
+        .response { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }
@@ -111,13 +114,14 @@ enum FriendsService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.deleteFriendshipRequestComponents.url!,
+            Endpoints.deleteFriendshipRequestComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: headers
-        ).response { (response) in
-            guard let _ = response.value  else {
+        )
+        .response { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }
@@ -137,13 +141,14 @@ enum FriendsService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.deleteFriendComponents.url!,
+            Endpoints.deleteFriendComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: headers
-        ).response { (response) in
-            guard let _ = response.value  else {
+        )
+        .response { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }

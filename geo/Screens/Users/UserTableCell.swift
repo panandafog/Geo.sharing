@@ -9,20 +9,58 @@ import UIKit
 
 class UserTableCell: UITableViewCell {
     
-    @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet var actionButton: UIButton!
-    
     typealias AddFriendHandler = ((User) -> Void)
     typealias RemoveFriendHandler = ((Friendship) -> Void)
     typealias DeleteRequestHandler = ((FriendshipRequest) -> Void)
     
-    private var addFriendHandler: AddFriendHandler? = nil
-    private var removeFriendHandler: RemoveFriendHandler? = nil
-    private var deleteRequestHandler: DeleteRequestHandler? = nil
+    private var addFriendHandler: AddFriendHandler?
+    private var removeFriendHandler: RemoveFriendHandler?
+    private var deleteRequestHandler: DeleteRequestHandler?
     
     private var searchedUser: SearchedUser?
     private var friendship: Friendship?
     private var actionType: ActionType?
+    
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var actionButton: UIButton!
+    
+    @IBAction private func actionButtonTouched(_ sender: UIButton) {
+        switch actionType {
+        case .none:
+            break
+        case .some(let wrapped):
+            switch wrapped {
+            case .addFriend:
+                guard let user = searchedUser?.user else {
+                    break
+                }
+                addFriendHandler?(user)
+            case .removeFriend:
+                guard let friendship = friendship ?? searchedUser?.friendship else {
+                    break
+                }
+                removeFriendHandler?(friendship)
+            case .deleteRequest:
+                guard let friendshipRequest = searchedUser?.friendshipRequest else {
+                    break
+                }
+                deleteRequestHandler?(friendshipRequest)
+            }
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = "..."
+        
+        friendship = nil
+        searchedUser = nil
+        actionType = nil
+        
+        addFriendHandler = nil
+        removeFriendHandler = nil
+        deleteRequestHandler = nil
+    }
     
     func setup(
         searchedUser: SearchedUser,
@@ -64,43 +102,6 @@ class UserTableCell: UITableViewCell {
         actionButton.tintColor = action.buttonColor
         
         self.actionType = action
-    }
-    
-    @IBAction func actionButtonTouched(_ sender: UIButton) {
-        switch actionType {
-        case .none:
-            break
-        case .some(let wrapped):
-            switch wrapped {
-            case .addFriend:
-                guard let user = searchedUser?.user else {
-                    break
-                }
-                addFriendHandler?(user)
-            case .removeFriend:
-                guard let friendship = friendship ?? searchedUser?.friendship else {
-                    break
-                }
-                removeFriendHandler?(friendship)
-            case .deleteRequest:
-                guard let friendshipRequest = searchedUser?.friendshipRequest else {
-                    break
-                }
-                deleteRequestHandler?(friendshipRequest)
-            }
-        }
-    }
-    
-    override func prepareForReuse() {
-        titleLabel.text = "..."
-        
-        friendship = nil
-        searchedUser = nil
-        actionType = nil
-        
-        addFriendHandler = nil
-        removeFriendHandler = nil
-        deleteRequestHandler = nil
     }
 }
 

@@ -20,9 +20,9 @@
 		0B400175294E68C300EBE854 /* MapViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B400173294E68C300EBE854 /* MapViewController.storyboard */; };
 		0B400177294E68C500EBE854 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B400176294E68C500EBE854 /* Assets.xcassets */; };
 		0B40017A294E68C500EBE854 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B400178294E68C500EBE854 /* LaunchScreen.storyboard */; };
-		0B400185294E68C500EBE854 /* geoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400184294E68C500EBE854 /* geoTests.swift */; };
-		0B40018F294E68C500EBE854 /* geoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40018E294E68C500EBE854 /* geoUITests.swift */; };
-		0B400191294E68C500EBE854 /* geoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400190294E68C500EBE854 /* geoUITestsLaunchTests.swift */; };
+		0B400185294E68C500EBE854 /* GeoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400184294E68C500EBE854 /* GeoTests.swift */; };
+		0B40018F294E68C500EBE854 /* GeoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40018E294E68C500EBE854 /* GeoUITests.swift */; };
+		0B400191294E68C500EBE854 /* GeoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400190294E68C500EBE854 /* GeoUITestsLaunchTests.swift */; };
 		0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40019D294E6D7900EBE854 /* LocationManager.swift */; };
 		0B51D86C298928C500200B63 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D86B298928C500200B63 /* ApiError.swift */; };
 		0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D86D298940E800200B63 /* FriendshipRequestType.swift */; };
@@ -99,10 +99,10 @@
 		0B400179294E68C500EBE854 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B40017B294E68C500EBE854 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B400180294E68C500EBE854 /* geoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = geoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B400184294E68C500EBE854 /* geoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geoTests.swift; sourceTree = "<group>"; };
+		0B400184294E68C500EBE854 /* GeoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTests.swift; sourceTree = "<group>"; };
 		0B40018A294E68C500EBE854 /* geoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = geoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B40018E294E68C500EBE854 /* geoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geoUITests.swift; sourceTree = "<group>"; };
-		0B400190294E68C500EBE854 /* geoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0B40018E294E68C500EBE854 /* GeoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoUITests.swift; sourceTree = "<group>"; };
+		0B400190294E68C500EBE854 /* GeoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0B40019D294E6D7900EBE854 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0B51D86B298928C500200B63 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		0B51D86D298940E800200B63 /* FriendshipRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequestType.swift; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 		0B400183294E68C500EBE854 /* geoTests */ = {
 			isa = PBXGroup;
 			children = (
-				0B400184294E68C500EBE854 /* geoTests.swift */,
+				0B400184294E68C500EBE854 /* GeoTests.swift */,
 			);
 			path = geoTests;
 			sourceTree = "<group>";
@@ -237,8 +237,8 @@
 		0B40018D294E68C500EBE854 /* geoUITests */ = {
 			isa = PBXGroup;
 			children = (
-				0B40018E294E68C500EBE854 /* geoUITests.swift */,
-				0B400190294E68C500EBE854 /* geoUITestsLaunchTests.swift */,
+				0B40018E294E68C500EBE854 /* GeoUITests.swift */,
+				0B400190294E68C500EBE854 /* GeoUITestsLaunchTests.swift */,
 			);
 			path = geoUITests;
 			sourceTree = "<group>";
@@ -396,6 +396,7 @@
 				0B400167294E68C300EBE854 /* Frameworks */,
 				0B400168294E68C300EBE854 /* Resources */,
 				2A4F5D27E1F1943C36353153 /* [CP] Embed Pods Frameworks */,
+				0B6432302997AB1D004CA3D3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -527,6 +528,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0B6432302997AB1D004CA3D3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		2A4F5D27E1F1943C36353153 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -676,7 +694,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B400185294E68C500EBE854 /* geoTests.swift in Sources */,
+				0B400185294E68C500EBE854 /* GeoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,8 +702,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B400191294E68C500EBE854 /* geoUITestsLaunchTests.swift in Sources */,
-				0B40018F294E68C500EBE854 /* geoUITests.swift in Sources */,
+				0B400191294E68C500EBE854 /* GeoUITestsLaunchTests.swift in Sources */,
+				0B40018F294E68C500EBE854 /* GeoUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

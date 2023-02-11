@@ -32,7 +32,7 @@ class LocationManager: NSObject, ObservableObject {
     
     @Published var location: CLLocation?
     
-    private override init() {
+    override private init() {
         super.init()
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
@@ -60,7 +60,7 @@ extension LocationManager: CLLocationManagerDelegate {
     ) {
         self.location = locations.first
         if let location = self.location {
-            LocationService.sendLocation(location, completion: { _ in })
+            LocationService.sendLocation(location) { _ in }
         }
     }
     

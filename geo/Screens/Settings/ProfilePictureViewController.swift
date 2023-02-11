@@ -12,14 +12,21 @@ class ProfilePictureViewController: UIViewController {
     private let authorizationService = AuthorizationService.shared
     private let usersService = UsersService.self
     
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var selectImageButton: UIButton!
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var selectImageButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupStyling()
         updateImage()
+    }
+    
+    @IBAction private func selectImageButtonTouched(_ sender: UIButton) {
+        let pickerController = UIImagePickerController()
+        pickerController.allowsEditing = true
+        pickerController.delegate = self
+        present(pickerController, animated: true)
     }
     
     private func setupStyling() {
@@ -45,18 +52,11 @@ class ProfilePictureViewController: UIViewController {
             }
         }
     }
-    
-    @IBAction func selectImageButtonTouched(_ sender: UIButton) {
-        let pickerController = UIImagePickerController()
-        pickerController.allowsEditing = true
-        pickerController.delegate = self
-        present(pickerController, animated: true)
-    }
 }
 
 extension ProfilePictureViewController: UIImagePickerControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true)
 
         guard let image = info[.editedImage] as? UIImage else {
@@ -65,7 +65,7 @@ extension ProfilePictureViewController: UIImagePickerControllerDelegate {
         
         usersService.setProfilePicture(image) { [weak self] result in
             switch result {
-            case .success():
+            case .success:
                 DispatchQueue.main.async {
                     self?.imageView.image = image
                 }

@@ -14,9 +14,28 @@ class NotificationCell: UITableViewCell {
     private var completion: ConfirmationCompletion?
     private var request: FriendshipRequest?
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var acceptButton: UIButton!
-    @IBOutlet var declineButton: UIButton!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var acceptButton: UIButton!
+    @IBOutlet private var declineButton: UIButton!
+    
+    @IBAction private func acceptButtonTouched(_ sender: UIButton) {
+        guard let request = request else {
+            return
+        }
+        completion?(request, true)
+    }
+    
+    @IBAction private func declineButtonTouched(_ sender: UIButton) {
+        guard let request = request else {
+            return
+        }
+        completion?(request, false)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = nil
+    }
     
     func setup(notification: FriendshipRequest, completion: @escaping ConfirmationCompletion) {
         titleLabel.text = "Friend request from "
@@ -24,23 +43,5 @@ class NotificationCell: UITableViewCell {
         self.request = notification
         
         self.completion = completion
-    }
-    
-    override func prepareForReuse() {
-        titleLabel.text = nil
-    }
-    
-    @IBAction func acceptButtonTouched(_ sender: UIButton) {
-        guard let request = request else {
-            return
-        }
-        completion?(request, true)
-    }
-    
-    @IBAction func declineButtonTouched(_ sender: UIButton) {
-        guard let request = request else {
-            return
-        }
-        completion?(request, false)
     }
 }

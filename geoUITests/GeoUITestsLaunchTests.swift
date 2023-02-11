@@ -1,29 +1,26 @@
 //
-//  geoUITestsLaunchTests.swift
-//  geoUITests
+//  GeoUITestsLaunchTests.swift
+//  GeoUITests
 //
 //  Created by Andrey on 18.12.2022.
 //
 
 import XCTest
 
-final class geoUITestsLaunchTests: XCTestCase {
+final class GeoUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
 
     override func setUpWithError() throws {
+        super.setUpWithError()
         continueAfterFailure = false
     }
 
     func testLaunch() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
-
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "Launch Screen"
         attachment.lifetime = .keepAlways

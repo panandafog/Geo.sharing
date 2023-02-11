@@ -9,9 +9,9 @@ import UIKit
 
 class SettingsCell: UITableViewCell {
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var valueLabel: UILabel!
-    @IBOutlet var iconImageView: UIImageView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var valueLabel: UILabel!
+    @IBOutlet private var iconImageView: UIImageView!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,6 +37,7 @@ class SettingsCell: UITableViewCell {
     private func commonInit() { }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         titleLabel.text = nil
         valueLabel.text = nil
         iconImageView.image = nil

@@ -13,7 +13,7 @@ class NotificationsViewController: UIViewController {
     private var friendshipRequests = [FriendshipRequest]()
     private let refreshControl = UIRefreshControl()
     
-    @IBOutlet var table: UITableView!
+    @IBOutlet private var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,25 +75,21 @@ extension NotificationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
         cell.setup(
-            notification: friendshipRequests[indexPath.row],
-            completion: { [weak self] request, confirmed in
-                self?.friendsService.answerOnFriendshipRequest(
-                    senderID: request.sender.id,
-                    accept: confirmed,
-                    completion: { result in
-                        switch result {
-                        case .success():
-                            break
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                        }
-                        self?.updateFriendshipRequests()
-                    }
-                )
+            notification: friendshipRequests[indexPath.row]
+        ) { [weak self] request, confirmed in
+            self?.friendsService.answerOnFriendshipRequest(
+                senderID: request.sender.id,
+                accept: confirmed
+            ) { result in
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                self?.updateFriendshipRequests()
             }
-        )
+        }
         return cell
     }
-    
-    
 }

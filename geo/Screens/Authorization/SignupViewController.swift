@@ -10,17 +10,16 @@ import UIKit
 class SignupViewController: UIViewController {
     
     private let authorizationService = AuthorizationService.shared
-    
-    @IBOutlet var usernameTextField: UITextField!
-    @IBOutlet var emailTextField: UITextField!
-    @IBOutlet var passwordTextField: UITextField!
-    @IBOutlet var passwordConfirmTextField: UITextField!
-    
-    @IBOutlet var submitButton: UIButton!
-    
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    
     var successCompletion: ((String) -> Void)?
+    
+    @IBOutlet private var usernameTextField: UITextField!
+    @IBOutlet private var emailTextField: UITextField!
+    @IBOutlet private var passwordTextField: UITextField!
+    @IBOutlet private var passwordConfirmTextField: UITextField!
+    
+    @IBOutlet private var submitButton: UIButton!
+    
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,23 +27,23 @@ class SignupViewController: UIViewController {
         activityIndicator.stopAnimating()
     }
     
-    @IBAction func usernameChanged(_ sender: UITextField) {
+    @IBAction private func usernameChanged(_ sender: UITextField) {
         verifyCreds()
     }
     
-    @IBAction func emailChanged(_ sender: UITextField) {
+    @IBAction private func emailChanged(_ sender: UITextField) {
         verifyCreds()
     }
     
-    @IBAction func passwordChanged(_ sender: UITextField) {
+    @IBAction private func passwordChanged(_ sender: UITextField) {
         verifyCreds()
     }
     
-    @IBAction func passwordConfirmationChanged(_ sender: UITextField) {
+    @IBAction private func passwordConfirmationChanged(_ sender: UITextField) {
         verifyCreds()
     }
     
-    @IBAction func submitButtonTouched(_ sender: UIButton) {
+    @IBAction private func submitButtonTouched(_ sender: UIButton) {
         guard let username = usernameTextField.text,
               let email = emailTextField.text,
               let password = passwordTextField.text,
@@ -102,4 +101,3 @@ class SignupViewController: UIViewController {
         passwordConfirmTextField.isEnabled = enabled
     }
 }
-

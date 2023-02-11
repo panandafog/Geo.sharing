@@ -10,15 +10,14 @@ import UIKit
 class LoginViewController: UIViewController {
     
     private let authorizationService = AuthorizationService.shared
-    
-    @IBOutlet var emailTextField: UITextField!
-    @IBOutlet var passwordTextField: UITextField!
-    @IBOutlet var submitButton: UIButton!
-    @IBOutlet var createAccountButton: UIButton!
-    
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    
     var successCompletion: (() -> Void)?
+    
+    @IBOutlet private var emailTextField: UITextField!
+    @IBOutlet private var passwordTextField: UITextField!
+    @IBOutlet private var submitButton: UIButton!
+    @IBOutlet private var createAccountButton: UIButton!
+    
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,19 +26,19 @@ class LoginViewController: UIViewController {
         submitButton.isEnabled = false
     }
     
-    @IBAction func usernameChanged(_ sender: UITextField) {
+    @IBAction private func usernameChanged(_ sender: UITextField) {
         verifyCreds()
     }
     
-    @IBAction func passwordChanged(_ sender: UITextField) {
+    @IBAction private func passwordChanged(_ sender: UITextField) {
         verifyCreds()
     }
     
-    @IBAction func submitButtonTouched(_ sender: UIButton) {
+    @IBAction private func submitButtonTouched(_ sender: UIButton) {
         logIn()
     }
     
-    @IBAction func signupButtonTouched(_ sender: UIButton) {
+    @IBAction private func signupButtonTouched(_ sender: UIButton) {
         signUp()
     }
     
@@ -69,7 +68,7 @@ class LoginViewController: UIViewController {
             }
             
             switch result {
-            case .success(_):
+            case .success:
                 self?.successCompletion?()
             case .failure(let error):
                 print(error.localizedDescription)
@@ -96,4 +95,3 @@ class LoginViewController: UIViewController {
         createAccountButton.isEnabled = enabled
     }
 }
-

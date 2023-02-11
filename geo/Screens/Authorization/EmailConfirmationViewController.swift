@@ -18,29 +18,29 @@ class EmailConfirmationViewController: UIViewController {
         Int(codeTextField.text ?? "")
     }
     
-    @IBOutlet var codeTextField: UITextField!
+    @IBOutlet private var codeTextField: UITextField!
     
-    @IBOutlet var submitButton: UIButton!
+    @IBOutlet private var submitButton: UIButton!
     
-    private func verifyCode() {
-        submitButton.isEnabled = String(code ?? 0).count == AuthorizationService.confirmationCodeLength
-    }
-    
-    @IBAction func codeChanged(_ sender: UITextField) {
+    @IBAction private func codeChanged(_ sender: UITextField) {
         verifyCode()
     }
     
-    @IBAction func submitButtonTouched(_ sender: UIButton) {
+    @IBAction private func submitButtonTouched(_ sender: UIButton) {
         guard let code = code, let signupResponse = signupResponse, let email = email else {
             return
         }
         authorizationService.verifyEmail(code: code, signupResponse: signupResponse) { [weak self] result in
             switch result {
-            case .success():
+            case .success:
                 self?.successCompletion?(email)
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    private func verifyCode() {
+        submitButton.isEnabled = String(code ?? 0).count == AuthorizationService.confirmationCodeLength
     }
 }

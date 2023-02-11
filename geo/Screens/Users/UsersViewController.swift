@@ -9,8 +9,6 @@ import UIKit
 
 class UsersViewController: UIViewController {
     
-    @IBOutlet var friendsTable: UITableView!
-    
     private let usersService = UsersService.self
     private let friendsService = FriendsService.self
     
@@ -35,6 +33,8 @@ class UsersViewController: UIViewController {
     
     private let refreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
+    
+    @IBOutlet private var friendsTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +116,7 @@ class UsersViewController: UIViewController {
     private func addFriend(user: User) {
         friendsService.sendFriendshipRequest(recipientID: user.id) { result in
             switch result {
-            case .success():
+            case .success:
                 break
             case .failure(let error):
                 print(error)
@@ -133,7 +133,7 @@ class UsersViewController: UIViewController {
         }
         friendsService.deleteFriend(userID: userID) { result in
             switch result {
-            case .success():
+            case .success:
                 break
             case .failure(let error):
                 print(error)
@@ -147,7 +147,7 @@ class UsersViewController: UIViewController {
     private func deleteRequest(friendshipRequest: FriendshipRequest) {
         friendsService.deleteFriendshipRequest(recipientID: friendshipRequest.recipient.id) { result in
             switch result {
-            case .success():
+            case .success:
                 break
             case .failure(let error):
                 print(error)

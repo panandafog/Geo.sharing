@@ -16,24 +16,24 @@ class ResetPasswordViewController: UIViewController {
     
     var successCompletion: (() -> Void)?
     
-    @IBOutlet var newPasswordTextField: UITextField!
-    @IBOutlet var passwordConfirmationTextField: UITextField!
-    @IBOutlet var codeTextField: UITextField!
-    @IBOutlet var confirmationButton: UIButton!
+    @IBOutlet private var newPasswordTextField: UITextField!
+    @IBOutlet private var passwordConfirmationTextField: UITextField!
+    @IBOutlet private var codeTextField: UITextField!
+    @IBOutlet private var confirmationButton: UIButton!
     
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
-    @IBAction func passwordChanged(_ sender: UITextField) {
+    @IBAction private func passwordChanged(_ sender: UITextField) {
         verifyCreds()
     }
-    @IBAction func passwordConfirmationChanged(_ sender: UITextField) {
+    @IBAction private func passwordConfirmationChanged(_ sender: UITextField) {
         verifyCreds()
     }
-    @IBAction func codeChanged(_ sender: UITextField) {
+    @IBAction private func codeChanged(_ sender: UITextField) {
         verifyCreds()
     }
     
-    @IBAction func confirmationButtonTouched(_ sender: UIButton) {
+    @IBAction private func confirmationButtonTouched(_ sender: UIButton) {
         confirmChangingPassword()
     }
     

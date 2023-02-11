@@ -33,13 +33,14 @@ enum LocationService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.saveLocationComponents.url!,
+            Endpoints.saveLocationComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: headers
-        ).response { (response) in
-            guard let _ = response.value  else {
+        )
+        .response { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }

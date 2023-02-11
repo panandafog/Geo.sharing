@@ -67,7 +67,7 @@ class SettingsViewController: UIViewController {
         )
     ]
     
-    @IBOutlet var table: UITableView!
+    @IBOutlet private var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

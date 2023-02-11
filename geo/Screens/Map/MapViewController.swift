@@ -12,13 +12,6 @@ import UIKit
 
 class MapViewController: UIViewController {
     
-    @IBOutlet var map: MKMapView!
-    
-    @IBOutlet var notificationsButton: UIButton!
-    @IBOutlet var settingsButton: UIButton!
-    @IBOutlet var usersButton: UIButton!
-    @IBOutlet var myLocationButton: UIButton!
-    
     private let locationManager = LocationManager.shared
     private let authorizationService = AuthorizationService.shared
     private let usersService = UsersService.self
@@ -48,11 +41,34 @@ class MapViewController: UIViewController {
         return viewController
     }()
     
+    @IBOutlet private var map: MKMapView!
+    
+    @IBOutlet private var notificationsButton: UIButton!
+    @IBOutlet private var settingsButton: UIButton!
+    @IBOutlet private var usersButton: UIButton!
+    @IBOutlet private var myLocationButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupMap()
         authorizeAndStart()
+    }
+    
+    @IBAction private func notificationsButtonTouched(_ sender: UIButton) {
+        navigationController?.pushViewController(notificationsViewController, animated: true)
+    }
+    
+    @IBAction private func settingsButtonTouched(_ sender: UIButton) {
+        navigationController?.pushViewController(settingsViewController, animated: true)
+    }
+    
+    @IBAction private func usersButtonTouched(_ sender: UIButton) {
+        navigationController?.pushViewController(friendsViewController, animated: true)
+    }
+    
+    @IBAction private func mylocationButtonTouched(_ sender: UIButton) {
+        zoomMapToUserLocation()
     }
     
     private func setupMap() {
@@ -84,7 +100,7 @@ class MapViewController: UIViewController {
         var zoomed = false
         locationManager.$location.sink { newLocation in
             DispatchQueue.main.async { [weak self] in
-                guard let newLocation = newLocation else {
+                guard newLocation != nil else {
                     return
                 }
                 
@@ -93,7 +109,8 @@ class MapViewController: UIViewController {
                     zoomed = true
                 }
             }
-        }.store(in: &cancellableBag)
+        }
+        .store(in: &cancellableBag)
     }
     
     private func startUpdatingUsersAnnotations() {
@@ -159,23 +176,6 @@ class MapViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         friendsViewController.didMove(toParent: self)
-    }
-    
-    @IBAction func notificationsButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(notificationsViewController, animated: true)
-    }
-    
-    
-    @IBAction func settingsButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(settingsViewController, animated: true)
-    }
-    
-    @IBAction func usersButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(friendsViewController, animated: true)
-    }
-    
-    @IBAction func mylocationButtonTouched(_ sender: UIButton) {
-        zoomMapToUserLocation()
     }
     
     private func zoomMapToUserLocation(animated: Bool = true) {

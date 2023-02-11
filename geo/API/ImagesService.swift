@@ -21,7 +21,7 @@ enum ImagesService: ApiService {
             return request
         }
         
-        var urlComponents = Endpopints.profilePictureRequestComponents
+        var urlComponents = Endpoints.profilePictureRequestComponents
         urlComponents.queryItems = [
             URLQueryItem(name: "user_id", value: userID)
         ]

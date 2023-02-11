@@ -25,10 +25,11 @@ enum UsersService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.getFriendsComponents.url!,
+            Endpoints.getFriendsComponents.url!,
             method: .get,
             headers: headers
-        ).responseDecodable(of: [Friendship].self) { (response) in
+        )
+        .responseDecodable(of: [Friendship].self) { response in
             guard let response = response.value  else {
                 completion(.failure(.parsingResponse))
                 return
@@ -60,17 +61,22 @@ enum UsersService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.searchUsersComponents.url!,
+            Endpoints.searchUsersComponents.url!,
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: headers
-        ).responseDecodable(of: [User].self) { (response) in
+        )
+        .responseDecodable(of: [User].self) { response in
             guard let users = response.value  else {
                 completion(.failure(.parsingResponse))
                 return
             }
-            searchUsers(users: users, friendsipRequests: friendsipRequests,completion: completion)
+            searchUsers(
+                users: users,
+                friendsipRequests: friendsipRequests,
+                completion: completion
+            )
         }
     }
     
@@ -82,7 +88,7 @@ enum UsersService: ApiService {
                     let friendship = friendships.first { friendship in
                         friendship.user1 == user || friendship.user2 == user
                     }
-                    var friendshipRequest: FriendshipRequest? = nil
+                    var friendshipRequest: FriendshipRequest?
                     if friendship == nil {
                         friendshipRequest = friendsipRequests.first { request in
                             request.recipient == user
@@ -122,15 +128,15 @@ enum UsersService: ApiService {
                     mimeType: "image/jpg"
                 )
             },
-            to: Endpopints.profilePictureRequestComponents.url!,
+            to: Endpoints.profilePictureRequestComponents.url!,
             method: .post,
             headers: headers
         )
         .uploadProgress { progress in
             print("Upload Progress: \(progress.fractionCompleted)")
         }
-        .response { (response) in
-            guard let _ = response.value  else {
+        .response { response in
+            guard response.value != nil else {
                 completion(.failure(.parsingResponse))
                 return
             }
@@ -150,11 +156,12 @@ enum UsersService: ApiService {
         ]
         
         _ = AF.request(
-            Endpopints.profilePictureRequestComponents.url!,
+            Endpoints.profilePictureRequestComponents.url!,
             method: .get,
             parameters: parameters,
             headers: headers
-        ).responseData { (response) in
+        )
+        .responseData { response in
             guard let data = response.data, let image = UIImage(data: data) else {
                 completion(.failure(.parsingResponse))
                 return

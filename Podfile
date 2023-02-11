@@ -7,9 +7,12 @@ target 'geo' do
 
   # Pods for geo
 
-  pod 'Alamofire'
-  pod 'Kingfisher'
-  pod 'SnapKit'
+  pod 'Alamofire', '~> 5.6.2'
+  pod 'Kingfisher', '~> 7.6.0'
+  pod 'SnapKit', '~> 5.0.1'
+  pod 'NotificationBannerSwift', '~> 3.0.6'
+
+  pod 'SwiftLint'
 
   target 'geoTests' do
     inherit! :search_paths

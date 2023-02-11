@@ -26,7 +26,7 @@ class FriendAnnotationView: MKAnnotationView {
     private var imageView: UIImageView?
     
     private let rect = CGRect(x: 0, y: 0, width: size, height: size)
-    private let contentRect =  CGRect(
+    private let contentRect = CGRect(
         x: border,
         y: border,
         width: contentSize,
