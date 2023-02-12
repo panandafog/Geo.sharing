@@ -24,7 +24,6 @@
 		0B40018F294E68C500EBE854 /* GeoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40018E294E68C500EBE854 /* GeoUITests.swift */; };
 		0B400191294E68C500EBE854 /* GeoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400190294E68C500EBE854 /* GeoUITestsLaunchTests.swift */; };
 		0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40019D294E6D7900EBE854 /* LocationManager.swift */; };
-		0B51D86C298928C500200B63 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D86B298928C500200B63 /* ApiError.swift */; };
 		0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D86D298940E800200B63 /* FriendshipRequestType.swift */; };
 		0B51D8722989448000200B63 /* SearchedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D8712989448000200B63 /* SearchedUser.swift */; };
 		0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B07297F006A00E9806A /* Secrets.swift */; };
@@ -42,6 +41,7 @@
 		0BB0A0632991C54B00AB48DD /* ResetPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A0622991C54B00AB48DD /* ResetPasswordViewController.storyboard */; };
 		0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */; };
 		0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */; };
+		0BB60E6E29990BAD0065AECB /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB60E6D29990BAD0065AECB /* RequestError.swift */; };
 		0BC08A3D29798DB00026BA27 /* SignupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */; };
 		0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */; };
 		0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4229798E090026BA27 /* SignupViewController.swift */; };
@@ -104,7 +104,6 @@
 		0B40018E294E68C500EBE854 /* GeoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoUITests.swift; sourceTree = "<group>"; };
 		0B400190294E68C500EBE854 /* GeoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0B40019D294E6D7900EBE854 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		0B51D86B298928C500200B63 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		0B51D86D298940E800200B63 /* FriendshipRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequestType.swift; sourceTree = "<group>"; };
 		0B51D8712989448000200B63 /* SearchedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedUser.swift; sourceTree = "<group>"; };
 		0B5A0B07297F006A00E9806A /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -122,6 +121,7 @@
 		0BB0A0622991C54B00AB48DD /* ResetPasswordViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ResetPasswordViewController.storyboard; sourceTree = "<group>"; };
 		0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extensions.swift"; sourceTree = "<group>"; };
 		0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKAnnotation+Extensions.swift"; sourceTree = "<group>"; };
+		0BB60E6D29990BAD0065AECB /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A4229798E090026BA27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -296,6 +296,18 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		0BB60E6C29990A9C0065AECB /* Sevices */ = {
+			isa = PBXGroup;
+			children = (
+				0BC08A4929798FEE0026BA27 /* AuthorizationService.swift */,
+				0B843016294FA7EC000D5EDF /* LocationService.swift */,
+				0BE07F7C2992F0830040CECA /* ImagesService.swift */,
+				0B00E69F2988695B0049DC49 /* FriendsService.swift */,
+				0BE75A8F298321CB00439A71 /* UsersService.swift */,
+			);
+			path = Sevices;
+			sourceTree = "<group>";
+		};
 		0BC08A4029798DE00026BA27 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,14 +336,10 @@
 		0BC08A4829798FC90026BA27 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				0BB60E6C29990A9C0065AECB /* Sevices */,
 				0B00E6A129886A6E0049DC49 /* ApiService.swift */,
-				0B51D86B298928C500200B63 /* ApiError.swift */,
-				0BC08A4929798FEE0026BA27 /* AuthorizationService.swift */,
-				0B843016294FA7EC000D5EDF /* LocationService.swift */,
-				0BE07F7C2992F0830040CECA /* ImagesService.swift */,
-				0B00E69F2988695B0049DC49 /* FriendsService.swift */,
-				0BE75A8F298321CB00439A71 /* UsersService.swift */,
 				0B5A0B09297F00B600E9806A /* Endpoints.swift */,
+				0BB60E6D29990BAD0065AECB /* RequestError.swift */,
 				0B5A0B07297F006A00E9806A /* Secrets.swift */,
 				0BE75A8A29830EE800439A71 /* Models */,
 			);
@@ -660,6 +668,7 @@
 				0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */,
 				0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */,
 				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,
+				0BB60E6E29990BAD0065AECB /* RequestError.swift in Sources */,
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
 				0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
@@ -671,7 +680,6 @@
 				0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */,
 				0BB0A05D2991C4F900AB48DD /* ProfilePictureViewController.swift in Sources */,
 				0BB0A0592991A2AD00AB48DD /* SettingsCell.swift in Sources */,
-				0B51D86C298928C500200B63 /* ApiError.swift in Sources */,
 				0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */,
 				0B00E698298866DF0049DC49 /* NotificationsViewController.swift in Sources */,
 				0BC08A4529798E1A0026BA27 /* LoginViewController.swift in Sources */,

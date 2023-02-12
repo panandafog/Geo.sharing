@@ -9,7 +9,7 @@ import Kingfisher
 
 enum ImagesService: ApiService {
     
-    typealias ImageCompletion = (Result<UIImage, ApiError>) -> Void
+    typealias ImageCompletion = (Result<UIImage, RequestError>) -> Void
     static func getProfilePicture(userID: String, completion: @escaping ImageCompletion) {
         guard let authorizationHeader = Self.authorizationHeader else {
             return

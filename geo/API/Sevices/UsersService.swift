@@ -9,33 +9,20 @@ import Alamofire
 
 enum UsersService: ApiService {
     
-    typealias UsersCompletion = (Result<[User], ApiError>) -> Void
-    typealias SearchedUsersCompletion = (Result<[SearchedUser], ApiError>) -> Void
-    typealias FriendsipsCompletion = (Result<[Friendship], ApiError>) -> Void
-    typealias ImageCompletion = (Result<UIImage, ApiError>) -> Void
+    typealias UsersCompletion = (Result<[User], RequestError>) -> Void
+    typealias SearchedUsersCompletion = (Result<[SearchedUser], RequestError>) -> Void
+    typealias FriendsipsCompletion = (Result<[Friendship], RequestError>) -> Void
+    typealias ImageCompletion = (Result<UIImage, RequestError>) -> Void
     
     private static let friendsService = FriendsService.self
     
     static func getFriendships(completion: @escaping FriendsipsCompletion) {
-        guard let authorizationHeader = Self.authorizationHeader else {
-            return
-        }
-        let headers: HTTPHeaders = [
-            authorizationHeader
-        ]
-        
-        _ = AF.request(
-            Endpoints.getFriendsComponents.url!,
+        sendRequest(
             method: .get,
-            headers: headers
+            url: Endpoints.getFriendsComponents.url!,
+            requiresAuthorization: true,
+            completion: completion
         )
-        .responseDecodable(of: [Friendship].self) { response in
-            guard let response = response.value  else {
-                completion(.failure(.parsingResponse))
-                return
-            }
-            completion(.success(response))
-        }
     }
     
     static func searchUsers(username: String, completion: @escaping SearchedUsersCompletion) {
@@ -50,34 +37,31 @@ enum UsersService: ApiService {
     }
     
     private static func searchUsers(username: String, friendsipRequests: [FriendshipRequest], completion: @escaping SearchedUsersCompletion) {
-        guard let authorizationHeader = Self.authorizationHeader else {
-            return
-        }
-        let headers: HTTPHeaders = [
-            authorizationHeader
-        ]
-        let parameters = [
-            "query": username
-        ]
-        
-        _ = AF.request(
-            Endpoints.searchUsersComponents.url!,
-            method: .post,
-            parameters: parameters,
-            encoding: JSONEncoding.default,
-            headers: headers
-        )
-        .responseDecodable(of: [User].self) { response in
-            guard let users = response.value  else {
-                completion(.failure(.parsingResponse))
-                return
+        let completionHandler: ((Result<[User], RequestError>) -> Void) = { result in
+            switch result {
+            case .success(let users):
+                searchUsers(
+                    users: users,
+                    friendsipRequests: friendsipRequests,
+                    completion: completion
+                )
+            case .failure(let error):
+                completion(.failure(error))
             }
-            searchUsers(
-                users: users,
-                friendsipRequests: friendsipRequests,
-                completion: completion
-            )
         }
+        
+        sendRequest(
+            method: .post,
+            url: Endpoints.searchUsersComponents.url!,
+            requiresAuthorization: true,
+            parameters: .init(
+                parameters: [
+                    "query": username
+                ],
+                encoding: .jsonBody
+            ),
+            completion: completionHandler
+        )
     }
     
     private static func searchUsers(users: [User], friendsipRequests: [FriendshipRequest], completion: @escaping SearchedUsersCompletion) {
@@ -168,14 +152,5 @@ enum UsersService: ApiService {
             }
             completion(.success(image))
         }
-    }
-}
-
-extension UsersService {
-    
-    enum UsersError: Error {
-        case wrongCreds
-        case parsingResponse
-        case unknown
     }
 }
