@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotificationsViewController: UIViewController {
+class NotificationsViewController: UIViewController, NotificatingViewController {
     
     private let friendsService = FriendsService.self
     private var friendshipRequests = [FriendshipRequest]()
@@ -85,7 +85,7 @@ extension NotificationsViewController: UITableViewDataSource {
                 case .success:
                     break
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self?.showErrorAlert(error)
                 }
                 self?.updateFriendshipRequests()
             }

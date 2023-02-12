@@ -34,7 +34,6 @@ enum ImagesService: ApiService {
             case .success(let retrieveResult):
                 completion(.success(retrieveResult.image))
             case .failure(let error):
-                print(error.localizedDescription)
                 completion(.failure(.parsingResponse))
             }
         }

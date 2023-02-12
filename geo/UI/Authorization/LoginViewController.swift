@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, NotificatingViewController {
     
     private let authorizationService = AuthorizationService.shared
     var successCompletion: (() -> Void)?
@@ -71,7 +71,7 @@ class LoginViewController: UIViewController {
             case .success:
                 self?.successCompletion?()
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.showErrorAlert(error)
             }
         }
     }

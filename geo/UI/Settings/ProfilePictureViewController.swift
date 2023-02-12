@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfilePictureViewController: UIViewController {
+class ProfilePictureViewController: UIViewController, NotificatingViewController {
     
     private let authorizationService = AuthorizationService.shared
     private let usersService = UsersService.self
@@ -45,7 +45,7 @@ class ProfilePictureViewController: UIViewController {
                     self?.imageView.image = image
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.showErrorAlert(error)
                 DispatchQueue.main.async {
                     self?.imageView.image = nil
                 }

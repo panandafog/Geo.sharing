@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, NotificatingViewController {
     
     private let authorizationService = AuthorizationService.shared
     var successCompletion: ((String) -> Void)?
@@ -81,7 +81,7 @@ class SignupViewController: UIViewController {
                     self?.present(emailConfirmationViewController, animated: true)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.showErrorAlert(error)
             }
         }
     }

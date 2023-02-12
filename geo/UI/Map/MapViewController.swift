@@ -10,7 +10,7 @@ import MapKit
 import SnapKit
 import UIKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, NotificatingViewController {
     
     private let locationManager = LocationManager.shared
     private let authorizationService = AuthorizationService.shared
@@ -132,7 +132,7 @@ class MapViewController: UIViewController {
             case .success(let friendships):
                 self?.updateAnnotations(users: friendships.compactMap { $0.user })
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.showErrorAlert(error)
             }
         }
     }

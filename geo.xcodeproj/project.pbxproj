@@ -42,6 +42,7 @@
 		0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */; };
 		0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */; };
 		0BB60E6E29990BAD0065AECB /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB60E6D29990BAD0065AECB /* RequestError.swift */; };
+		0BB60E7029991C590065AECB /* NotificatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB60E6F29991C590065AECB /* NotificatingViewController.swift */; };
 		0BC08A3D29798DB00026BA27 /* SignupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */; };
 		0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */; };
 		0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4229798E090026BA27 /* SignupViewController.swift */; };
@@ -122,6 +123,7 @@
 		0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extensions.swift"; sourceTree = "<group>"; };
 		0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKAnnotation+Extensions.swift"; sourceTree = "<group>"; };
 		0BB60E6D29990BAD0065AECB /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
+		0BB60E6F29991C590065AECB /* NotificatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificatingViewController.swift; sourceTree = "<group>"; };
 		0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A4229798E090026BA27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -216,7 +218,7 @@
 				0BC08A4829798FC90026BA27 /* API */,
 				0B5A0B06297F003500E9806A /* Extensions */,
 				0B5A0B05297F002200E9806A /* Location */,
-				0BC08A4029798DE00026BA27 /* Screens */,
+				0BC08A4029798DE00026BA27 /* UI */,
 				0B40016D294E68C300EBE854 /* AppDelegate.swift */,
 				0B40016F294E68C300EBE854 /* SceneDelegate.swift */,
 				0B400176294E68C500EBE854 /* Assets.xcassets */,
@@ -308,7 +310,7 @@
 			path = Sevices;
 			sourceTree = "<group>";
 		};
-		0BC08A4029798DE00026BA27 /* Screens */ = {
+		0BC08A4029798DE00026BA27 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				0BC08A4129798DEC0026BA27 /* Authorization */,
@@ -316,8 +318,9 @@
 				0B00E696298866CA0049DC49 /* Notifications */,
 				0BB0A05329919C4E00AB48DD /* Settings */,
 				0BC443EF2983FA4A00D31C15 /* Users */,
+				0BB60E6F29991C590065AECB /* NotificatingViewController.swift */,
 			);
-			path = Screens;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		0BC08A4129798DEC0026BA27 /* Authorization */ = {
@@ -337,11 +340,11 @@
 			isa = PBXGroup;
 			children = (
 				0BB60E6C29990A9C0065AECB /* Sevices */,
+				0BE75A8A29830EE800439A71 /* Models */,
 				0B00E6A129886A6E0049DC49 /* ApiService.swift */,
 				0B5A0B09297F00B600E9806A /* Endpoints.swift */,
 				0BB60E6D29990BAD0065AECB /* RequestError.swift */,
 				0B5A0B07297F006A00E9806A /* Secrets.swift */,
-				0BE75A8A29830EE800439A71 /* Models */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,
 				0BB60E6E29990BAD0065AECB /* RequestError.swift in Sources */,
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
+				0BB60E7029991C590065AECB /* NotificatingViewController.swift in Sources */,
 				0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,
