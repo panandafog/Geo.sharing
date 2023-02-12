@@ -71,7 +71,7 @@ extension ProfilePictureViewController: UIImagePickerControllerDelegate {
                 }
                 self?.updateImage()
             case .failure(let error):
-                print(error)
+                self?.showErrorAlert(error)
             }
         }
     }

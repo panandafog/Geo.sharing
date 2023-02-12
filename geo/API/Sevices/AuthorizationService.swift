@@ -136,7 +136,7 @@ class AuthorizationService: ApiService {
     func confirmPasswordChange(code: Int, newPassword: String, completion: @escaping EmptyCompletion) {
         let completionHandler: EmptyCompletion = { result in
             switch result {
-            case .success():
+            case .success:
                 self.signOut()
                 completion(.success(()))
             case .failure(let error):

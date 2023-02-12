@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ResetPasswordViewController: UIViewController {
+class ResetPasswordViewController: UIViewController, NotificatingViewController {
     
     private let authorizationService = AuthorizationService.shared
     private var code: Int? {
@@ -62,7 +62,7 @@ class ResetPasswordViewController: UIViewController {
             case .success(()):
                 self.successCompletion?()
             case .failure(let error):
-                print(error)
+                self.showErrorAlert(error)
             }
         }
     }

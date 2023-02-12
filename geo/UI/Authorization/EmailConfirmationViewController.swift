@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmailConfirmationViewController: UIViewController {
+class EmailConfirmationViewController: UIViewController, NotificatingViewController {
     
     private let authorizationService = AuthorizationService.shared
     
@@ -35,7 +35,7 @@ class EmailConfirmationViewController: UIViewController {
             case .success:
                 self?.successCompletion?(email)
             case .failure(let error):
-                print(error)
+                self?.showErrorAlert(error)
             }
         }
     }

@@ -43,6 +43,7 @@
 		0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */; };
 		0BB60E6E29990BAD0065AECB /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB60E6D29990BAD0065AECB /* RequestError.swift */; };
 		0BB60E7029991C590065AECB /* NotificatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB60E6F29991C590065AECB /* NotificatingViewController.swift */; };
+		0BB60E722999202A0065AECB /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB60E712999202A0065AECB /* ErrorResponse.swift */; };
 		0BC08A3D29798DB00026BA27 /* SignupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */; };
 		0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */; };
 		0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4229798E090026BA27 /* SignupViewController.swift */; };
@@ -124,6 +125,7 @@
 		0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKAnnotation+Extensions.swift"; sourceTree = "<group>"; };
 		0BB60E6D29990BAD0065AECB /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		0BB60E6F29991C590065AECB /* NotificatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificatingViewController.swift; sourceTree = "<group>"; };
+		0BB60E712999202A0065AECB /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A4229798E090026BA27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */,
 				0BE75A8D2983152F00439A71 /* Friendship.swift */,
 				0B51D86D298940E800200B63 /* FriendshipRequestType.swift */,
+				0BB60E712999202A0065AECB /* ErrorResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
 				0BB60E7029991C590065AECB /* NotificatingViewController.swift in Sources */,
 				0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */,
+				0BB60E722999202A0065AECB /* ErrorResponse.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,
 				0BE07F7F2993D7BB0040CECA /* String+Extensions.swift in Sources */,

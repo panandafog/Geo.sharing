@@ -32,7 +32,7 @@ class NotificationsViewController: UIViewController, NotificatingViewController 
                 self.friendshipRequests = friendshipRequests
                 
             case .failure(let error):
-                print(error)
+                self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
                 self.table.reloadData()

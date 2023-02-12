@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UsersViewController: UIViewController {
+class UsersViewController: UIViewController, NotificatingViewController {
     
     private let usersService = UsersService.self
     private let friendsService = FriendsService.self
@@ -88,7 +88,7 @@ class UsersViewController: UIViewController {
                 self.friendships = friendships
                 
             case .failure(let error):
-                print(error)
+                self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
                 self.friendsTable.reloadData()
@@ -104,7 +104,7 @@ class UsersViewController: UIViewController {
                 self.searchResults = users
                 
             case .failure(let error):
-                print(error)
+                self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
                 self.friendsTable.reloadData()
@@ -119,7 +119,7 @@ class UsersViewController: UIViewController {
             case .success:
                 break
             case .failure(let error):
-                print(error)
+                self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
                 self.reloadTable()
@@ -136,7 +136,7 @@ class UsersViewController: UIViewController {
             case .success:
                 break
             case .failure(let error):
-                print(error)
+                self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
                 self.reloadTable()
@@ -150,7 +150,7 @@ class UsersViewController: UIViewController {
             case .success:
                 break
             case .failure(let error):
-                print(error)
+                self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
                 self.reloadTable()

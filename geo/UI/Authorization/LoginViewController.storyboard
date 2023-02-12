@@ -52,6 +52,12 @@
                                     <action selector="submitButtonTouched:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="HG2-wt-3tA"/>
                                 </connections>
                             </button>
+                            <navigationBar contentMode="scaleToFill" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXm-dQ-Uhu">
+                                <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                                <items>
+                                    <navigationItem title="LogIn" id="5de-nL-iJl"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -68,8 +74,11 @@
                             <constraint firstItem="Lnf-tg-p3z" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="aeX-ow-BWJ"/>
                             <constraint firstItem="k18-Nv-Il7" firstAttribute="top" secondItem="qea-og-6yU" secondAttribute="bottom" constant="8" symbolic="YES" id="foy-K2-gip"/>
                             <constraint firstItem="qea-og-6yU" firstAttribute="width" secondItem="5jt-Wa-Qo4" secondAttribute="width" id="ocO-RW-diM"/>
+                            <constraint firstItem="tXm-dQ-Uhu" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="pdO-2y-qNx"/>
                             <constraint firstItem="qea-og-6yU" firstAttribute="top" secondItem="5jt-Wa-Qo4" secondAttribute="bottom" constant="8" symbolic="YES" id="pgv-Yw-FyQ"/>
+                            <constraint firstItem="tXm-dQ-Uhu" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="scV-Xs-gBj"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="qea-og-6yU" secondAttribute="trailing" constant="40" id="seC-wW-7Ap"/>
+                            <constraint firstItem="tXm-dQ-Uhu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="t4f-av-D9T"/>
                             <constraint firstItem="k18-Nv-Il7" firstAttribute="trailing" secondItem="qea-og-6yU" secondAttribute="trailing" id="tYj-HI-svZ"/>
                             <constraint firstItem="k18-Nv-Il7" firstAttribute="bottom" secondItem="jCR-XX-2b3" secondAttribute="bottom" id="xxY-fD-0Zx"/>
                         </constraints>

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, NotificatingViewController {
     
     var signOutHandler: (() -> Void)?
     
@@ -107,7 +107,7 @@ class SettingsViewController: UIViewController {
                     )
                 }
             case .failure(let error):
-                print(error)
+                self?.showErrorAlert(error)
             }
         }
     }

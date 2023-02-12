@@ -10,11 +10,11 @@ import Foundation
 
 protocol ApiService {
     typealias EmptyCompletion = (Result<Void, RequestError>) -> Void
-    
-//    static var authorizationHeader: HTTPHeader? { get }
 }
 
 extension ApiService {
+    
+    private static var successfulStatusCodes: ClosedRange<Int> { 200 ... 299 }
     
     static var authorizationHeader: HTTPHeader? {
         guard let token = AuthorizationService.shared.token else {
@@ -23,32 +23,49 @@ extension ApiService {
         return .authorization(bearerToken: token)
     }
     
-    static func sendRequest<T: Decodable>(method: HTTPMethod, url: URL, requiresAuthorization: Bool, parameters parametersInfo: ParametersInfo? = nil, headers: [HTTPHeader] = [], completion: @escaping (Result<T, RequestError>) -> Void) {
-        do {
-            try makeRequest(method: method, url: url, requiresAuthorization: requiresAuthorization, parameters: parametersInfo, headers: headers)
-                .responseDecodable(of: T.self) { response in
-                    guard let decodedValue = response.value  else {
-                        completion(.failure(.parsingResponse))
-                        return
-                    }
-                    completion(.success(decodedValue))
-                }
-        } catch let error as RequestError {
-            completion(.failure(error))
-        } catch {
-            completion(.failure(.unknown))
-        }
-    }
-    
-    static func sendRequest(method: HTTPMethod, url: URL, requiresAuthorization: Bool, parameters parametersInfo: ParametersInfo? = nil, headers: [HTTPHeader] = [], completion: @escaping EmptyCompletion) {
+    static func sendRequest<ResponseBodyType>(method: HTTPMethod, url: URL, requiresAuthorization: Bool, parameters parametersInfo: ParametersInfo? = nil, headers: [HTTPHeader] = [], completion: @escaping (Result<ResponseBodyType, RequestError>) -> Void) {
         do {
             try makeRequest(method: method, url: url, requiresAuthorization: requiresAuthorization, parameters: parametersInfo, headers: headers)
                 .response { response in
-                    guard response.value != nil else {
-                        completion(.failure(.parsingResponse))
-                        return
+                    var decodedResponse: ResponseBodyType?
+                    var decodedError: ErrorResponse?
+                    var afError = response.error
+                    
+                    let mustParseResponseBody: Bool
+                    if ResponseBodyType.self is Void.Type {
+                        mustParseResponseBody = false
+                        decodedResponse = Void() as? ResponseBodyType
+                    } else {
+                        mustParseResponseBody = true
                     }
-                    completion(.success(()))
+                    
+                    if let value1 = response.value, let value = value1 {
+                        if mustParseResponseBody, let responseBodyDecodable = ResponseBodyType.self as? Decodable.Type {
+                            decodedResponse = try? JSONDecoder().decode(
+                                responseBodyDecodable,
+                                from: value
+                            ) as? ResponseBodyType
+                        }
+                        decodedError = try? JSONDecoder().decode(ErrorResponse.self, from: value)
+                    }
+                    
+                    let statusCode = response.response?.statusCode
+                    var statusCodeIsSuccessful = false
+                    if let statusCode = statusCode, successfulStatusCodes.contains(statusCode) {
+                        statusCodeIsSuccessful = true
+                    }
+                    
+                    if statusCodeIsSuccessful, let decodedResponse = decodedResponse {
+                        completion(.success(decodedResponse))
+                    } else if statusCodeIsSuccessful, decodedResponse == nil {
+                        completion(.failure(.parsingResponse))
+                    } else if let decodedError = decodedError {
+                        completion(.failure(.apiError(message: decodedError.error)))
+                    } else if let afError = afError {
+                        completion(.failure(.apiError(message: afError.errorDescription ?? afError.localizedDescription)))
+                    } else {
+                        completion(.failure(.unknown))
+                    }
                 }
         } catch let error as RequestError {
             completion(.failure(error))

@@ -33,6 +33,12 @@
                                     <action selector="submitButtonTouched:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Wio-Dj-ZcO"/>
                                 </connections>
                             </button>
+                            <navigationBar contentMode="scaleToFill" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rnm-Um-DUf">
+                                <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                                <items>
+                                    <navigationItem title="Confirm email address" id="A4w-RN-uNR"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -42,6 +48,9 @@
                             <constraint firstItem="Ul5-Ja-tDL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="LFC-co-hvs"/>
                             <constraint firstItem="Ul5-Ja-tDL" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="MCf-2l-iKQ"/>
                             <constraint firstItem="Ul5-Ja-tDL" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="MFf-HS-NW0"/>
+                            <constraint firstItem="Rnm-Um-DUf" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="Mw9-DP-nS5"/>
+                            <constraint firstItem="Rnm-Um-DUf" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="a8T-Xm-ycM"/>
+                            <constraint firstItem="Rnm-Um-DUf" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="i2T-Fc-0bq"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ul5-Ja-tDL" secondAttribute="trailing" constant="40" id="wzi-tH-ZE6"/>
                         </constraints>
                     </view>
