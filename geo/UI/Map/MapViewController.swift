@@ -35,6 +35,7 @@ class MapViewController: UIViewController, NotificatingViewController {
         viewController.signOutHandler = { [weak self] in
             self?.stopUpdatingLocation()
             self?.stopUpdatingUsersAnnotations()
+            self?.removeAllUsersAnnotations()
             self?.authorizationService.signOut()
             self?.authorizeAndStart()
         }
@@ -124,6 +125,10 @@ class MapViewController: UIViewController, NotificatingViewController {
     
     private func stopUpdatingUsersAnnotations() {
         annotationsTimer?.invalidate()
+    }
+    
+    private func removeAllUsersAnnotations() {
+        updateAnnotations(users: [])
     }
     
     private func updateUsersForAnnotations() {

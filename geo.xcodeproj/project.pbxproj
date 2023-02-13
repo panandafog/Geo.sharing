@@ -26,6 +26,7 @@
 		0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40019D294E6D7900EBE854 /* LocationManager.swift */; };
 		0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D86D298940E800200B63 /* FriendshipRequestType.swift */; };
 		0B51D8722989448000200B63 /* SearchedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D8712989448000200B63 /* SearchedUser.swift */; };
+		0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */; };
 		0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B07297F006A00E9806A /* Secrets.swift */; };
 		0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B09297F00B600E9806A /* Endpoints.swift */; };
 		0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */; };
@@ -108,6 +109,7 @@
 		0B40019D294E6D7900EBE854 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0B51D86D298940E800200B63 /* FriendshipRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequestType.swift; sourceTree = "<group>"; };
 		0B51D8712989448000200B63 /* SearchedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedUser.swift; sourceTree = "<group>"; };
+		0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableBackgroundView.swift; sourceTree = "<group>"; };
 		0B5A0B07297F006A00E9806A /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0B5A0B09297F00B600E9806A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAnnotationView.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				0BB0A05329919C4E00AB48DD /* Settings */,
 				0BC443EF2983FA4A00D31C15 /* Users */,
 				0BB60E6F29991C590065AECB /* NotificatingViewController.swift */,
+				0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				0B51D8722989448000200B63 /* SearchedUser.swift in Sources */,
 				0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */,
 				0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */,
+				0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */,
 				0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */,
 				0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */,
 				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,

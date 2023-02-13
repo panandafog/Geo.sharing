@@ -13,6 +13,12 @@ class NotificationsViewController: UIViewController, NotificatingViewController 
     private var friendshipRequests = [FriendshipRequest]()
     private let refreshControl = UIRefreshControl()
     
+    private let tableBackgroundView: EmptyTableBackgroundView = {
+        let backgroundView = EmptyTableBackgroundView()
+        backgroundView.setup(title: "You don't have any notifications yet")
+        return backgroundView
+    }()
+    
     @IBOutlet private var table: UITableView!
     
     override func viewDidLoad() {
@@ -35,7 +41,7 @@ class NotificationsViewController: UIViewController, NotificatingViewController 
                 self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
-                self.table.reloadData()
+                self.updateTable()
                 self.refreshControl.endRefreshing()
             }
         }
@@ -46,6 +52,13 @@ class NotificationsViewController: UIViewController, NotificatingViewController 
         table.delegate = self
         table.dataSource = self
         table.allowsSelection = false
+        
+        table.backgroundView = tableBackgroundView
+    }
+    
+    private func updateTable() {
+        table.reloadData()
+        table.backgroundView?.isHidden = !friendshipRequests.isEmpty
     }
     
     private func setupRefreshControl() {

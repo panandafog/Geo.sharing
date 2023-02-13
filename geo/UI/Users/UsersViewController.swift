@@ -23,6 +23,15 @@ class UsersViewController: UIViewController, NotificatingViewController {
         }
     }
     
+    private var tableDataCount: Int {
+        switch categoryToShow {
+        case .friends:
+            return friendships.count
+        case .usersSearch:
+            return searchResults.count
+        }
+    }
+    
     private var searchQuery: String? {
         if searchController.isActive {
             return searchController.searchBar.text
@@ -33,6 +42,20 @@ class UsersViewController: UIViewController, NotificatingViewController {
     
     private let refreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
+    
+    private let tableBackgroundView: EmptyTableBackgroundView = {
+        let backgroundView = EmptyTableBackgroundView()
+        return backgroundView
+    }()
+    
+    private var tableBackgroundViewTitle: String {
+        switch categoryToShow {
+        case .friends:
+            return "You don't have any friends yet"
+        case .usersSearch:
+            return "No user found with this name"
+        }
+    }
     
     @IBOutlet private var friendsTable: UITableView!
     
@@ -52,6 +75,7 @@ class UsersViewController: UIViewController, NotificatingViewController {
         friendsTable.delegate = self
         friendsTable.dataSource = self
         friendsTable.allowsSelection = false
+        friendsTable.backgroundView = tableBackgroundView
     }
     
     private func setupRefreshControl() {
@@ -63,14 +87,15 @@ class UsersViewController: UIViewController, NotificatingViewController {
     private func setupSearch() {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        navigationItem.searchController = searchController
-        
-        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search users"
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
     }
     
     private func setupStyling() {
         navigationItem.title = "People"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func reloadTable() {
@@ -91,7 +116,7 @@ class UsersViewController: UIViewController, NotificatingViewController {
                 self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
-                self.friendsTable.reloadData()
+                self.updateTable()
                 self.refreshControl.endRefreshing()
             }
         }
@@ -107,10 +132,16 @@ class UsersViewController: UIViewController, NotificatingViewController {
                 self.showErrorAlert(error)
             }
             DispatchQueue.main.async {
-                self.friendsTable.reloadData()
+                self.updateTable()
                 self.refreshControl.endRefreshing()
             }
         }
+    }
+    
+    private func updateTable() {
+        friendsTable.reloadData()
+        friendsTable.backgroundView?.isHidden = tableDataCount > 0
+        tableBackgroundView.setup(title: tableBackgroundViewTitle)
     }
     
     private func addFriend(user: User) {
