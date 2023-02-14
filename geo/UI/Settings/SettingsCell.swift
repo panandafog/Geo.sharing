@@ -25,7 +25,7 @@ class SettingsCell: UITableViewCell {
     
     func setup(_ entry: SettingsViewController.SettingsEntry) {
         titleLabel.text = entry.kind.title
-        valueLabel.text = entry.value
+        valueLabel.text = entry.value?()
         iconImageView.image = entry.kind.image
         iconImageView.tintColor = entry.kind.iconColor
         

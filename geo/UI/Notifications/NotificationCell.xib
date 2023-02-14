@@ -49,7 +49,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jQF-B1-bVg" secondAttribute="trailing" constant="20" id="L3K-QL-stu"/>
                 <constraint firstAttribute="trailing" secondItem="2OY-7b-C0c" secondAttribute="trailing" constant="20" symbolic="YES" id="S0k-wc-zNI"/>
                 <constraint firstItem="jQF-B1-bVg" firstAttribute="leading" secondItem="mj9-2p-yED" secondAttribute="trailing" constant="8" symbolic="YES" id="YtQ-kl-JS8"/>
-                <constraint firstItem="jQF-B1-bVg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="uM0-nH-Bod"/>
+                <constraint firstItem="jQF-B1-bVg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2OY-7b-C0c" secondAttribute="bottom" constant="20" id="uM0-nH-Bod"/>
                 <constraint firstItem="2OY-7b-C0c" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="ug2-FA-wCP"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

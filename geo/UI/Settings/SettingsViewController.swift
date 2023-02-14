@@ -35,33 +35,27 @@ class SettingsViewController: UIViewController, NotificatingViewController {
                 SettingsEntry(
                     kind: .profilePicture,
                     value: nil,
-                    action: { [weak self] in
-                        self?.editProfilePicture()
-                    }
+                    action: { [weak self] in self?.editProfilePicture() }
                 ),
                 SettingsEntry(
                     kind: .username,
-                    value: authorizationService.username,
+                    value: { [weak self] in self?.authorizationService.username },
                     action: nil
                 ),
                 SettingsEntry(
                     kind: .email,
-                    value: authorizationService.email,
+                    value: { [weak self] in self?.authorizationService.email },
                     action: nil
                 ),
                 SettingsEntry(
                     kind: .password,
                     value: nil,
-                    action: { [weak self] in
-                        self?.resetPassword()
-                    }
+                    action: { [weak self] in self?.resetPassword() }
                 ),
                 SettingsEntry(
                     kind: .signOut,
                     value: nil,
-                    action: { [weak self] in
-                        self?.signOut()
-                    }
+                    action: { [weak self] in self?.signOut() }
                 )
             ]
         )
@@ -74,6 +68,10 @@ class SettingsViewController: UIViewController, NotificatingViewController {
         
         setupTable()
         setupStyling()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         table.reloadData()
     }
@@ -165,7 +163,7 @@ extension SettingsViewController {
     
     struct SettingsEntry {
         let kind: EntryKind
-        let value: String?
+        let value: (() -> String?)?
         let action: (() -> Void)?
     }
     

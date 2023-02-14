@@ -19,6 +19,11 @@ class ProfilePictureViewController: UIViewController, NotificatingViewController
         super.viewDidLoad()
         
         setupStyling()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         updateImage()
     }
     
