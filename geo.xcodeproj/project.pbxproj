@@ -27,6 +27,7 @@
 		0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D86D298940E800200B63 /* FriendshipRequestType.swift */; };
 		0B51D8722989448000200B63 /* SearchedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D8712989448000200B63 /* SearchedUser.swift */; };
 		0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */; };
+		0B528D01299D2F3A00CA4A30 /* FriendCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528D00299D2F3A00CA4A30 /* FriendCalloutView.swift */; };
 		0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B07297F006A00E9806A /* Secrets.swift */; };
 		0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B09297F00B600E9806A /* Endpoints.swift */; };
 		0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */; };
@@ -110,6 +111,7 @@
 		0B51D86D298940E800200B63 /* FriendshipRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequestType.swift; sourceTree = "<group>"; };
 		0B51D8712989448000200B63 /* SearchedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedUser.swift; sourceTree = "<group>"; };
 		0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableBackgroundView.swift; sourceTree = "<group>"; };
+		0B528D00299D2F3A00CA4A30 /* FriendCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCalloutView.swift; sourceTree = "<group>"; };
 		0B5A0B07297F006A00E9806A /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0B5A0B09297F00B600E9806A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAnnotationView.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			children = (
 				0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */,
 				0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */,
+				0B528D00299D2F3A00CA4A30 /* FriendCalloutView.swift */,
 			);
 			path = Annotations;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B528D01299D2F3A00CA4A30 /* FriendCalloutView.swift in Sources */,
 				0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */,
 				0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */,
 				0B51D8722989448000200B63 /* SearchedUser.swift in Sources */,

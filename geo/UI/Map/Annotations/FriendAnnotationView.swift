@@ -11,7 +11,7 @@ import UIKit
 
 class FriendAnnotationView: MKAnnotationView {
     
-    private static let size = 80.0
+    private static let size = 60.0
     private static let border = 5.0
     private static let contentSize = size - (border * 2.0)
     
@@ -37,6 +37,7 @@ class FriendAnnotationView: MKAnnotationView {
     
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        
         backgroundColor = .tintColor
         layer.cornerRadius = Self.cornerRadius
     }
@@ -49,6 +50,14 @@ class FriendAnnotationView: MKAnnotationView {
     func setupUI() {
         setupLabel()
         setupImageView()
+        
+        if let user = (annotation as? FriendMKPointAnnotation)?.user {
+            canShowCallout = true
+            detailCalloutAccessoryView = FriendCalloutView(user: user)
+        } else {
+            canShowCallout = false
+            detailCalloutAccessoryView = nil
+        }
     }
     
     private func setupLabel() {

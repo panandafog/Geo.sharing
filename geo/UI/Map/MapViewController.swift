@@ -222,7 +222,6 @@ class MapViewController: UIViewController, NotificatingViewController {
     }
     
     private func handleNotifications(exist: Bool) {
-        print("exist: \(exist)")
         notificationsButton.tintColor = exist ? .systemOrange : .systemGray
     }
 }
@@ -239,7 +238,6 @@ extension MapViewController: MKMapViewDelegate {
 
         if annotationView == nil {
             annotationView = FriendAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.canShowCallout = true
         } else {
             annotationView!.annotation = annotation
         }
