@@ -15,12 +15,14 @@ class MapViewController: UIViewController, NotificatingViewController {
     private let locationManager = LocationManager.shared
     private let authorizationService = AuthorizationService.shared
     private let usersService = UsersService.self
+    private let friendsService = FriendsService.self
     
     private let mapZoomOffset = 200
     private let friendsBarHeight = 20
     
     private var cancellableBag = Set<AnyCancellable>()
     private var annotationsTimer: Timer?
+    private var notificationsTimer: Timer?
     
     private lazy var friendsViewController: UsersViewController = {
         UIViewController.instantiate(name: "UsersViewController") as! UsersViewController
@@ -35,6 +37,8 @@ class MapViewController: UIViewController, NotificatingViewController {
         viewController.signOutHandler = { [weak self] in
             self?.stopUpdatingLocation()
             self?.stopUpdatingUsersAnnotations()
+            self?.stopUpdatingNotifications()
+            
             self?.removeAllUsersAnnotations()
             self?.authorizationService.signOut()
             self?.authorizeAndStart()
@@ -43,7 +47,6 @@ class MapViewController: UIViewController, NotificatingViewController {
     }()
     
     @IBOutlet private var map: MKMapView!
-    
     @IBOutlet private var notificationsButton: UIButton!
     @IBOutlet private var settingsButton: UIButton!
     @IBOutlet private var usersButton: UIButton!
@@ -72,15 +75,32 @@ class MapViewController: UIViewController, NotificatingViewController {
         zoomMapToUserLocation()
     }
     
+    // MARK: - Map
+    
     private func setupMap() {
         map.register(FriendAnnotationView.self, forAnnotationViewWithReuseIdentifier: "FriendAnnotationView")
         map.delegate = self
     }
     
+    private func zoomMapToUserLocation(animated: Bool = true) {
+        guard let userLocation = locationManager.location?.coordinate else {
+            return
+        }
+        let userViewRegion = MKCoordinateRegion(
+            center: userLocation,
+            latitudinalMeters: CLLocationDistance(mapZoomOffset),
+            longitudinalMeters: CLLocationDistance(mapZoomOffset)
+        )
+        map.setRegion(userViewRegion, animated: animated)
+    }
+    
+    // MARK: - Location
+    
     private func authorizeAndStart() {
         guard !authorizationService.authorized else {
             startUpdatingLocation()
             startUpdatingUsersAnnotations()
+            startUpdatingNotifications()
             return
         }
         
@@ -91,6 +111,7 @@ class MapViewController: UIViewController, NotificatingViewController {
             loginViewController.dismiss(animated: true)
             self?.startUpdatingLocation()
             self?.startUpdatingUsersAnnotations()
+            self?.startUpdatingNotifications()
         }
         
         present(loginViewController, animated: true)
@@ -113,6 +134,12 @@ class MapViewController: UIViewController, NotificatingViewController {
         }
         .store(in: &cancellableBag)
     }
+    
+    private func stopUpdatingLocation() {
+        locationManager.stopUpdatingLocation()
+    }
+    
+    // MARK: - Annotations
     
     private func startUpdatingUsersAnnotations() {
         annotationsTimer = Timer.scheduledTimer(
@@ -167,32 +194,36 @@ class MapViewController: UIViewController, NotificatingViewController {
         }
     }
     
-    private func stopUpdatingLocation() {
-        locationManager.stopUpdatingLocation()
+    // MARK: - Notifications
+    
+    private func startUpdatingNotifications() {
+        notificationsTimer = Timer.scheduledTimer(
+            withTimeInterval: 2,
+            repeats: true
+        ) { [weak self] _ in
+            self?.updateNotifications()
+        }
     }
     
-    private func initFriends() {
-        addChild(friendsViewController)
-        view.addSubview(friendsViewController.view)
-        friendsViewController.view.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalToSuperview()
-            make.top.equalTo(view.snp.bottom).offset(-friendsBarHeight)
-            make.centerX.equalToSuperview()
-        }
-        friendsViewController.didMove(toParent: self)
+    private func stopUpdatingNotifications() {
+        notificationsTimer?.invalidate()
     }
     
-    private func zoomMapToUserLocation(animated: Bool = true) {
-        guard let userLocation = locationManager.location?.coordinate else {
-            return
+    private func updateNotifications() {
+        friendsService.getFriendshipRequests(type: .incoming) { [weak self] result in
+            switch result {
+            case .success(let friendshipRequests):
+                self?.handleNotifications(exist: !friendshipRequests.isEmpty)
+                
+            case .failure:
+                break
+            }
         }
-        let userViewRegion = MKCoordinateRegion(
-            center: userLocation,
-            latitudinalMeters: CLLocationDistance(mapZoomOffset),
-            longitudinalMeters: CLLocationDistance(mapZoomOffset)
-        )
-        map.setRegion(userViewRegion, animated: animated)
+    }
+    
+    private func handleNotifications(exist: Bool) {
+        print("exist: \(exist)")
+        notificationsButton.tintColor = exist ? .systemOrange : .systemGray
     }
 }
 

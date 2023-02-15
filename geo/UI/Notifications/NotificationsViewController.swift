@@ -27,6 +27,10 @@ class NotificationsViewController: UIViewController, NotificatingViewController 
         setupTable()
         setupRefreshControl()
         setupStyling()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         updateFriendshipRequests()
     }
