@@ -23,6 +23,11 @@ class ResetPasswordViewController: UIViewController, NotificatingViewController 
     
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Confirm password reset"
+    }
+    
     @IBAction private func passwordChanged(_ sender: UITextField) {
         verifyCreds()
     }

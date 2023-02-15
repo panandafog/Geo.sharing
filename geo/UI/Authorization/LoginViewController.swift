@@ -7,21 +7,25 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, NotificatingViewController {
+class LoginViewController: UIViewController, NotificatingViewController, PasswordResettingViewController {
     
     private let authorizationService = AuthorizationService.shared
     var successCompletion: (() -> Void)?
+    var parentNavigationController: UINavigationController?
     
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var submitButton: UIButton!
     @IBOutlet private var createAccountButton: UIButton!
+    @IBOutlet private var resetPasswordButton: UIButton!
     
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "LogIn"
+        navigationController?.navigationBar.prefersLargeTitles = true
         activityIndicator.stopAnimating()
         submitButton.isEnabled = false
     }
@@ -40,6 +44,17 @@ class LoginViewController: UIViewController, NotificatingViewController {
     
     @IBAction private func signupButtonTouched(_ sender: UIButton) {
         signUp()
+    }
+    
+    @IBAction private func resetPasswordButtonTouched(_ sender: UIButton) {
+        resetPassword { [weak self] in
+            if let vc = self {
+                self?.navigationController?.popToViewController(
+                    vc,
+                    animated: true
+                )
+            }
+        }
     }
     
     private func verifyCreds() {
@@ -80,12 +95,21 @@ class LoginViewController: UIViewController, NotificatingViewController {
         let signupViewController = UIViewController.instantiate(name: "SignupViewController") as! SignupViewController
         
         signupViewController.successCompletion = { [weak self] username in
-            signupViewController.dismiss(animated: true)
             DispatchQueue.main.async {
+                if let vc = self {
+                    self?.navigationController?.popToViewController(
+                        vc,
+                        animated: true
+                    )
+                }
                 self?.emailTextField.text = username
             }
         }
-        present(signupViewController, animated: true)
+        
+        navigationController?.pushViewController(
+            signupViewController,
+            animated: true
+        )
     }
     
     private func setControls(enabled: Bool) {
@@ -93,5 +117,6 @@ class LoginViewController: UIViewController, NotificatingViewController {
         emailTextField.isEnabled = enabled
         passwordTextField.isEnabled = enabled
         createAccountButton.isEnabled = enabled
+        resetPasswordButton.isEnabled = enabled
     }
 }

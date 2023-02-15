@@ -22,6 +22,11 @@ class EmailConfirmationViewController: UIViewController, NotificatingViewControl
     
     @IBOutlet private var submitButton: UIButton!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Confirm email address"
+    }
+    
     @IBAction private func codeChanged(_ sender: UITextField) {
         verifyCode()
     }

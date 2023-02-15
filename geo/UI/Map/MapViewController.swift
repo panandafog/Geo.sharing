@@ -35,6 +35,13 @@ class MapViewController: UIViewController, NotificatingViewController {
     private lazy var settingsViewController: SettingsViewController = {
         let viewController = UIViewController.instantiate(name: "SettingsViewController") as! SettingsViewController
         viewController.signOutHandler = { [weak self] in
+            if let vc = self {
+                self?.navigationController?.popToViewController(
+                    vc,
+                    animated: true
+                )
+            }
+            
             self?.stopUpdatingLocation()
             self?.stopUpdatingUsersAnnotations()
             self?.stopUpdatingNotifications()
@@ -57,6 +64,7 @@ class MapViewController: UIViewController, NotificatingViewController {
         
         setupMap()
         authorizeAndStart()
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @IBAction private func notificationsButtonTouched(_ sender: UIButton) {
@@ -104,8 +112,9 @@ class MapViewController: UIViewController, NotificatingViewController {
             return
         }
         
+        let navigationViewController = UINavigationController()
         let loginViewController = UIViewController.instantiate(name: "LoginViewController") as! LoginViewController
-        
+        loginViewController.parentNavigationController = navigationController
         loginViewController.isModalInPresentation = true
         loginViewController.successCompletion = { [weak self] in
             loginViewController.dismiss(animated: true)
@@ -113,8 +122,8 @@ class MapViewController: UIViewController, NotificatingViewController {
             self?.startUpdatingUsersAnnotations()
             self?.startUpdatingNotifications()
         }
-        
-        present(loginViewController, animated: true)
+        navigationViewController.viewControllers = [loginViewController]
+        present(navigationViewController, animated: true)
     }
     
     private func startUpdatingLocation() {

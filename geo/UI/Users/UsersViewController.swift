@@ -95,7 +95,6 @@ class UsersViewController: UIViewController, NotificatingViewController {
     
     private func setupStyling() {
         navigationItem.title = "People"
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func reloadTable() {

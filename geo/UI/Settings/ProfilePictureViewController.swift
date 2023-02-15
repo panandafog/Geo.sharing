@@ -36,7 +36,6 @@ class ProfilePictureViewController: UIViewController, NotificatingViewController
     
     private func setupStyling() {
         navigationItem.title = "Profile picture"
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func updateImage() {

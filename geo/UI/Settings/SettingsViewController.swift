@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, NotificatingViewController {
+class SettingsViewController: UIViewController, NotificatingViewController, PasswordResettingViewController {
     
     var signOutHandler: (() -> Void)?
     
@@ -15,17 +15,6 @@ class SettingsViewController: UIViewController, NotificatingViewController {
     
     private lazy var profilePictureViewController: ProfilePictureViewController = {
         UIViewController.instantiate(name: "ProfilePictureViewController") as! ProfilePictureViewController
-    }()
-    
-    private lazy var resetPasswordViewController: ResetPasswordViewController = {
-        let vc = UIViewController.instantiate(name: "ResetPasswordViewController") as! ResetPasswordViewController
-        vc.successCompletion = { [weak self] in
-            DispatchQueue.main.async {
-                vc.navigationController?.popViewController(animated: true)
-            }
-            self?.signOut()
-        }
-        return vc
     }()
     
     private lazy var settingGroups = [
@@ -50,17 +39,17 @@ class SettingsViewController: UIViewController, NotificatingViewController {
                 SettingsEntry(
                     kind: .password,
                     value: nil,
-                    action: { [weak self] in self?.resetPassword() }
+                    action: { [weak self] in self?.startResettingPassword() }
                 ),
                 SettingsEntry(
                     kind: .signOut,
                     value: nil,
-                    action: { [weak self] in self?.signOut() }
+                    action: { [weak self] in self?.signOutHandler?() }
                 )
             ]
         )
     ]
-    
+      
     @IBOutlet private var table: UITableView!
     
     override func viewDidLoad() {
@@ -85,7 +74,6 @@ class SettingsViewController: UIViewController, NotificatingViewController {
     
     private func setupStyling() {
         navigationItem.title = "Settings"
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func editProfilePicture() {
@@ -94,27 +82,10 @@ class SettingsViewController: UIViewController, NotificatingViewController {
         }
     }
     
-    private func resetPassword() {
-        authorizationService.requestPasswordChange { [weak self] result in
-            switch result {
-            case .success(()):
-                DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(
-                        self!.resetPasswordViewController,
-                        animated: true
-                    )
-                }
-            case .failure(let error):
-                self?.showErrorAlert(error)
-            }
+    private func startResettingPassword() {
+        resetPassword { [weak self] in
+            self?.signOutHandler?()
         }
-    }
-    
-    private func signOut() {
-        DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: true)
-        }
-        signOutHandler?()
     }
 }
 

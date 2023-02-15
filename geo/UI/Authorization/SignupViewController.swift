@@ -25,6 +25,7 @@ class SignupViewController: UIViewController, NotificatingViewController {
         super.viewDidLoad()
         
         activityIndicator.stopAnimating()
+        navigationItem.title = "SignUp"
     }
     
     @IBAction private func usernameChanged(_ sender: UITextField) {
@@ -75,10 +76,9 @@ class SignupViewController: UIViewController, NotificatingViewController {
                     emailConfirmationViewController.email = email
                     emailConfirmationViewController.signupResponse = signupResponse
                     emailConfirmationViewController.successCompletion = { [weak self] email in
-                        emailConfirmationViewController.dismiss(animated: true)
                         self?.successCompletion?(email)
                     }
-                    self?.present(emailConfirmationViewController, animated: true)
+                    self?.navigationController?.pushViewController(emailConfirmationViewController, animated: true)
                 }
             case .failure(let error):
                 self?.showErrorAlert(error)

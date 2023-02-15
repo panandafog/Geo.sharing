@@ -60,12 +60,6 @@
                                     <action selector="usernameChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="OM2-jk-X4l"/>
                                 </connections>
                             </textField>
-                            <navigationBar contentMode="scaleToFill" largeTitles="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uhm-h7-Cne">
-                                <rect key="frame" x="0.0" y="44" width="414" height="96"/>
-                                <items>
-                                    <navigationItem title="SingUp" id="z84-6X-5eZ"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -75,8 +69,6 @@
                             <constraint firstItem="a2a-cv-bQJ" firstAttribute="top" secondItem="CGB-Qg-Y1N" secondAttribute="bottom" constant="8" symbolic="YES" id="2ki-IF-kWi"/>
                             <constraint firstItem="IAe-LJ-aPc" firstAttribute="width" secondItem="YVj-hh-2M9" secondAttribute="width" id="4mI-Bd-BW6"/>
                             <constraint firstItem="ifU-r6-hjT" firstAttribute="top" secondItem="rqe-cZ-8Zh" secondAttribute="bottom" constant="8" symbolic="YES" id="7BX-TA-5eb"/>
-                            <constraint firstItem="uhm-h7-Cne" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="7bH-bg-kfZ"/>
-                            <constraint firstItem="uhm-h7-Cne" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="90q-40-oeM"/>
                             <constraint firstItem="IAe-LJ-aPc" firstAttribute="top" secondItem="YVj-hh-2M9" secondAttribute="bottom" constant="8" symbolic="YES" id="DnI-us-WUO"/>
                             <constraint firstItem="a2a-cv-bQJ" firstAttribute="width" secondItem="YVj-hh-2M9" secondAttribute="width" id="FWN-0W-tls"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="a2a-cv-bQJ" secondAttribute="trailing" constant="40" id="InD-dA-Xyv"/>
@@ -87,7 +79,6 @@
                             <constraint firstItem="ifU-r6-hjT" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="dPz-my-feA"/>
                             <constraint firstItem="CGB-Qg-Y1N" firstAttribute="top" secondItem="IAe-LJ-aPc" secondAttribute="bottom" constant="8" symbolic="YES" id="oHL-NN-hKG"/>
                             <constraint firstItem="rqe-cZ-8Zh" firstAttribute="top" secondItem="a2a-cv-bQJ" secondAttribute="bottom" constant="8" symbolic="YES" id="oT9-4z-Wrx"/>
-                            <constraint firstItem="uhm-h7-Cne" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="ufw-9j-qBf"/>
                             <constraint firstItem="a2a-cv-bQJ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="vpr-Io-n9T"/>
                             <constraint firstItem="CGB-Qg-Y1N" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="wTO-H8-jxm"/>
                         </constraints>
