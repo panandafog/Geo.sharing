@@ -52,7 +52,7 @@ class ProfilePictureViewController: UIViewController, NotificatingViewController
             case .failure(let error):
                 self?.showErrorAlert(error)
                 DispatchQueue.main.async {
-                    self?.imageView.image = nil
+                    self?.imageView.image = UIImage.emptyProfilePicture
                 }
             }
         }

@@ -17,13 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cLz-WM-onG">
-                                <rect key="frame" x="62" y="213.66666666666666" width="290" height="289.66666666666674"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cLz-WM-onG">
+                                <rect key="frame" x="62" y="213.66666666666663" width="290" height="289.66666666666674"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="cLz-WM-onG" secondAttribute="height" multiplier="1:1" id="Cfo-K5-XJm"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJC-3V-RH9">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJC-3V-RH9">
                                 <rect key="frame" x="145.66666666666666" y="543.33333333333337" width="122.99999999999997" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Select image"/>
@@ -36,14 +36,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="bJC-3V-RH9" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="0Jg-Z9-uOG"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cLz-WM-onG" secondAttribute="trailing" priority="250" id="5Pm-wS-Dhn"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cLz-WM-onG" secondAttribute="trailing" id="5Pm-wS-Dhn"/>
+                            <constraint firstItem="cLz-WM-onG" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.7" priority="250" id="L6k-NS-I9W"/>
                             <constraint firstItem="cLz-WM-onG" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.8" id="S9M-73-bBO"/>
                             <constraint firstItem="bJC-3V-RH9" firstAttribute="top" secondItem="cLz-WM-onG" secondAttribute="bottom" constant="40" id="STq-DJ-dpf"/>
                             <constraint firstItem="cLz-WM-onG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="UHS-nK-jBY"/>
-                            <constraint firstItem="cLz-WM-onG" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" priority="250" id="Vwd-Rq-fkW"/>
+                            <constraint firstItem="cLz-WM-onG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Vwd-Rq-fkW"/>
                             <constraint firstItem="cLz-WM-onG" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="XSH-aR-sJU"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="bJC-3V-RH9" secondAttribute="bottom" constant="10" id="egn-jC-kZQ"/>
-                            <constraint firstItem="cLz-WM-onG" firstAttribute="width" relation="lessThanOrEqual" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.7" id="mLb-bB-R7h"/>
+                            <constraint firstItem="cLz-WM-onG" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.7" priority="250" id="mLb-bB-R7h"/>
                         </constraints>
                     </view>
                     <connections>

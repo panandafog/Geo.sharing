@@ -28,6 +28,7 @@
 		0B51D8722989448000200B63 /* SearchedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B51D8712989448000200B63 /* SearchedUser.swift */; };
 		0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */; };
 		0B528D01299D2F3A00CA4A30 /* FriendCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528D00299D2F3A00CA4A30 /* FriendCalloutView.swift */; };
+		0B528D03299D45C200CA4A30 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528D02299D45C200CA4A30 /* UIImage+Extensions.swift */; };
 		0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B07297F006A00E9806A /* Secrets.swift */; };
 		0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B09297F00B600E9806A /* Endpoints.swift */; };
 		0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */; };
@@ -112,6 +113,7 @@
 		0B51D8712989448000200B63 /* SearchedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedUser.swift; sourceTree = "<group>"; };
 		0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableBackgroundView.swift; sourceTree = "<group>"; };
 		0B528D00299D2F3A00CA4A30 /* FriendCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCalloutView.swift; sourceTree = "<group>"; };
+		0B528D02299D45C200CA4A30 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		0B5A0B07297F006A00E9806A /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0B5A0B09297F00B600E9806A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAnnotationView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */,
 				0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */,
 				0BE07F7E2993D7BB0040CECA /* String+Extensions.swift */,
+				0B528D02299D45C200CA4A30 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */,
 				0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */,
 				0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */,
+				0B528D03299D45C200CA4A30 /* UIImage+Extensions.swift in Sources */,
 				0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */,
 				0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */,
 				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,
