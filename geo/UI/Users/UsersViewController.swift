@@ -144,6 +144,30 @@ class UsersViewController: UIViewController, NotificatingViewController {
         tableBackgroundView.setup(title: tableBackgroundViewTitle)
     }
     
+    private func addFriendAction(user: User) -> UserTableCell.UserAction {
+        UserTableCell.UserAction(
+            actionType: .addFriend
+        ) { [weak self] _ in
+            self?.addFriend(user: user)
+        }
+    }
+    
+    private func removeFriendAction(friendship: Friendship) -> UserTableCell.UserAction {
+        UserTableCell.UserAction(
+            actionType: .removeFriend
+        ) { [weak self] _ in
+            self?.removeFriend(friendship: friendship)
+        }
+    }
+    
+    private func deleteRequestAction(friendshipRequest: FriendshipRequest) -> UserTableCell.UserAction {
+        UserTableCell.UserAction(
+            actionType: .deleteRequest
+        ) { [weak self] _ in
+            self?.deleteRequest(friendshipRequest: friendshipRequest)
+        }
+    }
+    
     private func addFriend(user: User) {
         friendsService.sendFriendshipRequest(recipientID: user.id) { result in
             switch result {
@@ -190,7 +214,7 @@ class UsersViewController: UIViewController, NotificatingViewController {
     }
     
     @objc private func refresh(_ sender: AnyObject) {
-       reloadTable()
+        reloadTable()
     }
 }
 
@@ -220,24 +244,35 @@ extension UsersViewController: UITableViewDataSource {
         
         switch categoryToShow {
         case .friends:
-            cell.setup(
-                friendship: friendships[indexPath.row],
-                removeFriendHandler: { [weak self] friendship in
-                    self?.removeFriend(friendship: friendship)
-                }
-            )
+            let friendship = friendships[indexPath.row]
+            if let user = friendship.user {
+                cell.setup(
+                    userTableData: .init(
+                        user: user,
+                        actions: [
+                            removeFriendAction(friendship: friendship)
+                        ]
+                    )
+                )
+            }
         case .usersSearch:
+            let searchedUser = searchResults[indexPath.row]
+            let user = searchedUser.user
+            
+            var actions: [UserTableCell.UserAction] = []
+            if let friendship = searchedUser.friendship {
+                actions.append(removeFriendAction(friendship: friendship))
+            } else if let friendshipRequest = searchedUser.friendshipRequest {
+                actions.append(deleteRequestAction(friendshipRequest: friendshipRequest))
+            } else {
+                actions.append(addFriendAction(user: user))
+            }
+            
             cell.setup(
-                searchedUser: searchResults[indexPath.row],
-                addFriendHandler: { [weak self] user in
-                    self?.addFriend(user: user)
-                },
-                removeFriendHandler: { [weak self] friendship in
-                    self?.removeFriend(friendship: friendship)
-                },
-                deleteRequestHandler: { [weak self] friendshipRequest in
-                    self?.deleteRequest(friendshipRequest: friendshipRequest)
-                }
+                userTableData: .init(
+                    user: user,
+                    actions: actions
+                )
             )
         }
         return cell
@@ -249,7 +284,7 @@ extension UsersViewController: UISearchResultsUpdating {
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
     }
-
+    
     func updateSearchResults(for searchController: UISearchController) {
         reloadTable()
     }

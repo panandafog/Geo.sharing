@@ -9,109 +9,60 @@ import UIKit
 
 class UserTableCell: UITableViewCell {
     
-    typealias AddFriendHandler = ((User) -> Void)
-    typealias RemoveFriendHandler = ((Friendship) -> Void)
-    typealias DeleteRequestHandler = ((FriendshipRequest) -> Void)
-    
-    private var addFriendHandler: AddFriendHandler?
-    private var removeFriendHandler: RemoveFriendHandler?
-    private var deleteRequestHandler: DeleteRequestHandler?
-    
-    private var searchedUser: SearchedUser?
-    private var friendship: Friendship?
-    private var actionType: ActionType?
+    private var userTableData: UserTableData?
     
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
     
-    @IBAction private func actionButtonTouched(_ sender: UIButton) {
-        switch actionType {
-        case .none:
-            break
-        case .some(let wrapped):
-            switch wrapped {
-            case .addFriend:
-                guard let user = searchedUser?.user else {
-                    break
-                }
-                addFriendHandler?(user)
-            case .removeFriend:
-                guard let friendship = friendship ?? searchedUser?.friendship else {
-                    break
-                }
-                removeFriendHandler?(friendship)
-            case .deleteRequest:
-                guard let friendshipRequest = searchedUser?.friendshipRequest else {
-                    break
-                }
-                deleteRequestHandler?(friendshipRequest)
-            }
-        }
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = "..."
-        
-        friendship = nil
-        searchedUser = nil
-        actionType = nil
-        
-        addFriendHandler = nil
-        removeFriendHandler = nil
-        deleteRequestHandler = nil
+        actionButton.menu = nil
     }
     
-    func setup(
-        searchedUser: SearchedUser,
-        addFriendHandler: @escaping AddFriendHandler,
-        removeFriendHandler: @escaping RemoveFriendHandler,
-        deleteRequestHandler: @escaping DeleteRequestHandler
-    ) {
-        self.searchedUser = searchedUser
-        self.addFriendHandler = addFriendHandler
-        self.removeFriendHandler = removeFriendHandler
-        self.deleteRequestHandler = deleteRequestHandler
-        
-        let action: ActionType
-        if searchedUser.friendship != nil {
-            action = .removeFriend
-        } else if searchedUser.friendshipRequest != nil {
-            action = .deleteRequest
-        } else {
-            action = .addFriend
-        }
-        
-        setup(user: searchedUser.user, action: action)
+    func setup(userTableData: UserTableData) {
+        self.userTableData = userTableData
+        setupLabel(user: userTableData.user)
+        setupMenu(userActions: userTableData.actions)
     }
     
-    func setup(friendship: Friendship, removeFriendHandler: @escaping RemoveFriendHandler) {
-        self.friendship = friendship
-        self.removeFriendHandler = removeFriendHandler
-        
-        let action = ActionType.removeFriend
-        if let user = friendship.user {
-            setup(user: user, action: action)
-        }
-    }
-    
-    private func setup(user: User, action: ActionType) {
+    private func setupLabel(user: User) {
         titleLabel.text = user.username
+    }
+    
+    private func setupMenu(userActions: [UserAction]) {
+        let uiActions: [UIAction] = userActions.map { userAction in
+            UIAction(
+                title: userAction.actionType.title,
+                image: userAction.actionType.image,
+                handler: userAction.action
+            )
+        }
         
-        actionButton.setTitle(action.buttonText, for: .normal)
-        actionButton.tintColor = action.buttonColor
-        
-        self.actionType = action
+        let menu = UIMenu(options: .displayInline, children: uiActions)
+        actionButton.menu = menu
+        actionButton.showsMenuAsPrimaryAction = true
     }
 }
 
 extension UserTableCell {
+    
+    struct UserTableData {
+        let user: User
+        let actions: [UserAction]
+    }
+    
+    struct UserAction {
+        let actionType: ActionType
+        let action: ((UIAction) -> Void)
+    }
+    
     enum ActionType {
         case addFriend
         case removeFriend
         case deleteRequest
         
-        var buttonText: String {
+        var title: String {
             switch self {
             case .addFriend:
                 return "Add friend"
@@ -122,7 +73,18 @@ extension UserTableCell {
             }
         }
         
-        var buttonColor: UIColor {
+        var image: UIImage? {
+            switch self {
+            case .addFriend:
+                return UIImage(systemName: "person.badge.plus")?.withTintColor(color, renderingMode: .alwaysOriginal)
+            case .removeFriend:
+                return UIImage(systemName: "person.fill.xmark.rtl")?.withTintColor(color, renderingMode: .alwaysOriginal)
+            case .deleteRequest:
+                return UIImage(systemName: "person.fill.xmark.rtl")?.withTintColor(color, renderingMode: .alwaysOriginal)
+            }
+        }
+        
+        var color: UIColor {
             switch self {
             case .addFriend:
                 return .tintColor

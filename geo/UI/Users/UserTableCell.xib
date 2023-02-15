@@ -22,12 +22,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3b1-hU-Vtc">
-                    <rect key="frame" x="281" y="20" width="75" height="35"/>
+                    <rect key="frame" x="308.33333333333331" y="20" width="47.666666666666686" height="35"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="tinted" title="Button"/>
-                    <connections>
-                        <action selector="actionButtonTouched:" destination="iN0-l3-epB" eventType="touchUpInside" id="Y4n-pQ-yTa"/>
-                    </connections>
+                    <buttonConfiguration key="configuration" style="tinted" image="ellipsis" catalog="system"/>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -50,6 +47,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
