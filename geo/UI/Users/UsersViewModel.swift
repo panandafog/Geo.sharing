@@ -49,8 +49,8 @@ class UsersViewModel {
         }
     }
     
-    func getCellData(indexPath: IndexPath) -> UserTableCell.UserTableData? {
-        var result: UserTableCell.UserTableData?
+    func getCellData(indexPath: IndexPath) -> UserTableCellViewModel? {
+        var result: UserTableCellViewModel?
         
         switch categoryToShow() {
         case .friends:
@@ -67,7 +67,7 @@ class UsersViewModel {
             let searchedUser = searchResults[indexPath.row]
             let user = searchedUser.user
             
-            var actions: [UserTableCell.UserAction] = []
+            var actions: [UserTableCellViewModel.Action] = []
             if let friendship = searchedUser.friendship {
                 actions.append(removeFriendAction(friendship: friendship))
             } else if let friendshipRequest = searchedUser.friendshipRequest {
@@ -153,24 +153,24 @@ class UsersViewModel {
         }
     }
     
-    private func addFriendAction(user: User) -> UserTableCell.UserAction {
-        UserTableCell.UserAction(
+    private func addFriendAction(user: User) -> UserTableCellViewModel.Action {
+        UserTableCellViewModel.Action(
             actionType: .addFriend
         ) { [weak self] _ in
             self?.addFriend(user: user)
         }
     }
     
-    private func removeFriendAction(friendship: Friendship) -> UserTableCell.UserAction {
-        UserTableCell.UserAction(
+    private func removeFriendAction(friendship: Friendship) -> UserTableCellViewModel.Action {
+        UserTableCellViewModel.Action(
             actionType: .removeFriend
         ) { [weak self] _ in
             self?.removeFriend(friendship: friendship)
         }
     }
     
-    private func deleteRequestAction(friendshipRequest: FriendshipRequest) -> UserTableCell.UserAction {
-        UserTableCell.UserAction(
+    private func deleteRequestAction(friendshipRequest: FriendshipRequest) -> UserTableCellViewModel.Action {
+        UserTableCellViewModel.Action(
             actionType: .deleteRequest
         ) { [weak self] _ in
             self?.deleteRequest(friendshipRequest: friendshipRequest)

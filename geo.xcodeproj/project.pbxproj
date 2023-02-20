@@ -20,6 +20,7 @@
 		0B1AE4C329A37FD300B4E4F7 /* AuthorizationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C229A37FD300B4E4F7 /* AuthorizationCoordinator.swift */; };
 		0B1AE4C629A38BB100B4E4F7 /* PasswordResetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */; };
 		0B1AE4C829A3BF5B00B4E4F7 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */; };
+		0B1AE4CA29A3FBAC00B4E4F7 /* UserTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C929A3FBAC00B4E4F7 /* UserTableCellViewModel.swift */; };
 		0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016D294E68C300EBE854 /* AppDelegate.swift */; };
 		0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016F294E68C300EBE854 /* SceneDelegate.swift */; };
 		0B400172294E68C300EBE854 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400171294E68C300EBE854 /* MapViewController.swift */; };
@@ -108,6 +109,7 @@
 		0B1AE4C229A37FD300B4E4F7 /* AuthorizationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinator.swift; sourceTree = "<group>"; };
 		0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetCoordinator.swift; sourceTree = "<group>"; };
 		0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
+		0B1AE4C929A3FBAC00B4E4F7 /* UserTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableCellViewModel.swift; sourceTree = "<group>"; };
 		0B40016A294E68C300EBE854 /* geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B40016D294E68C300EBE854 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B40016F294E68C300EBE854 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -391,11 +393,12 @@
 		0BC443EF2983FA4A00D31C15 /* Users */ = {
 			isa = PBXGroup;
 			children = (
+				0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */,
 				0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */,
 				0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */,
+				0B1AE4C929A3FBAC00B4E4F7 /* UserTableCellViewModel.swift */,
 				0BC443F02983FA5F00D31C15 /* UserTableCell.swift */,
 				0B00E69429842DAE0049DC49 /* UserTableCell.xib */,
-				0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -750,6 +753,7 @@
 				0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */,
 				0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */,
 				0BE07F812993D9350040CECA /* EmailConfirmationViewController.swift in Sources */,
+				0B1AE4CA29A3FBAC00B4E4F7 /* UserTableCellViewModel.swift in Sources */,
 				0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

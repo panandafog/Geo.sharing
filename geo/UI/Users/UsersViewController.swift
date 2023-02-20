@@ -10,18 +10,18 @@ import UIKit
 class UsersViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     lazy var viewModel = UsersViewModel(
-        reloadTableView: {
-            self.updateTable()
-            self.refreshControl.endRefreshing()
+        reloadTableView: { [weak self] in
+            self?.updateTable()
+            self?.refreshControl.endRefreshing()
         },
-        categoryToShow: {
-            self.categoryToShow
+        categoryToShow: { [weak self] in
+            self?.categoryToShow ?? .friends
         },
-        searchQuery: {
-            self.searchQuery
+        searchQuery: { [weak self] in
+            self?.searchQuery
         },
-        errorHandler: { error in
-            self.showErrorAlert(error)
+        errorHandler: { [weak self] error in
+            self?.showErrorAlert(error)
         }
     )
     
