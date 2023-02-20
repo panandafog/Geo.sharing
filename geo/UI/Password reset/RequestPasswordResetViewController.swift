@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol RequestPasswordReseViewControllerDelegate: class {
+public protocol RequestPasswordReseViewControllerDelegate: AnyObject {
     func confirmPasswordReset()
 }
 

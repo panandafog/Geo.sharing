@@ -7,9 +7,7 @@
 
 import UIKit
 
-import UIKit
-
-protocol BackFromPasswordResetViewControllerDelegate {
+protocol BackFromPasswordResetViewControllerDelegate: AnyObject {
     func navigateBackFromPasswordResetVC(childCoordinator: PasswordResetCoordinator)
 }
 
@@ -33,7 +31,6 @@ class PasswordResetCoordinator: Coordinator {
 extension PasswordResetCoordinator: RequestPasswordReseViewControllerDelegate {
     func confirmPasswordReset() {
         let vc = ResetPasswordViewController.instantiateFromStoryboard()
-        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
 }

@@ -7,9 +7,13 @@
 
 import UIKit
 
+public protocol SignupViewControllerDelegate: AnyObject {
+    func showEmailConfirmation()
+}
+
 class SignupViewController: UIViewController, Storyboarded, NotificatingViewController {
     
-    weak var coordinator: AuthorizationCoordinator?
+    weak var coordinator: SignupViewControllerDelegate?
     
     private let authorizationService = AuthorizationService.shared
     var successCompletion: ((String) -> Void)?

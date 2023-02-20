@@ -9,8 +9,6 @@ import UIKit
 
 class ResetPasswordViewController: UIViewController, Storyboarded, NotificatingViewController {
     
-    weak var coordinator: PasswordResetCoordinator?
-    
     private let authorizationService = AuthorizationService.shared
     private var code: Int? {
         Int(codeTextField.text ?? "")

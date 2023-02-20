@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol BackToParentViewControllerDelegate {
+protocol BackToParentViewControllerDelegate: AnyObject {
     func navigateBackToParentVC(childCoordinator: AuthorizationCoordinator)
 }
 
@@ -32,10 +32,29 @@ class AuthorizationCoordinator: Coordinator {
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
-    
+}
+
+extension AuthorizationCoordinator: SignupViewControllerDelegate {
     func showEmailConfirmation() {
         let vc = EmailConfirmationViewController.instantiateFromStoryboard()
-        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+extension AuthorizationCoordinator: LoginViewControllerDelegate {
+    func resetPassword() {
+        let passwordResetCoordinator = PasswordResetCoordinator(
+            navigationController: navigationController,
+            delegate: self
+        )
+        childCoordinators.append(passwordResetCoordinator)
+        passwordResetCoordinator.start()
+    }
+}
+
+extension AuthorizationCoordinator: BackFromPasswordResetViewControllerDelegate {
+    func navigateBackFromPasswordResetVC(childCoordinator: PasswordResetCoordinator) {
+        childCoordinator.navigationController.popToRootViewController(animated: true)
+        childCoordinators.removeLast()
     }
 }

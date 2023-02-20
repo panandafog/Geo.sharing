@@ -10,9 +10,16 @@ import MapKit
 import SnapKit
 import UIKit
 
+public protocol MapViewControllerDelegate: AnyObject {
+    func showNotifications()
+    func showSettings()
+    func showFriends()
+    func showAuthorization()
+}
+
 class MapViewController: UIViewController, Storyboarded, NotificatingViewController {
     
-    weak var coordinator: MainCoordinator?
+    weak var coordinator: MapViewControllerDelegate?
     
     private let locationManager = LocationManager.shared
     private let authorizationService = AuthorizationService.shared

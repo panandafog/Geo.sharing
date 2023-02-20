@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol SettingsViewControllerDelegate: class {
+public protocol SettingsViewControllerDelegate: AnyObject {
     func resetPassword()
     func showProfilePictureEdit()
 }

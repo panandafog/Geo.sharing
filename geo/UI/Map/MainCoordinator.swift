@@ -20,16 +20,23 @@ class MainCoordinator: Coordinator {
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
-    
+}
+
+extension MainCoordinator: BackToParentViewControllerDelegate {
+    func navigateBackToParentVC(childCoordinator: AuthorizationCoordinator) {
+        childCoordinator.navigationController.dismiss(animated: true)
+        childCoordinators.removeLast()
+    }
+}
+
+extension MainCoordinator: MapViewControllerDelegate {
     func showFriends() {
         let vc = UsersViewController.instantiateFromStoryboard()
-        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showNotifications() {
         let vc = NotificationsViewController.instantiateFromStoryboard()
-        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -52,21 +59,25 @@ class MainCoordinator: Coordinator {
     }
 }
 
-extension MainCoordinator: BackToParentViewControllerDelegate {
-    func navigateBackToParentVC(childCoordinator: AuthorizationCoordinator) {
-        childCoordinator.navigationController.dismiss(animated: true)
-        childCoordinators.removeLast()
-    }
-}
-
 extension MainCoordinator: SettingsViewControllerDelegate {
     func resetPassword() {
-        navigationController.popToRootViewController(animated: true)
+        let passwordResetCoordinator = PasswordResetCoordinator(
+            navigationController: navigationController,
+            delegate: self
+        )
+        childCoordinators.append(passwordResetCoordinator)
+        passwordResetCoordinator.start()
     }
     
     func showProfilePictureEdit() {
         let vc = ProfilePictureViewController.instantiateFromStoryboard()
-        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+extension MainCoordinator: BackFromPasswordResetViewControllerDelegate {
+    func navigateBackFromPasswordResetVC(childCoordinator: PasswordResetCoordinator) {
+        childCoordinator.navigationController.popToRootViewController(animated: true)
+        childCoordinators.removeLast()
     }
 }
