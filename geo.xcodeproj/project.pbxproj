@@ -19,6 +19,7 @@
 		0B1AE4C129A3742A00B4E4F7 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C029A3742A00B4E4F7 /* Storyboarded.swift */; };
 		0B1AE4C329A37FD300B4E4F7 /* AuthorizationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C229A37FD300B4E4F7 /* AuthorizationCoordinator.swift */; };
 		0B1AE4C629A38BB100B4E4F7 /* PasswordResetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */; };
+		0B1AE4C829A3BF5B00B4E4F7 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */; };
 		0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016D294E68C300EBE854 /* AppDelegate.swift */; };
 		0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016F294E68C300EBE854 /* SceneDelegate.swift */; };
 		0B400172294E68C300EBE854 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400171294E68C300EBE854 /* MapViewController.swift */; };
@@ -106,6 +107,7 @@
 		0B1AE4C029A3742A00B4E4F7 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		0B1AE4C229A37FD300B4E4F7 /* AuthorizationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinator.swift; sourceTree = "<group>"; };
 		0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetCoordinator.swift; sourceTree = "<group>"; };
+		0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		0B40016A294E68C300EBE854 /* geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B40016D294E68C300EBE854 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B40016F294E68C300EBE854 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 				0BD2DEC82981582B00CCAF28 /* UsersViewController.storyboard */,
 				0BC443F02983FA5F00D31C15 /* UserTableCell.swift */,
 				0B00E69429842DAE0049DC49 /* UserTableCell.xib */,
+				0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 				0B00E6A02988695B0049DC49 /* FriendsService.swift in Sources */,
 				0BE75A8929830EDB00439A71 /* User.swift in Sources */,
 				0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */,
+				0B1AE4C829A3BF5B00B4E4F7 /* UsersViewModel.swift in Sources */,
 				0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */,
 				0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */,
 				0B1AE4C629A38BB100B4E4F7 /* PasswordResetCoordinator.swift in Sources */,
