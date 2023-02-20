@@ -36,7 +36,6 @@ class LocationManager: NSObject, ObservableObject {
         super.init()
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.showsBackgroundLocationIndicator = true
         locationManager.pausesLocationUpdatesAutomatically = false
     }
     

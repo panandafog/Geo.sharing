@@ -14,6 +14,11 @@
 		0B00E69E298869030049DC49 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B00E69D298869030049DC49 /* NotificationCell.xib */; };
 		0B00E6A02988695B0049DC49 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B00E69F2988695B0049DC49 /* FriendsService.swift */; };
 		0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B00E6A129886A6E0049DC49 /* ApiService.swift */; };
+		0B1AE4BD29A36B9600B4E4F7 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4BC29A36B9600B4E4F7 /* MainCoordinator.swift */; };
+		0B1AE4BF29A36BA200B4E4F7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4BE29A36BA200B4E4F7 /* Coordinator.swift */; };
+		0B1AE4C129A3742A00B4E4F7 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C029A3742A00B4E4F7 /* Storyboarded.swift */; };
+		0B1AE4C329A37FD300B4E4F7 /* AuthorizationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C229A37FD300B4E4F7 /* AuthorizationCoordinator.swift */; };
+		0B1AE4C629A38BB100B4E4F7 /* PasswordResetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */; };
 		0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016D294E68C300EBE854 /* AppDelegate.swift */; };
 		0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016F294E68C300EBE854 /* SceneDelegate.swift */; };
 		0B400172294E68C300EBE854 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400171294E68C300EBE854 /* MapViewController.swift */; };
@@ -31,7 +36,6 @@
 		0B528D03299D45C200CA4A30 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528D02299D45C200CA4A30 /* UIImage+Extensions.swift */; };
 		0B528D05299D477500CA4A30 /* RequestPasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528D04299D477500CA4A30 /* RequestPasswordResetViewController.swift */; };
 		0B528D08299D479F00CA4A30 /* RequestPasswordResetViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B528D07299D479F00CA4A30 /* RequestPasswordResetViewController.storyboard */; };
-		0B528D0A299D94C900CA4A30 /* PasswordResettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B528D09299D94C900CA4A30 /* PasswordResettingViewController.swift */; };
 		0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B07297F006A00E9806A /* Secrets.swift */; };
 		0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B09297F00B600E9806A /* Endpoints.swift */; };
 		0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */; };
@@ -98,6 +102,11 @@
 		0B00E69D298869030049DC49 /* NotificationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
 		0B00E69F2988695B0049DC49 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
 		0B00E6A129886A6E0049DC49 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		0B1AE4BC29A36B9600B4E4F7 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		0B1AE4BE29A36BA200B4E4F7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		0B1AE4C029A3742A00B4E4F7 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
+		0B1AE4C229A37FD300B4E4F7 /* AuthorizationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinator.swift; sourceTree = "<group>"; };
+		0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetCoordinator.swift; sourceTree = "<group>"; };
 		0B40016A294E68C300EBE854 /* geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B40016D294E68C300EBE854 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B40016F294E68C300EBE854 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,7 +128,6 @@
 		0B528D02299D45C200CA4A30 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		0B528D04299D477500CA4A30 /* RequestPasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetViewController.swift; sourceTree = "<group>"; };
 		0B528D07299D479F00CA4A30 /* RequestPasswordResetViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestPasswordResetViewController.storyboard; sourceTree = "<group>"; };
-		0B528D09299D94C900CA4A30 /* PasswordResettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResettingViewController.swift; sourceTree = "<group>"; };
 		0B5A0B07297F006A00E9806A /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		0B5A0B09297F00B600E9806A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAnnotationView.swift; sourceTree = "<group>"; };
@@ -204,6 +212,18 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		0B1AE4C429A38B8D00B4E4F7 /* Password reset */ = {
+			isa = PBXGroup;
+			children = (
+				0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */,
+				0B528D04299D477500CA4A30 /* RequestPasswordResetViewController.swift */,
+				0B528D07299D479F00CA4A30 /* RequestPasswordResetViewController.storyboard */,
+				0BB0A0602991C53600AB48DD /* ResetPasswordViewController.swift */,
+				0BB0A0622991C54B00AB48DD /* ResetPasswordViewController.storyboard */,
+			);
+			path = "Password reset";
+			sourceTree = "<group>";
+		};
 		0B400161294E68C300EBE854 = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +302,7 @@
 		0B70166C298C3D7F00E0E353 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				0B1AE4BC29A36B9600B4E4F7 /* MainCoordinator.swift */,
 				0B70166D298C3DA300E0E353 /* Annotations */,
 				0B400171294E68C300EBE854 /* MapViewController.swift */,
 				0B400173294E68C300EBE854 /* MapViewController.storyboard */,
@@ -308,10 +329,6 @@
 				0BB0A05A2991A2B900AB48DD /* SettingsCell.xib */,
 				0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */,
 				0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */,
-				0B528D04299D477500CA4A30 /* RequestPasswordResetViewController.swift */,
-				0B528D07299D479F00CA4A30 /* RequestPasswordResetViewController.storyboard */,
-				0BB0A0602991C53600AB48DD /* ResetPasswordViewController.swift */,
-				0BB0A0622991C54B00AB48DD /* ResetPasswordViewController.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -331,14 +348,16 @@
 		0BC08A4029798DE00026BA27 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				0B1AE4BE29A36BA200B4E4F7 /* Coordinator.swift */,
+				0B1AE4C029A3742A00B4E4F7 /* Storyboarded.swift */,
 				0BC08A4129798DEC0026BA27 /* Authorization */,
 				0B70166C298C3D7F00E0E353 /* Map */,
 				0B00E696298866CA0049DC49 /* Notifications */,
 				0BB0A05329919C4E00AB48DD /* Settings */,
+				0B1AE4C429A38B8D00B4E4F7 /* Password reset */,
 				0BC443EF2983FA4A00D31C15 /* Users */,
 				0BB60E6F29991C590065AECB /* NotificatingViewController.swift */,
 				0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */,
-				0B528D09299D94C900CA4A30 /* PasswordResettingViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -346,6 +365,7 @@
 		0BC08A4129798DEC0026BA27 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
+				0B1AE4C229A37FD300B4E4F7 /* AuthorizationCoordinator.swift */,
 				0BC08A4229798E090026BA27 /* SignupViewController.swift */,
 				0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */,
 				0BC08A4429798E1A0026BA27 /* LoginViewController.swift */,
@@ -685,7 +705,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B1AE4C129A3742A00B4E4F7 /* Storyboarded.swift in Sources */,
 				0B528D01299D2F3A00CA4A30 /* FriendCalloutView.swift in Sources */,
+				0B1AE4C329A37FD300B4E4F7 /* AuthorizationCoordinator.swift in Sources */,
 				0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */,
 				0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */,
 				0B51D8722989448000200B63 /* SearchedUser.swift in Sources */,
@@ -702,6 +724,7 @@
 				0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */,
 				0BB60E722999202A0065AECB /* ErrorResponse.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
+				0B1AE4BD29A36B9600B4E4F7 /* MainCoordinator.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,
 				0BE07F7F2993D7BB0040CECA /* String+Extensions.swift in Sources */,
 				0B00E69C298868F30049DC49 /* NotificationCell.swift in Sources */,
@@ -712,6 +735,7 @@
 				0BB0A05D2991C4F900AB48DD /* ProfilePictureViewController.swift in Sources */,
 				0BB0A0592991A2AD00AB48DD /* SettingsCell.swift in Sources */,
 				0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */,
+				0B1AE4BF29A36BA200B4E4F7 /* Coordinator.swift in Sources */,
 				0B00E698298866DF0049DC49 /* NotificationsViewController.swift in Sources */,
 				0BC08A4529798E1A0026BA27 /* LoginViewController.swift in Sources */,
 				0B00E6A02988695B0049DC49 /* FriendsService.swift in Sources */,
@@ -719,6 +743,7 @@
 				0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */,
 				0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */,
 				0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */,
+				0B1AE4C629A38BB100B4E4F7 /* PasswordResetCoordinator.swift in Sources */,
 				0BE07F7D2992F0830040CECA /* ImagesService.swift in Sources */,
 				0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */,
 				0BE75A90298321CB00439A71 /* UsersService.swift in Sources */,
@@ -726,7 +751,6 @@
 				0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */,
 				0BE07F812993D9350040CECA /* EmailConfirmationViewController.swift in Sources */,
 				0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */,
-				0B528D0A299D94C900CA4A30 /* PasswordResettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,7 +936,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs permission to receive your geolocation in order to share it with your friends";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = MapViewController;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -945,7 +969,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs permission to receive your geolocation in order to share it with your friends";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = MapViewController;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

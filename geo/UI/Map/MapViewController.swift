@@ -10,7 +10,9 @@ import MapKit
 import SnapKit
 import UIKit
 
-class MapViewController: UIViewController, NotificatingViewController {
+class MapViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: MainCoordinator?
     
     private let locationManager = LocationManager.shared
     private let authorizationService = AuthorizationService.shared
@@ -24,34 +26,28 @@ class MapViewController: UIViewController, NotificatingViewController {
     private var annotationsTimer: Timer?
     private var notificationsTimer: Timer?
     
-    private lazy var friendsViewController: UsersViewController = {
-        UIViewController.instantiate(name: "UsersViewController") as! UsersViewController
-    }()
-    
-    private lazy var notificationsViewController: NotificationsViewController = {
-        UIViewController.instantiate(name: "NotificationsViewController") as! NotificationsViewController
-    }()
-    
-    private lazy var settingsViewController: SettingsViewController = {
-        let viewController = UIViewController.instantiate(name: "SettingsViewController") as! SettingsViewController
-        viewController.signOutHandler = { [weak self] in
-            if let vc = self {
-                self?.navigationController?.popToViewController(
-                    vc,
-                    animated: true
-                )
-            }
-            
-            self?.stopUpdatingLocation()
-            self?.stopUpdatingUsersAnnotations()
-            self?.stopUpdatingNotifications()
-            
-            self?.removeAllUsersAnnotations()
-            self?.authorizationService.signOut()
-            self?.authorizeAndStart()
-        }
-        return viewController
-    }()
+//    private lazy var settingsViewController: SettingsViewController = {
+//        let viewController = UIViewController.instantiate(name: "SettingsViewController") as! SettingsViewController
+        
+        // TODO: handle signout
+//        viewController.signOutHandler = { [weak self] in
+//            if let vc = self {
+//                self?.navigationController?.popToViewController(
+//                    vc,
+//                    animated: true
+//                )
+//            }
+//
+//            self?.stopUpdatingLocation()
+//            self?.stopUpdatingUsersAnnotations()
+//            self?.stopUpdatingNotifications()
+//
+//            self?.removeAllUsersAnnotations()
+//            self?.authorizationService.signOut()
+//            self?.authorizeAndStart()
+//        }
+//        return viewController
+//    }()
     
     @IBOutlet private var map: MKMapView!
     @IBOutlet private var notificationsButton: UIButton!
@@ -68,15 +64,15 @@ class MapViewController: UIViewController, NotificatingViewController {
     }
     
     @IBAction private func notificationsButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(notificationsViewController, animated: true)
+        coordinator?.showNotifications()
     }
     
     @IBAction private func settingsButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(settingsViewController, animated: true)
+        coordinator?.showSettings()
     }
     
     @IBAction private func usersButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(friendsViewController, animated: true)
+        coordinator?.showFriends()
     }
     
     @IBAction private func mylocationButtonTouched(_ sender: UIButton) {
@@ -112,18 +108,21 @@ class MapViewController: UIViewController, NotificatingViewController {
             return
         }
         
-        let navigationViewController = UINavigationController()
-        let loginViewController = UIViewController.instantiate(name: "LoginViewController") as! LoginViewController
-        loginViewController.parentNavigationController = navigationController
-        loginViewController.isModalInPresentation = true
-        loginViewController.successCompletion = { [weak self] in
-            loginViewController.dismiss(animated: true)
-            self?.startUpdatingLocation()
-            self?.startUpdatingUsersAnnotations()
-            self?.startUpdatingNotifications()
-        }
-        navigationViewController.viewControllers = [loginViewController]
-        present(navigationViewController, animated: true)
+        coordinator?.showAuthorization()
+        
+//        let navigationViewController = UINavigationController()
+//        let loginViewController = UIViewController.instantiate(name: "LoginViewController") as! LoginViewController
+//        loginViewController.parentNavigationController = navigationController
+//        loginViewController.isModalInPresentation = true
+        // TODO: handle success
+//        loginViewController.successCompletion = { [weak self] in
+//            loginViewController.dismiss(animated: true)
+//            self?.startUpdatingLocation()
+//            self?.startUpdatingUsersAnnotations()
+//            self?.startUpdatingNotifications()
+//        }
+//        navigationViewController.viewControllers = [loginViewController]
+//        present(navigationViewController, animated: true)
     }
     
     private func startUpdatingLocation() {

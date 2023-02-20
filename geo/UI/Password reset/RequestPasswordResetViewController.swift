@@ -7,17 +7,17 @@
 
 import UIKit
 
-class RequestPasswordResetViewController: UIViewController, NotificatingViewController {
+public protocol RequestPasswordReseViewControllerDelegate: class {
+    func confirmPasswordReset()
+}
+
+class RequestPasswordResetViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     private let authorizationService = AuthorizationService.shared
     
-    var successCompletion: (() -> Void)?
+    weak var coordinator: RequestPasswordReseViewControllerDelegate?
     
-    private lazy var resetPasswordViewController: ResetPasswordViewController = {
-        let vc = UIViewController.instantiate(name: "ResetPasswordViewController") as! ResetPasswordViewController
-        vc.successCompletion = self.successCompletion
-        return vc
-    }()
+    var successCompletion: (() -> Void)?
     
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var confirmationButton: UIButton!
@@ -56,10 +56,7 @@ class RequestPasswordResetViewController: UIViewController, NotificatingViewCont
             switch result {
             case .success(()):
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(
-                        self!.resetPasswordViewController,
-                        animated: true
-                    )
+                    self?.coordinator?.confirmPasswordReset()
                 }
             case .failure(let error):
                 self?.showErrorAlert(error)

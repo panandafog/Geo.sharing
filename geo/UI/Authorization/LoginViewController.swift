@@ -7,7 +7,14 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, NotificatingViewController, PasswordResettingViewController {
+public protocol LoginViewControllerDelegate: class {
+    func resetPassword()
+    func showSignUp()
+}
+
+class LoginViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: LoginViewControllerDelegate?
     
     private let authorizationService = AuthorizationService.shared
     var successCompletion: (() -> Void)?
@@ -47,14 +54,7 @@ class LoginViewController: UIViewController, NotificatingViewController, Passwor
     }
     
     @IBAction private func resetPasswordButtonTouched(_ sender: UIButton) {
-        resetPassword { [weak self] in
-            if let vc = self {
-                self?.navigationController?.popToViewController(
-                    vc,
-                    animated: true
-                )
-            }
-        }
+        coordinator?.resetPassword()
     }
     
     private func verifyCreds() {
@@ -92,24 +92,20 @@ class LoginViewController: UIViewController, NotificatingViewController, Passwor
     }
     
     private func signUp() {
-        let signupViewController = UIViewController.instantiate(name: "SignupViewController") as! SignupViewController
+        coordinator?.showSignUp()
         
-        signupViewController.successCompletion = { [weak self] username in
-            DispatchQueue.main.async {
-                if let vc = self {
-                    self?.navigationController?.popToViewController(
-                        vc,
-                        animated: true
-                    )
-                }
-                self?.emailTextField.text = username
-            }
-        }
-        
-        navigationController?.pushViewController(
-            signupViewController,
-            animated: true
-        )
+        // TODO: handle success
+//        signupViewController.successCompletion = { [weak self] username in
+//            DispatchQueue.main.async {
+//                if let vc = self {
+//                    self?.navigationController?.popToViewController(
+//                        vc,
+//                        animated: true
+//                    )
+//                }
+//                self?.emailTextField.text = username
+//            }
+//        }
     }
     
     private func setControls(enabled: Bool) {

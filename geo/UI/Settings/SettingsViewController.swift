@@ -7,15 +7,18 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, NotificatingViewController, PasswordResettingViewController {
+public protocol SettingsViewControllerDelegate: class {
+    func resetPassword()
+    func showProfilePictureEdit()
+}
+
+class SettingsViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: SettingsViewControllerDelegate?
     
     var signOutHandler: (() -> Void)?
     
     private let authorizationService = AuthorizationService.shared
-    
-    private lazy var profilePictureViewController: ProfilePictureViewController = {
-        UIViewController.instantiate(name: "ProfilePictureViewController") as! ProfilePictureViewController
-    }()
     
     private lazy var settingGroups = [
         SettingsGroup(
@@ -77,15 +80,16 @@ class SettingsViewController: UIViewController, NotificatingViewController, Pass
     }
     
     private func editProfilePicture() {
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(self.profilePictureViewController, animated: true)
-        }
+        coordinator?.showProfilePictureEdit()
     }
     
     private func startResettingPassword() {
-        resetPassword { [weak self] in
-            self?.signOutHandler?()
-        }
+        coordinator?.resetPassword()
+        
+        // TODO: handle signout
+    //        resetPassword { [weak self] in
+    //            self?.signOutHandler?()
+    //        }
     }
 }
 

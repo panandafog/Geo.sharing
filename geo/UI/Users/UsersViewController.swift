@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UsersViewController: UIViewController, NotificatingViewController {
+class UsersViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     private let usersService = UsersService.self
     private let friendsService = FriendsService.self

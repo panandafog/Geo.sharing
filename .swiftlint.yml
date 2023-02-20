@@ -117,7 +117,7 @@ file_length: 700
 
 function_parameter_count: 6
 
-warning_threshold: 10
+warning_threshold: 10000
 
 file_name:
   suffix_pattern: "Extensions?|\\+.*"

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class ResetPasswordViewController: UIViewController, NotificatingViewController {
+class ResetPasswordViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: PasswordResetCoordinator?
     
     private let authorizationService = AuthorizationService.shared
     private var code: Int? {
@@ -65,7 +67,9 @@ class ResetPasswordViewController: UIViewController, NotificatingViewController 
             
             switch result {
             case .success(()):
-                self.successCompletion?()
+                break
+                // TODO: handle success
+//                self.successCompletion?()
             case .failure(let error):
                 self.showErrorAlert(error)
             }

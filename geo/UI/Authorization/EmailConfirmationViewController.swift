@@ -7,7 +7,9 @@
 
 import UIKit
 
-class EmailConfirmationViewController: UIViewController, NotificatingViewController {
+class EmailConfirmationViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: AuthorizationCoordinator?
     
     private let authorizationService = AuthorizationService.shared
     
