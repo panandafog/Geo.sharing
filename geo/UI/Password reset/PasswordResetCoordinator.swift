@@ -31,6 +31,13 @@ class PasswordResetCoordinator: Coordinator {
 extension PasswordResetCoordinator: RequestPasswordReseViewControllerDelegate {
     func confirmPasswordReset() {
         let vc = ResetPasswordViewController.instantiateFromStoryboard()
+        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+extension PasswordResetCoordinator: ResetPasswordViewControllerDelegate {
+    func handlePasswordResetCompletion() {
+        delegate.navigateBackFromPasswordResetVC(childCoordinator: self)
     }
 }

@@ -10,13 +10,12 @@ import UIKit
 public protocol SettingsViewControllerDelegate: AnyObject {
     func resetPassword()
     func showProfilePictureEdit()
+    func signOut()
 }
 
 class SettingsViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     weak var coordinator: SettingsViewControllerDelegate?
-    
-    var signOutHandler: (() -> Void)?
     
     private let authorizationService = AuthorizationService.shared
     
@@ -27,7 +26,7 @@ class SettingsViewController: UIViewController, Storyboarded, NotificatingViewCo
                 SettingsEntry(
                     kind: .profilePicture,
                     value: nil,
-                    action: { [weak self] in self?.editProfilePicture() }
+                    action: { [weak self] in self?.coordinator?.showProfilePictureEdit() }
                 ),
                 SettingsEntry(
                     kind: .username,
@@ -42,12 +41,12 @@ class SettingsViewController: UIViewController, Storyboarded, NotificatingViewCo
                 SettingsEntry(
                     kind: .password,
                     value: nil,
-                    action: { [weak self] in self?.startResettingPassword() }
+                    action: { [weak self] in self?.coordinator?.resetPassword() }
                 ),
                 SettingsEntry(
                     kind: .signOut,
                     value: nil,
-                    action: { [weak self] in self?.signOutHandler?() }
+                    action: { [weak self] in self?.coordinator?.signOut() }
                 )
             ]
         )
@@ -77,19 +76,6 @@ class SettingsViewController: UIViewController, Storyboarded, NotificatingViewCo
     
     private func setupStyling() {
         navigationItem.title = "Settings"
-    }
-    
-    private func editProfilePicture() {
-        coordinator?.showProfilePictureEdit()
-    }
-    
-    private func startResettingPassword() {
-        coordinator?.resetPassword()
-        
-        // TODO: handle signout
-    //        resetPassword { [weak self] in
-    //            self?.signOutHandler?()
-    //        }
     }
 }
 

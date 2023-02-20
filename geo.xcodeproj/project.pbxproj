@@ -58,7 +58,6 @@
 		0BC08A3F29798DD90026BA27 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */; };
 		0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4229798E090026BA27 /* SignupViewController.swift */; };
 		0BC08A4529798E1A0026BA27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4429798E1A0026BA27 /* LoginViewController.swift */; };
-		0BC08A4729798F5E0026BA27 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4629798F5E0026BA27 /* UIViewController+Extensions.swift */; };
 		0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC08A4929798FEE0026BA27 /* AuthorizationService.swift */; };
 		0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC443F02983FA5F00D31C15 /* UserTableCell.swift */; };
 		0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */; };
@@ -150,7 +149,6 @@
 		0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		0BC08A4229798E090026BA27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0BC08A4429798E1A0026BA27 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		0BC08A4629798F5E0026BA27 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		0BC08A4929798FEE0026BA27 /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
 		0BC443F02983FA5F00D31C15 /* UserTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableCell.swift; sourceTree = "<group>"; };
 		0BD2DEC62981575D00CCAF28 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
@@ -290,7 +288,6 @@
 		0B5A0B06297F003500E9806A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0BC08A4629798F5E0026BA27 /* UIViewController+Extensions.swift */,
 				0BB0A0642992D60600AB48DD /* MKMapView+Extensions.swift */,
 				0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */,
 				0BE07F7E2993D7BB0040CECA /* String+Extensions.swift */,
@@ -729,7 +726,6 @@
 				0BE07F7F2993D7BB0040CECA /* String+Extensions.swift in Sources */,
 				0B00E69C298868F30049DC49 /* NotificationCell.swift in Sources */,
 				0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */,
-				0BC08A4729798F5E0026BA27 /* UIViewController+Extensions.swift in Sources */,
 				0B528D05299D477500CA4A30 /* RequestPasswordResetViewController.swift in Sources */,
 				0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */,
 				0BB0A05D2991C4F900AB48DD /* ProfilePictureViewController.swift in Sources */,

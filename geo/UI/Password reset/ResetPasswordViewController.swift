@@ -7,14 +7,18 @@
 
 import UIKit
 
+public protocol ResetPasswordViewControllerDelegate: AnyObject {
+    func handlePasswordResetCompletion()
+}
+
 class ResetPasswordViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: ResetPasswordViewControllerDelegate?
     
     private let authorizationService = AuthorizationService.shared
     private var code: Int? {
         Int(codeTextField.text ?? "")
     }
-    
-    var successCompletion: (() -> Void)?
     
     @IBOutlet private var newPasswordTextField: UITextField!
     @IBOutlet private var passwordConfirmationTextField: UITextField!
@@ -26,6 +30,7 @@ class ResetPasswordViewController: UIViewController, Storyboarded, NotificatingV
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Confirm password reset"
+        isModalInPresentation = true
     }
     
     @IBAction private func passwordChanged(_ sender: UITextField) {
@@ -57,19 +62,18 @@ class ResetPasswordViewController: UIViewController, Storyboarded, NotificatingV
         else {
             return
         }
-        authorizationService.confirmPasswordChange(code: code, newPassword: newPassword) { result in
+        authorizationService.confirmPasswordChange(code: code, newPassword: newPassword) { [weak self] result in
             DispatchQueue.main.async {
-                self.setControls(enabled: true)
-                self.activityIndicator.stopAnimating()
+                self?.setControls(enabled: true)
+                self?.activityIndicator.stopAnimating()
             }
             
             switch result {
             case .success(()):
-                break
-                // TODO: handle success
-//                self.successCompletion?()
+                self?.authorizationService.signOut()
+                self?.coordinator?.handlePasswordResetCompletion()
             case .failure(let error):
-                self.showErrorAlert(error)
+                self?.showErrorAlert(error)
             }
         }
     }

@@ -7,13 +7,17 @@
 
 import UIKit
 
+protocol EmailConfirmationViewControllerDelegate: AnyObject {
+    func returnToLogin(email: String)
+}
+
 class EmailConfirmationViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: EmailConfirmationViewControllerDelegate?
     
     private let authorizationService = AuthorizationService.shared
     
-    var signupResponse: AuthorizationService.SignupResponse?
-    var email: String?
-    var successCompletion: ((String) -> Void)?
+    private var signupData: SignupData?
     var code: Int? {
         Int(codeTextField.text ?? "")
     }
@@ -25,6 +29,7 @@ class EmailConfirmationViewController: UIViewController, Storyboarded, Notificat
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Confirm email address"
+        isModalInPresentation = true
     }
     
     @IBAction private func codeChanged(_ sender: UITextField) {
@@ -32,20 +37,34 @@ class EmailConfirmationViewController: UIViewController, Storyboarded, Notificat
     }
     
     @IBAction private func submitButtonTouched(_ sender: UIButton) {
-        guard let code = code, let signupResponse = signupResponse, let email = email else {
+        guard let code = code,
+              let signupResponse = signupData?.signupResponse,
+              let email = signupData?.email else {
             return
         }
         authorizationService.verifyEmail(code: code, signupResponse: signupResponse) { [weak self] result in
             switch result {
             case .success:
-                self?.successCompletion?(email)
+                self?.coordinator?.returnToLogin(email: email)
             case .failure(let error):
                 self?.showErrorAlert(error)
             }
         }
     }
     
+    func setup(signupData: SignupData) {
+        self.signupData = signupData
+    }
+    
     private func verifyCode() {
         submitButton.isEnabled = String(code ?? 0).count == AuthorizationService.confirmationCodeLength
+    }
+}
+
+extension EmailConfirmationViewController {
+    
+    struct SignupData {
+        let email: String
+        let signupResponse: AuthorizationService.SignupResponse
     }
 }

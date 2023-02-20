@@ -11,6 +11,12 @@ class MainCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
+    private var rootVC: MapViewController? {
+        navigationController.viewControllers.first {
+            $0 as? MapViewController != nil
+        } as? MapViewController
+    }
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -22,10 +28,15 @@ class MainCoordinator: Coordinator {
     }
 }
 
-extension MainCoordinator: BackToParentViewControllerDelegate {
-    func navigateBackToParentVC(childCoordinator: AuthorizationCoordinator) {
+extension MainCoordinator: AuthorizationCoordinatorDelegate {
+    func handleLoginCompletion(childCoordinator: AuthorizationCoordinator) {
         childCoordinator.navigationController.dismiss(animated: true)
         childCoordinators.removeLast()
+        
+        guard let rootVC = rootVC else {
+            return
+        }
+        rootVC.handleLoginCompletion()
     }
 }
 
@@ -47,14 +58,15 @@ extension MainCoordinator: MapViewControllerDelegate {
     }
     
     func showAuthorization() {
+        print("showAuthorization")
         let authorizationNavigationController = UINavigationController()
         let authorizationCoordinator = AuthorizationCoordinator(
             navigationController: authorizationNavigationController,
             delegate: self
         )
         childCoordinators.append(authorizationCoordinator)
-        
         authorizationCoordinator.start()
+        
         navigationController.present(authorizationNavigationController, animated: true)
     }
 }
@@ -73,11 +85,19 @@ extension MainCoordinator: SettingsViewControllerDelegate {
         let vc = ProfilePictureViewController.instantiateFromStoryboard()
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func signOut() {
+        navigationController.popToRootViewController(animated: true)
+        guard let rootVC = rootVC else {
+            return
+        }
+        rootVC.handleSignoutCompletion()
+    }
 }
 
 extension MainCoordinator: BackFromPasswordResetViewControllerDelegate {
     func navigateBackFromPasswordResetVC(childCoordinator: PasswordResetCoordinator) {
-        childCoordinator.navigationController.popToRootViewController(animated: true)
         childCoordinators.removeLast()
+        signOut()
     }
 }

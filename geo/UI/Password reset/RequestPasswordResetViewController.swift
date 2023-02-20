@@ -17,17 +17,17 @@ class RequestPasswordResetViewController: UIViewController, Storyboarded, Notifi
     
     weak var coordinator: RequestPasswordReseViewControllerDelegate?
     
-    var successCompletion: (() -> Void)?
-    
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var confirmationButton: UIButton!
     
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         emailTextField.text = authorizationService.email
         navigationItem.title = "Reset password"
+        isModalInPresentation = true
         verifyCreds()
     }
     

@@ -10,6 +10,7 @@ import UIKit
 public protocol LoginViewControllerDelegate: AnyObject {
     func resetPassword()
     func showSignUp()
+    func handleLoginCompletion()
 }
 
 class LoginViewController: UIViewController, Storyboarded, NotificatingViewController {
@@ -17,8 +18,6 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
     weak var coordinator: LoginViewControllerDelegate?
     
     private let authorizationService = AuthorizationService.shared
-    var successCompletion: (() -> Void)?
-    var parentNavigationController: UINavigationController?
     
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
@@ -33,6 +32,8 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
         
         navigationItem.title = "LogIn"
         navigationController?.navigationBar.prefersLargeTitles = true
+        isModalInPresentation = true
+        
         activityIndicator.stopAnimating()
         submitButton.isEnabled = false
     }
@@ -55,6 +56,10 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
     
     @IBAction private func resetPasswordButtonTouched(_ sender: UIButton) {
         coordinator?.resetPassword()
+    }
+    
+    func handleSignupResult(email: String) {
+        emailTextField.text = email
     }
     
     private func verifyCreds() {
@@ -84,8 +89,10 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
             
             switch result {
             case .success:
-                self?.successCompletion?()
+                print("handle")
+                self?.coordinator?.handleLoginCompletion()
             case .failure(let error):
+                print("error \(error.localizedDescription)")
                 self?.showErrorAlert(error)
             }
         }
@@ -93,19 +100,6 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
     
     private func signUp() {
         coordinator?.showSignUp()
-        
-        // TODO: handle success
-//        signupViewController.successCompletion = { [weak self] username in
-//            DispatchQueue.main.async {
-//                if let vc = self {
-//                    self?.navigationController?.popToViewController(
-//                        vc,
-//                        animated: true
-//                    )
-//                }
-//                self?.emailTextField.text = username
-//            }
-//        }
     }
     
     private func setControls(enabled: Bool) {
