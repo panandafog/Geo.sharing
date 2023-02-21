@@ -21,7 +21,7 @@
 		0B1AE4C629A38BB100B4E4F7 /* PasswordResetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */; };
 		0B1AE4C829A3BF5B00B4E4F7 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */; };
 		0B1AE4CA29A3FBAC00B4E4F7 /* UserTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C929A3FBAC00B4E4F7 /* UserTableCellViewModel.swift */; };
-		0B2E3EC429A4B5A60016391D /* ParsingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E3EC329A4B5A60016391D /* ParsingHelper.swift */; };
+		0B2E3EC429A4B5A60016391D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E3EC329A4B5A60016391D /* DateHelper.swift */; };
 		0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016D294E68C300EBE854 /* AppDelegate.swift */; };
 		0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016F294E68C300EBE854 /* SceneDelegate.swift */; };
 		0B400172294E68C300EBE854 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400171294E68C300EBE854 /* MapViewController.swift */; };
@@ -111,7 +111,7 @@
 		0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetCoordinator.swift; sourceTree = "<group>"; };
 		0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		0B1AE4C929A3FBAC00B4E4F7 /* UserTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableCellViewModel.swift; sourceTree = "<group>"; };
-		0B2E3EC329A4B5A60016391D /* ParsingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingHelper.swift; sourceTree = "<group>"; };
+		0B2E3EC329A4B5A60016391D /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		0B40016A294E68C300EBE854 /* geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B40016D294E68C300EBE854 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B40016F294E68C300EBE854 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		0B2E3EC229A4B58F0016391D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0B2E3EC329A4B5A60016391D /* ParsingHelper.swift */,
+				0B2E3EC329A4B5A60016391D /* DateHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -737,7 +737,7 @@
 				0BB60E7029991C590065AECB /* NotificatingViewController.swift in Sources */,
 				0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */,
 				0BB60E722999202A0065AECB /* ErrorResponse.swift in Sources */,
-				0B2E3EC429A4B5A60016391D /* ParsingHelper.swift in Sources */,
+				0B2E3EC429A4B5A60016391D /* DateHelper.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
 				0B1AE4BD29A36B9600B4E4F7 /* MainCoordinator.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,

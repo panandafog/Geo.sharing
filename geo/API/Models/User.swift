@@ -14,7 +14,7 @@ struct User: Codable {
     
     var lastUpdateDate: Date? {
         if let lastUpdate = lastUpdate {
-            return DateHelper.dateFormatter.date(from: lastUpdate)
+            return DateHelper.apiDateFormatter.date(from: lastUpdate)
         }
         return nil
     }

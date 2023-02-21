@@ -12,7 +12,7 @@ class UserTableCell: UITableViewCell {
     private var viewModel: UserTableCellViewModel?
     
     @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet var subtitleLabel: UILabel!
+    @IBOutlet private var subtitleLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
     
     override func prepareForReuse() {
@@ -32,11 +32,27 @@ class UserTableCell: UITableViewCell {
         
         let dateString: String
         if let userDate = user.lastUpdateDate {
-            dateString = DateHelper.dateFormatter.string(from: userDate)
+            dateString = DateHelper.shortDisplayDateFormatter.string(from: userDate)
         } else {
             dateString = "–"
         }
-        subtitleLabel.text = "last seen: " + dateString
+        let subtitleStartString = "last seen: "
+        
+        let subtitleAttributedString = NSMutableAttributedString(
+            string: subtitleStartString,
+            attributes: [
+                .foregroundColor: UIColor.systemGray
+            ]
+        )
+        let dateAttributedString = NSAttributedString(
+            string: dateString,
+            attributes: [
+                .foregroundColor: UIColor.tintColor
+            ]
+        )
+        
+        subtitleAttributedString.append(dateAttributedString)
+        subtitleLabel.attributedText = subtitleAttributedString
     }
     
     private func setupMenu(userActions: [UserTableCellViewModel.Action]) {
