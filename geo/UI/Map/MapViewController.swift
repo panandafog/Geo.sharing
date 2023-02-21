@@ -33,6 +33,36 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     private var annotationsTimer: Timer?
     private var notificationsTimer: Timer?
     
+    private var zoomMapToUserEnabled: Bool {
+        get {
+            map.userTrackingMode != .none
+        }
+        set {
+            map.setUserTrackingMode(
+                newValue ? .follow : .none,
+                animated: true
+            )
+        }
+    }
+    
+    private let enabledLocationButtonConfiguration: UIButton.Configuration = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.image = UIImage(systemName: "location.fill")
+        return configuration
+    }()
+    private let disabledLocationButtonConfiguration: UIButton.Configuration = {
+        var configuration = UIButton.Configuration.tinted()
+        configuration.image = UIImage(systemName: "location.fill")
+        return configuration
+    }()
+    private var locationButtonConfiguration: UIButton.Configuration {
+        if zoomMapToUserEnabled {
+            return enabledLocationButtonConfiguration
+        } else {
+            return disabledLocationButtonConfiguration
+        }
+    }
+    
     @IBOutlet private var map: MKMapView!
     @IBOutlet private var notificationsButton: UIButton!
     @IBOutlet private var settingsButton: UIButton!
@@ -42,6 +72,7 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setLocationButtonConfiguration()
         setupMap()
         authorizeAndStart()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -60,7 +91,8 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     }
     
     @IBAction private func mylocationButtonTouched(_ sender: UIButton) {
-        zoomMapToUserLocation()
+        zoomMapToUserEnabled.toggle()
+        setLocationButtonConfiguration()
     }
     
     // MARK: - Event handlers
@@ -90,11 +122,18 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         zoomMapTo(latitude: latitude, longitude: longitude)
     }
     
+    // MARK: - UI
+    
+    private func setLocationButtonConfiguration() {
+        self.myLocationButton.configuration = locationButtonConfiguration
+    }
+    
     // MARK: - Map
     
     private func setupMap() {
         map.register(FriendAnnotationView.self, forAnnotationViewWithReuseIdentifier: "FriendAnnotationView")
         map.delegate = self
+        zoomMapToUserEnabled = true
     }
     
     private func zoomMapTo(latitude: Double, longitude: Double) {
@@ -260,5 +299,9 @@ extension MapViewController: MKMapViewDelegate {
 
         annotationView?.setupUI()
         return annotationView
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        setLocationButtonConfiguration()
     }
 }
