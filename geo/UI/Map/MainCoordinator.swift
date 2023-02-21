@@ -43,6 +43,7 @@ extension MainCoordinator: AuthorizationCoordinatorDelegate {
 extension MainCoordinator: MapViewControllerDelegate {
     func showFriends() {
         let vc = UsersViewController.instantiateFromStoryboard()
+        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -58,7 +59,6 @@ extension MainCoordinator: MapViewControllerDelegate {
     }
     
     func showAuthorization() {
-        print("showAuthorization")
         let authorizationNavigationController = UINavigationController()
         let authorizationCoordinator = AuthorizationCoordinator(
             navigationController: authorizationNavigationController,
@@ -99,5 +99,15 @@ extension MainCoordinator: BackFromPasswordResetViewControllerDelegate {
     func navigateBackFromPasswordResetVC(childCoordinator: PasswordResetCoordinator) {
         childCoordinators.removeLast()
         signOut()
+    }
+}
+
+extension MainCoordinator: UsersViewControllerDelegate {
+    func showOnMap(user: User) {
+        guard let rootVC = rootVC else {
+            return
+        }
+        navigationController.popToRootViewController(animated: true)
+        rootVC.show(user: user)
     }
 }

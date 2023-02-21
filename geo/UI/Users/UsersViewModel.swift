@@ -18,6 +18,7 @@ class UsersViewModel {
     var reloadTableView: (() -> Void)
     var categoryToShow: (() -> Category)
     var searchQuery: (() -> String?)
+    var showUserOnMap: ((User) -> Void)
     var errorHandler: ((RequestError) -> Void)
     
     var tableDataCount: Int {
@@ -33,11 +34,13 @@ class UsersViewModel {
         reloadTableView: @escaping (() -> Void),
         categoryToShow: @escaping (() -> Category),
         searchQuery: @escaping (() -> String?),
+        showUserOnMap: @escaping ((User) -> Void),
         errorHandler: @escaping ((RequestError) -> Void)
     ) {
         self.reloadTableView = reloadTableView
         self.categoryToShow = categoryToShow
         self.searchQuery = searchQuery
+        self.showUserOnMap = showUserOnMap
         self.errorHandler = errorHandler
     }
     
@@ -59,6 +62,7 @@ class UsersViewModel {
                 result = .init(
                     user: user,
                     actions: [
+                        showOnMapAction(user: user),
                         removeFriendAction(friendship: friendship)
                     ]
                 )
@@ -67,7 +71,9 @@ class UsersViewModel {
             let searchedUser = searchResults[indexPath.row]
             let user = searchedUser.user
             
-            var actions: [UserTableCellViewModel.Action] = []
+            var actions: [UserTableCellViewModel.Action] = [
+                showOnMapAction(user: user)
+            ]
             if let friendship = searchedUser.friendship {
                 actions.append(removeFriendAction(friendship: friendship))
             } else if let friendshipRequest = searchedUser.friendshipRequest {
@@ -158,6 +164,14 @@ class UsersViewModel {
             actionType: .addFriend
         ) { [weak self] _ in
             self?.addFriend(user: user)
+        }
+    }
+    
+    private func showOnMapAction(user: User) -> UserTableCellViewModel.Action {
+        UserTableCellViewModel.Action(
+            actionType: .showOnMap
+        ) { [weak self] _ in
+            self?.showUserOnMap(user)
         }
     }
     

@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol UsersViewControllerDelegate: AnyObject {
+    func showOnMap(user: User)
+}
+
 class UsersViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: UsersViewControllerDelegate?
     
     lazy var viewModel = UsersViewModel(
         reloadTableView: { [weak self] in
@@ -19,6 +25,9 @@ class UsersViewController: UIViewController, Storyboarded, NotificatingViewContr
         },
         searchQuery: { [weak self] in
             self?.searchQuery
+        },
+        showUserOnMap: { [weak self] user in
+            self?.coordinator?.showOnMap(user: user)
         },
         errorHandler: { [weak self] error in
             self?.showErrorAlert(error)
@@ -122,7 +131,7 @@ extension UsersViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableCell", for: indexPath) as! UserTableCell
         
         if let cellData = viewModel.getCellData(indexPath: indexPath) {
-            cell.setup(userTableData: cellData)
+            cell.setup(viewModel: cellData)
         }
         return cell
     }

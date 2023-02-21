@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UserTableCell" customModule="geo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="376" height="77"/>
+            <rect key="frame" x="0.0" y="0.0" width="376" height="134"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZs-M9-i9t">
@@ -26,6 +26,12 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="tinted" image="ellipsis" catalog="system"/>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ysd-je-Aib">
+                    <rect key="frame" x="30" y="56" width="31" height="14.333333333333329"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -34,16 +40,20 @@
                 <constraint firstItem="3b1-hU-Vtc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VZs-M9-i9t" secondAttribute="trailing" constant="20" id="9dW-AY-sef"/>
                 <constraint firstItem="VZs-M9-i9t" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="HME-Ck-Z3k"/>
                 <constraint firstItem="3b1-hU-Vtc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="T3z-te-Dwt"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="VZs-M9-i9t" secondAttribute="bottom" constant="20" id="bvP-RF-nHu"/>
+                <constraint firstItem="Ysd-je-Aib" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="TtN-ov-E5v"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ysd-je-Aib" secondAttribute="trailing" constant="20" id="WzO-Dh-PT4"/>
+                <constraint firstItem="Ysd-je-Aib" firstAttribute="top" secondItem="VZs-M9-i9t" secondAttribute="bottom" constant="15" id="aNJ-Sk-9Rx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ysd-je-Aib" secondAttribute="bottom" constant="20" id="bvP-RF-nHu"/>
                 <constraint firstItem="VZs-M9-i9t" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="oge-Ot-FRa"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="3b1-hU-Vtc" secondAttribute="bottom" constant="20" id="xW4-qU-gsd"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="actionButton" destination="3b1-hU-Vtc" id="BNe-yC-syp"/>
+                <outlet property="subtitleLabel" destination="Ysd-je-Aib" id="kyF-AV-5yf"/>
                 <outlet property="titleLabel" destination="VZs-M9-i9t" id="Wxz-nJ-Ed8"/>
             </connections>
-            <point key="canvasLocation" x="65.648854961832058" y="-252.46478873239437"/>
+            <point key="canvasLocation" x="65.648854961832058" y="-232.3943661971831"/>
         </view>
     </objects>
     <resources>

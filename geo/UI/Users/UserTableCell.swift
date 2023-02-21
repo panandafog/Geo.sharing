@@ -12,6 +12,7 @@ class UserTableCell: UITableViewCell {
     private var viewModel: UserTableCellViewModel?
     
     @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet var subtitleLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
     
     override func prepareForReuse() {
@@ -22,12 +23,20 @@ class UserTableCell: UITableViewCell {
     
     func setup(viewModel: UserTableCellViewModel) {
         self.viewModel = viewModel
-        setupLabel(user: viewModel.user)
+        setupLabels(user: viewModel.user)
         setupMenu(userActions: viewModel.actions)
     }
     
-    private func setupLabel(user: User) {
+    private func setupLabels(user: User) {
         titleLabel.text = user.username
+        
+        let dateString: String
+        if let userDate = user.lastUpdateDate {
+            dateString = DateHelper.dateFormatter.string(from: userDate)
+        } else {
+            dateString = "–"
+        }
+        subtitleLabel.text = "last seen: " + dateString
     }
     
     private func setupMenu(userActions: [UserTableCellViewModel.Action]) {

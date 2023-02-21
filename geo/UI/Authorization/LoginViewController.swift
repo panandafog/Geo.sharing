@@ -89,10 +89,8 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
             
             switch result {
             case .success:
-                print("handle")
                 self?.coordinator?.handleLoginCompletion()
             case .failure(let error):
-                print("error \(error.localizedDescription)")
                 self?.showErrorAlert(error)
             }
         }

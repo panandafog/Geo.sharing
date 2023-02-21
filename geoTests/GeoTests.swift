@@ -9,5 +9,4 @@
 import XCTest
 
 final class GeoTests: XCTestCase {
-
 }

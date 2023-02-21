@@ -10,7 +10,7 @@ import MapKit
 import SnapKit
 import UIKit
 
-public protocol MapViewControllerDelegate: AnyObject {
+protocol MapViewControllerDelegate: AnyObject {
     func showNotifications()
     func showSettings()
     func showFriends()
@@ -72,7 +72,6 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     }
     
     func handleSignoutCompletion() {
-        print("handleSignoutCompletion")
         stopUpdatingLocation()
         stopUpdatingUsersAnnotations()
         stopUpdatingNotifications()
@@ -82,6 +81,15 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         authorizeAndStart()
     }
     
+    func show(user: User) {
+        guard let latitude = user.latitude,
+              let longitude = user.longitude else {
+            return
+        }
+        
+        zoomMapTo(latitude: latitude, longitude: longitude)
+    }
+    
     // MARK: - Map
     
     private func setupMap() {
@@ -89,16 +97,27 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         map.delegate = self
     }
     
+    private func zoomMapTo(latitude: Double, longitude: Double) {
+        zoomMapTo(coordinate: .init(
+            latitude: latitude,
+            longitude: longitude
+        ))
+    }
+    
     private func zoomMapToUserLocation(animated: Bool = true) {
         guard let userLocation = locationManager.location?.coordinate else {
             return
         }
-        let userViewRegion = MKCoordinateRegion(
-            center: userLocation,
+        zoomMapTo(coordinate: userLocation, animated: animated)
+    }
+    
+    private func zoomMapTo(coordinate: CLLocationCoordinate2D, animated: Bool = true) {
+        let viewRegion = MKCoordinateRegion(
+            center: coordinate,
             latitudinalMeters: CLLocationDistance(mapZoomOffset),
             longitudinalMeters: CLLocationDistance(mapZoomOffset)
         )
-        map.setRegion(userViewRegion, animated: animated)
+        map.setRegion(viewRegion, animated: animated)
     }
     
     // MARK: - Location

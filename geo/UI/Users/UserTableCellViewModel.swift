@@ -20,12 +20,15 @@ extension UserTableCellViewModel {
     }
     
     enum ActionType {
+        case showOnMap
         case addFriend
         case removeFriend
         case deleteRequest
         
         var title: String {
             switch self {
+            case .showOnMap:
+                return "Show on map"
             case .addFriend:
                 return "Add friend"
             case .removeFriend:
@@ -37,6 +40,8 @@ extension UserTableCellViewModel {
         
         var image: UIImage? {
             switch self {
+            case .showOnMap:
+                return UIImage(systemName: "location.square")?.withTintColor(color, renderingMode: .alwaysOriginal)
             case .addFriend:
                 return UIImage(systemName: "person.badge.plus")?.withTintColor(color, renderingMode: .alwaysOriginal)
             case .removeFriend:
@@ -48,6 +53,8 @@ extension UserTableCellViewModel {
         
         var color: UIColor {
             switch self {
+            case .showOnMap:
+                return .tintColor
             case .addFriend:
                 return .tintColor
             case .removeFriend:
