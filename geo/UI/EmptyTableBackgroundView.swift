@@ -24,7 +24,7 @@ class EmptyTableBackgroundView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup(title: String) {
+    func setup(title: String?) {
         titleLabel.text = title
     }
 

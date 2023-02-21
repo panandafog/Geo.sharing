@@ -109,8 +109,17 @@ class UsersViewController: UIViewController, Storyboarded, NotificatingViewContr
     
     private func updateTable() {
         friendsTable.reloadData()
-        friendsTable.backgroundView?.isHidden = viewModel.tableDataCount > 0
-        tableBackgroundView.setup(title: tableBackgroundViewTitle)
+        
+        let backgroundViewTitle: String?
+        switch categoryToShow {
+        case .friends:
+            backgroundViewTitle = viewModel.friendshipsData.backgroundViewTitle
+        case .usersSearch:
+            backgroundViewTitle = viewModel.searchResults.backgroundViewTitle
+        }
+        
+        friendsTable.backgroundView?.isHidden = (backgroundViewTitle == nil)
+        tableBackgroundView.setup(title: backgroundViewTitle ?? "")
     }
     
     @objc private func refresh(_ sender: AnyObject) {
@@ -148,9 +157,38 @@ extension UsersViewController: UISearchResultsUpdating {
     }
 }
 
-extension UsersViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-//        guard let bar = searchController.searchBar.text, let scope = searchBar.scopeButtonTitles?[selectedScope]  else { return }
-//        filterContentForSearchText(bar, scope: scope)
-//    }
+extension UsersViewController: UISearchBarDelegate { }
+
+extension UsersViewModel.FriendshipsData {
+    var backgroundViewTitle: String? {
+        switch self.resultsType {
+        case .common:
+            return nil
+        case .error:
+            return nil
+        case .noFriends:
+            return "You don't have friends yet"
+        case .none:
+            return nil
+        }
+    }
+}
+
+extension UsersViewModel.SearchResults {
+    var backgroundViewTitle: String? {
+        switch self.resultsType {
+        case .success:
+            return nil
+        case .error:
+            return nil
+        case .usersNotFound:
+            return "Users not found"
+        case .searchQueryEmpty:
+            return "Type username to search"
+        case .searchQueryTooShort:
+            return "Type username to search"
+        case .none:
+            return nil
+        }
+    }
 }

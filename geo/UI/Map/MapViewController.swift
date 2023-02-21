@@ -29,7 +29,6 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     private let mapZoomOffset = 200
     private let friendsBarHeight = 20
     
-    private var cancellableBag = Set<AnyCancellable>()
     private var annotationsTimer: Timer?
     private var notificationsTimer: Timer?
     
@@ -72,8 +71,8 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setLocationButtonConfiguration()
         setupMap()
+        setLocationButtonConfiguration()
         authorizeAndStart()
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -174,20 +173,6 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     
     private func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
-        var zoomed = false
-        locationManager.$location.sink { newLocation in
-            DispatchQueue.main.async { [weak self] in
-                guard newLocation != nil else {
-                    return
-                }
-                
-                if !zoomed {
-                    self?.zoomMapToUserLocation()
-                    zoomed = true
-                }
-            }
-        }
-        .store(in: &cancellableBag)
     }
     
     private func stopUpdatingLocation() {

@@ -9,11 +9,13 @@ import Foundation
 
 class UsersViewModel {
     
+    private static let minQueryLength = 3
+    
     private let usersService = UsersService.self
     private let friendsService = FriendsService.self
     
-    private var friendships = [Friendship]()
-    private var searchResults = [SearchedUser]()
+    private (set) var friendshipsData = FriendshipsData(friendships: [], resultsType: .none)
+    private (set) var searchResults = SearchResults(foundUsers: [], resultsType: .none)
     
     var reloadTableView: (() -> Void)
     var categoryToShow: (() -> Category)
@@ -24,9 +26,9 @@ class UsersViewModel {
     var tableDataCount: Int {
         switch categoryToShow() {
         case .friends:
-            return friendships.count
+            return friendshipsData.friendships.count
         case .usersSearch:
-            return searchResults.count
+            return searchResults.foundUsers.count
         }
     }
     
@@ -57,7 +59,7 @@ class UsersViewModel {
         
         switch categoryToShow() {
         case .friends:
-            let friendship = friendships[indexPath.row]
+            let friendship = friendshipsData.friendships[indexPath.row]
             if let user = friendship.user {
                 result = .init(
                     user: user,
@@ -68,7 +70,7 @@ class UsersViewModel {
                 )
             }
         case .usersSearch:
-            let searchedUser = searchResults[indexPath.row]
+            let searchedUser = searchResults.foundUsers[indexPath.row]
             let user = searchedUser.user
             
             var actions: [UserTableCellViewModel.Action] = [
@@ -94,9 +96,16 @@ class UsersViewModel {
         usersService.getFriendships { result in
             switch result {
             case .success(let friendships):
-                self.friendships = friendships
+                self.friendshipsData = FriendshipsData(
+                    friendships: friendships,
+                    resultsType: friendships.isEmpty ? .noFriends : .common
+                )
                 
             case .failure(let error):
+                self.friendshipsData = FriendshipsData(
+                    friendships: [],
+                    resultsType: .error
+                )
                 self.errorHandler(error)
             }
             DispatchQueue.main.async {
@@ -106,16 +115,31 @@ class UsersViewModel {
     }
     
     private func reloadSearchResults(query: String) {
-        usersService.searchUsers(username: query) { result in
-            switch result {
-            case .success(let users):
-                self.searchResults = users
-                
-            case .failure(let error):
-                self.errorHandler(error)
-            }
+        guard query.count >= Self.minQueryLength else {
+            searchResults = SearchResults(
+                foundUsers: [],
+                resultsType: query.isEmpty ? .searchQueryEmpty : .searchQueryTooShort
+            )
             DispatchQueue.main.async {
                 self.reloadTableView()
+            }
+            return
+        }
+        
+        usersService.searchUsers(username: query) { [weak self] result in
+            switch result {
+            case .success(let users):
+                self?.searchResults = SearchResults(
+                    foundUsers: users,
+                    resultsType: users.isEmpty ? .usersNotFound : .success
+                )
+                
+            case .failure(let error):
+                self?.searchResults = SearchResults(foundUsers: [], resultsType: .error)
+                self?.errorHandler(error)
+            }
+            DispatchQueue.main.async {
+                self?.reloadTableView()
             }
         }
     }
@@ -196,5 +220,33 @@ extension UsersViewModel {
     enum Category {
         case friends
         case usersSearch
+    }
+}
+  
+extension UsersViewModel {
+    struct FriendshipsData {
+        let friendships: [Friendship]
+        let resultsType: FriendsListType?
+    }
+    
+    enum FriendsListType {
+        case common
+        case error
+        case noFriends
+    }
+}
+ 
+extension UsersViewModel {
+    struct SearchResults {
+        let foundUsers: [SearchedUser]
+        let resultsType: SearchResultsType?
+    }
+    
+    enum SearchResultsType {
+        case success
+        case error
+        case usersNotFound
+        case searchQueryEmpty
+        case searchQueryTooShort
     }
 }
