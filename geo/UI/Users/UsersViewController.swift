@@ -7,28 +7,38 @@
 
 import UIKit
 
-class UsersViewController: UIViewController, NotificatingViewController {
+protocol UsersViewControllerDelegate: AnyObject {
+    func showOnMap(user: User)
+}
+
+class UsersViewController: UIViewController, Storyboarded, NotificatingViewController {
     
-    private let usersService = UsersService.self
-    private let friendsService = FriendsService.self
+    weak var coordinator: UsersViewControllerDelegate?
     
-    private var friendships = [Friendship]()
-    private var searchResults = [SearchedUser]()
+    lazy var viewModel = UsersViewModel(
+        reloadTableView: { [weak self] in
+            self?.updateTable()
+            self?.refreshControl.endRefreshing()
+        },
+        categoryToShow: { [weak self] in
+            self?.categoryToShow ?? .friends
+        },
+        searchQuery: { [weak self] in
+            self?.searchQuery
+        },
+        showUserOnMap: { [weak self] user in
+            self?.coordinator?.showOnMap(user: user)
+        },
+        errorHandler: { [weak self] error in
+            self?.showErrorAlert(error)
+        }
+    )
     
-    private var categoryToShow: Category {
+    private var categoryToShow: UsersViewModel.Category {
         if searchController.isActive {
             return .usersSearch
         } else {
             return .friends
-        }
-    }
-    
-    private var tableDataCount: Int {
-        switch categoryToShow {
-        case .friends:
-            return friendships.count
-        case .usersSearch:
-            return searchResults.count
         }
     }
     
@@ -67,7 +77,7 @@ class UsersViewController: UIViewController, NotificatingViewController {
         setupSearch()
         setupStyling()
         
-        reloadTable()
+        viewModel.reloadTable()
     }
     
     private func setupTable() {
@@ -97,130 +107,23 @@ class UsersViewController: UIViewController, NotificatingViewController {
         navigationItem.title = "People"
     }
     
-    private func reloadTable() {
-        if let searchQuery = searchQuery {
-            reloadSearchResults(query: searchQuery)
-        } else {
-            reloadFriends()
-        }
-    }
-    
-    private func reloadFriends() {
-        usersService.getFriendships { result in
-            switch result {
-            case .success(let friendships):
-                self.friendships = friendships
-                
-            case .failure(let error):
-                self.showErrorAlert(error)
-            }
-            DispatchQueue.main.async {
-                self.updateTable()
-                self.refreshControl.endRefreshing()
-            }
-        }
-    }
-    
-    private func reloadSearchResults(query: String) {
-        usersService.searchUsers(username: query) { result in
-            switch result {
-            case .success(let users):
-                self.searchResults = users
-                
-            case .failure(let error):
-                self.showErrorAlert(error)
-            }
-            DispatchQueue.main.async {
-                self.updateTable()
-                self.refreshControl.endRefreshing()
-            }
-        }
-    }
-    
     private func updateTable() {
         friendsTable.reloadData()
-        friendsTable.backgroundView?.isHidden = tableDataCount > 0
-        tableBackgroundView.setup(title: tableBackgroundViewTitle)
-    }
-    
-    private func addFriendAction(user: User) -> UserTableCell.UserAction {
-        UserTableCell.UserAction(
-            actionType: .addFriend
-        ) { [weak self] _ in
-            self?.addFriend(user: user)
+        
+        let backgroundViewTitle: String?
+        switch categoryToShow {
+        case .friends:
+            backgroundViewTitle = viewModel.friendshipsData.backgroundViewTitle
+        case .usersSearch:
+            backgroundViewTitle = viewModel.searchResults.backgroundViewTitle
         }
-    }
-    
-    private func removeFriendAction(friendship: Friendship) -> UserTableCell.UserAction {
-        UserTableCell.UserAction(
-            actionType: .removeFriend
-        ) { [weak self] _ in
-            self?.removeFriend(friendship: friendship)
-        }
-    }
-    
-    private func deleteRequestAction(friendshipRequest: FriendshipRequest) -> UserTableCell.UserAction {
-        UserTableCell.UserAction(
-            actionType: .deleteRequest
-        ) { [weak self] _ in
-            self?.deleteRequest(friendshipRequest: friendshipRequest)
-        }
-    }
-    
-    private func addFriend(user: User) {
-        friendsService.sendFriendshipRequest(recipientID: user.id) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                self.showErrorAlert(error)
-            }
-            DispatchQueue.main.async {
-                self.reloadTable()
-            }
-        }
-    }
-    
-    private func removeFriend(friendship: Friendship) {
-        guard let userID = friendship.user?.id else {
-            return
-        }
-        friendsService.deleteFriend(userID: userID) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                self.showErrorAlert(error)
-            }
-            DispatchQueue.main.async {
-                self.reloadTable()
-            }
-        }
-    }
-    
-    private func deleteRequest(friendshipRequest: FriendshipRequest) {
-        friendsService.deleteFriendshipRequest(recipientID: friendshipRequest.recipient.id) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                self.showErrorAlert(error)
-            }
-            DispatchQueue.main.async {
-                self.reloadTable()
-            }
-        }
+        
+        friendsTable.backgroundView?.isHidden = (backgroundViewTitle == nil)
+        tableBackgroundView.setup(title: backgroundViewTitle ?? "")
     }
     
     @objc private func refresh(_ sender: AnyObject) {
-        reloadTable()
-    }
-}
-
-extension UsersViewController {
-    enum Category {
-        case friends
-        case usersSearch
+        viewModel.reloadTable()
     }
 }
 
@@ -230,49 +133,14 @@ extension UsersViewController: UITableViewDelegate {
 extension UsersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch categoryToShow {
-        case .friends:
-            return friendships.count
-        case .usersSearch:
-            return searchResults.count
-        }
+        viewModel.tableDataCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableCell", for: indexPath) as! UserTableCell
         
-        switch categoryToShow {
-        case .friends:
-            let friendship = friendships[indexPath.row]
-            if let user = friendship.user {
-                cell.setup(
-                    userTableData: .init(
-                        user: user,
-                        actions: [
-                            removeFriendAction(friendship: friendship)
-                        ]
-                    )
-                )
-            }
-        case .usersSearch:
-            let searchedUser = searchResults[indexPath.row]
-            let user = searchedUser.user
-            
-            var actions: [UserTableCell.UserAction] = []
-            if let friendship = searchedUser.friendship {
-                actions.append(removeFriendAction(friendship: friendship))
-            } else if let friendshipRequest = searchedUser.friendshipRequest {
-                actions.append(deleteRequestAction(friendshipRequest: friendshipRequest))
-            } else {
-                actions.append(addFriendAction(user: user))
-            }
-            
-            cell.setup(
-                userTableData: .init(
-                    user: user,
-                    actions: actions
-                )
-            )
+        if let cellData = viewModel.getCellData(indexPath: indexPath) {
+            cell.setup(viewModel: cellData)
         }
         return cell
     }
@@ -285,13 +153,42 @@ extension UsersViewController: UISearchResultsUpdating {
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        reloadTable()
+        viewModel.reloadTable()
     }
 }
 
-extension UsersViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-//        guard let bar = searchController.searchBar.text, let scope = searchBar.scopeButtonTitles?[selectedScope]  else { return }
-//        filterContentForSearchText(bar, scope: scope)
-//    }
+extension UsersViewController: UISearchBarDelegate { }
+
+extension UsersViewModel.FriendshipsData {
+    var backgroundViewTitle: String? {
+        switch self.resultsType {
+        case .common:
+            return nil
+        case .error:
+            return nil
+        case .noFriends:
+            return "You don't have friends yet"
+        case .none:
+            return nil
+        }
+    }
+}
+
+extension UsersViewModel.SearchResults {
+    var backgroundViewTitle: String? {
+        switch self.resultsType {
+        case .success:
+            return nil
+        case .error:
+            return nil
+        case .usersNotFound:
+            return "Users not found"
+        case .searchQueryEmpty:
+            return "Type username to search"
+        case .searchQueryTooShort:
+            return "Type username to search"
+        case .none:
+            return nil
+        }
+    }
 }

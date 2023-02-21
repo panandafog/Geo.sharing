@@ -7,27 +7,27 @@
 
 import UIKit
 
-class RequestPasswordResetViewController: UIViewController, NotificatingViewController {
+public protocol RequestPasswordReseViewControllerDelegate: AnyObject {
+    func confirmPasswordReset()
+}
+
+class RequestPasswordResetViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     private let authorizationService = AuthorizationService.shared
     
-    var successCompletion: (() -> Void)?
-    
-    private lazy var resetPasswordViewController: ResetPasswordViewController = {
-        let vc = UIViewController.instantiate(name: "ResetPasswordViewController") as! ResetPasswordViewController
-        vc.successCompletion = self.successCompletion
-        return vc
-    }()
+    weak var coordinator: RequestPasswordReseViewControllerDelegate?
     
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var confirmationButton: UIButton!
     
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         emailTextField.text = authorizationService.email
         navigationItem.title = "Reset password"
+        isModalInPresentation = true
         verifyCreds()
     }
     
@@ -56,10 +56,7 @@ class RequestPasswordResetViewController: UIViewController, NotificatingViewCont
             switch result {
             case .success(()):
                 DispatchQueue.main.async {
-                    self?.navigationController?.pushViewController(
-                        self!.resetPasswordViewController,
-                        animated: true
-                    )
+                    self?.coordinator?.confirmPasswordReset()
                 }
             case .failure(let error):
                 self?.showErrorAlert(error)

@@ -7,11 +7,17 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, NotificatingViewController, PasswordResettingViewController {
+public protocol LoginViewControllerDelegate: AnyObject {
+    func resetPassword()
+    func showSignUp()
+    func handleLoginCompletion()
+}
+
+class LoginViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: LoginViewControllerDelegate?
     
     private let authorizationService = AuthorizationService.shared
-    var successCompletion: (() -> Void)?
-    var parentNavigationController: UINavigationController?
     
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
@@ -26,6 +32,8 @@ class LoginViewController: UIViewController, NotificatingViewController, Passwor
         
         navigationItem.title = "LogIn"
         navigationController?.navigationBar.prefersLargeTitles = true
+        isModalInPresentation = true
+        
         activityIndicator.stopAnimating()
         submitButton.isEnabled = false
     }
@@ -47,14 +55,11 @@ class LoginViewController: UIViewController, NotificatingViewController, Passwor
     }
     
     @IBAction private func resetPasswordButtonTouched(_ sender: UIButton) {
-        resetPassword { [weak self] in
-            if let vc = self {
-                self?.navigationController?.popToViewController(
-                    vc,
-                    animated: true
-                )
-            }
-        }
+        coordinator?.resetPassword()
+    }
+    
+    func handleSignupResult(email: String) {
+        emailTextField.text = email
     }
     
     private func verifyCreds() {
@@ -84,7 +89,7 @@ class LoginViewController: UIViewController, NotificatingViewController, Passwor
             
             switch result {
             case .success:
-                self?.successCompletion?()
+                self?.coordinator?.handleLoginCompletion()
             case .failure(let error):
                 self?.showErrorAlert(error)
             }
@@ -92,24 +97,7 @@ class LoginViewController: UIViewController, NotificatingViewController, Passwor
     }
     
     private func signUp() {
-        let signupViewController = UIViewController.instantiate(name: "SignupViewController") as! SignupViewController
-        
-        signupViewController.successCompletion = { [weak self] username in
-            DispatchQueue.main.async {
-                if let vc = self {
-                    self?.navigationController?.popToViewController(
-                        vc,
-                        animated: true
-                    )
-                }
-                self?.emailTextField.text = username
-            }
-        }
-        
-        navigationController?.pushViewController(
-            signupViewController,
-            animated: true
-        )
+        coordinator?.showSignUp()
     }
     
     private func setControls(enabled: Bool) {

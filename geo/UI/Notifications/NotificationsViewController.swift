@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotificationsViewController: UIViewController, NotificatingViewController {
+class NotificationsViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     private let friendsService = FriendsService.self
     private var friendshipRequests = [FriendshipRequest]()

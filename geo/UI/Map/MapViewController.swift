@@ -10,7 +10,16 @@ import MapKit
 import SnapKit
 import UIKit
 
-class MapViewController: UIViewController, NotificatingViewController {
+protocol MapViewControllerDelegate: AnyObject {
+    func showNotifications()
+    func showSettings()
+    func showFriends()
+    func showAuthorization()
+}
+
+class MapViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: MapViewControllerDelegate?
     
     private let locationManager = LocationManager.shared
     private let authorizationService = AuthorizationService.shared
@@ -20,38 +29,38 @@ class MapViewController: UIViewController, NotificatingViewController {
     private let mapZoomOffset = 200
     private let friendsBarHeight = 20
     
-    private var cancellableBag = Set<AnyCancellable>()
     private var annotationsTimer: Timer?
     private var notificationsTimer: Timer?
     
-    private lazy var friendsViewController: UsersViewController = {
-        UIViewController.instantiate(name: "UsersViewController") as! UsersViewController
-    }()
-    
-    private lazy var notificationsViewController: NotificationsViewController = {
-        UIViewController.instantiate(name: "NotificationsViewController") as! NotificationsViewController
-    }()
-    
-    private lazy var settingsViewController: SettingsViewController = {
-        let viewController = UIViewController.instantiate(name: "SettingsViewController") as! SettingsViewController
-        viewController.signOutHandler = { [weak self] in
-            if let vc = self {
-                self?.navigationController?.popToViewController(
-                    vc,
-                    animated: true
-                )
-            }
-            
-            self?.stopUpdatingLocation()
-            self?.stopUpdatingUsersAnnotations()
-            self?.stopUpdatingNotifications()
-            
-            self?.removeAllUsersAnnotations()
-            self?.authorizationService.signOut()
-            self?.authorizeAndStart()
+    private var zoomMapToUserEnabled: Bool {
+        get {
+            map.userTrackingMode != .none
         }
-        return viewController
+        set {
+            map.setUserTrackingMode(
+                newValue ? .follow : .none,
+                animated: true
+            )
+        }
+    }
+    
+    private let enabledLocationButtonConfiguration: UIButton.Configuration = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.image = UIImage(systemName: "location.fill")
+        return configuration
     }()
+    private let disabledLocationButtonConfiguration: UIButton.Configuration = {
+        var configuration = UIButton.Configuration.tinted()
+        configuration.image = UIImage(systemName: "location.fill")
+        return configuration
+    }()
+    private var locationButtonConfiguration: UIButton.Configuration {
+        if zoomMapToUserEnabled {
+            return enabledLocationButtonConfiguration
+        } else {
+            return disabledLocationButtonConfiguration
+        }
+    }
     
     @IBOutlet private var map: MKMapView!
     @IBOutlet private var notificationsButton: UIButton!
@@ -63,24 +72,59 @@ class MapViewController: UIViewController, NotificatingViewController {
         super.viewDidLoad()
         
         setupMap()
+        setLocationButtonConfiguration()
         authorizeAndStart()
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @IBAction private func notificationsButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(notificationsViewController, animated: true)
+        coordinator?.showNotifications()
     }
     
     @IBAction private func settingsButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(settingsViewController, animated: true)
+        coordinator?.showSettings()
     }
     
     @IBAction private func usersButtonTouched(_ sender: UIButton) {
-        navigationController?.pushViewController(friendsViewController, animated: true)
+        coordinator?.showFriends()
     }
     
     @IBAction private func mylocationButtonTouched(_ sender: UIButton) {
-        zoomMapToUserLocation()
+        zoomMapToUserEnabled.toggle()
+        setLocationButtonConfiguration()
+    }
+    
+    // MARK: - Event handlers
+    
+    func handleLoginCompletion() {
+        startUpdatingLocation()
+        startUpdatingUsersAnnotations()
+        startUpdatingNotifications()
+    }
+    
+    func handleSignoutCompletion() {
+        stopUpdatingLocation()
+        stopUpdatingUsersAnnotations()
+        stopUpdatingNotifications()
+        
+        removeAllUsersAnnotations()
+        authorizationService.signOut()
+        authorizeAndStart()
+    }
+    
+    func show(user: User) {
+        guard let latitude = user.latitude,
+              let longitude = user.longitude else {
+            return
+        }
+        
+        zoomMapTo(latitude: latitude, longitude: longitude)
+    }
+    
+    // MARK: - UI
+    
+    private func setLocationButtonConfiguration() {
+        self.myLocationButton.configuration = locationButtonConfiguration
     }
     
     // MARK: - Map
@@ -88,18 +132,30 @@ class MapViewController: UIViewController, NotificatingViewController {
     private func setupMap() {
         map.register(FriendAnnotationView.self, forAnnotationViewWithReuseIdentifier: "FriendAnnotationView")
         map.delegate = self
+        zoomMapToUserEnabled = true
+    }
+    
+    private func zoomMapTo(latitude: Double, longitude: Double) {
+        zoomMapTo(coordinate: .init(
+            latitude: latitude,
+            longitude: longitude
+        ))
     }
     
     private func zoomMapToUserLocation(animated: Bool = true) {
         guard let userLocation = locationManager.location?.coordinate else {
             return
         }
-        let userViewRegion = MKCoordinateRegion(
-            center: userLocation,
+        zoomMapTo(coordinate: userLocation, animated: animated)
+    }
+    
+    private func zoomMapTo(coordinate: CLLocationCoordinate2D, animated: Bool = true) {
+        let viewRegion = MKCoordinateRegion(
+            center: coordinate,
             latitudinalMeters: CLLocationDistance(mapZoomOffset),
             longitudinalMeters: CLLocationDistance(mapZoomOffset)
         )
-        map.setRegion(userViewRegion, animated: animated)
+        map.setRegion(viewRegion, animated: animated)
     }
     
     // MARK: - Location
@@ -112,36 +168,11 @@ class MapViewController: UIViewController, NotificatingViewController {
             return
         }
         
-        let navigationViewController = UINavigationController()
-        let loginViewController = UIViewController.instantiate(name: "LoginViewController") as! LoginViewController
-        loginViewController.parentNavigationController = navigationController
-        loginViewController.isModalInPresentation = true
-        loginViewController.successCompletion = { [weak self] in
-            loginViewController.dismiss(animated: true)
-            self?.startUpdatingLocation()
-            self?.startUpdatingUsersAnnotations()
-            self?.startUpdatingNotifications()
-        }
-        navigationViewController.viewControllers = [loginViewController]
-        present(navigationViewController, animated: true)
+        coordinator?.showAuthorization()
     }
     
     private func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
-        var zoomed = false
-        locationManager.$location.sink { newLocation in
-            DispatchQueue.main.async { [weak self] in
-                guard newLocation != nil else {
-                    return
-                }
-                
-                if !zoomed {
-                    self?.zoomMapToUserLocation()
-                    zoomed = true
-                }
-            }
-        }
-        .store(in: &cancellableBag)
     }
     
     private func stopUpdatingLocation() {
@@ -253,5 +284,9 @@ extension MapViewController: MKMapViewDelegate {
 
         annotationView?.setupUI()
         return annotationView
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        setLocationButtonConfiguration()
     }
 }

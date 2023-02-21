@@ -7,15 +7,17 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, NotificatingViewController, PasswordResettingViewController {
+public protocol SettingsViewControllerDelegate: AnyObject {
+    func resetPassword()
+    func showProfilePictureEdit()
+    func signOut()
+}
+
+class SettingsViewController: UIViewController, Storyboarded, NotificatingViewController {
     
-    var signOutHandler: (() -> Void)?
+    weak var coordinator: SettingsViewControllerDelegate?
     
     private let authorizationService = AuthorizationService.shared
-    
-    private lazy var profilePictureViewController: ProfilePictureViewController = {
-        UIViewController.instantiate(name: "ProfilePictureViewController") as! ProfilePictureViewController
-    }()
     
     private lazy var settingGroups = [
         SettingsGroup(
@@ -24,7 +26,7 @@ class SettingsViewController: UIViewController, NotificatingViewController, Pass
                 SettingsEntry(
                     kind: .profilePicture,
                     value: nil,
-                    action: { [weak self] in self?.editProfilePicture() }
+                    action: { [weak self] in self?.coordinator?.showProfilePictureEdit() }
                 ),
                 SettingsEntry(
                     kind: .username,
@@ -39,12 +41,12 @@ class SettingsViewController: UIViewController, NotificatingViewController, Pass
                 SettingsEntry(
                     kind: .password,
                     value: nil,
-                    action: { [weak self] in self?.startResettingPassword() }
+                    action: { [weak self] in self?.coordinator?.resetPassword() }
                 ),
                 SettingsEntry(
                     kind: .signOut,
                     value: nil,
-                    action: { [weak self] in self?.signOutHandler?() }
+                    action: { [weak self] in self?.coordinator?.signOut() }
                 )
             ]
         )
@@ -74,18 +76,6 @@ class SettingsViewController: UIViewController, NotificatingViewController, Pass
     
     private func setupStyling() {
         navigationItem.title = "Settings"
-    }
-    
-    private func editProfilePicture() {
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(self.profilePictureViewController, animated: true)
-        }
-    }
-    
-    private func startResettingPassword() {
-        resetPassword { [weak self] in
-            self?.signOutHandler?()
-        }
     }
 }
 

@@ -7,10 +7,15 @@
 
 import UIKit
 
-class SignupViewController: UIViewController, NotificatingViewController {
+protocol SignupViewControllerDelegate: AnyObject {
+    func showEmailConfirmation(signupData: EmailConfirmationViewController.SignupData)
+}
+
+class SignupViewController: UIViewController, Storyboarded, NotificatingViewController {
+    
+    weak var coordinator: SignupViewControllerDelegate?
     
     private let authorizationService = AuthorizationService.shared
-    var successCompletion: ((String) -> Void)?
     
     @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var emailTextField: UITextField!
@@ -26,6 +31,7 @@ class SignupViewController: UIViewController, NotificatingViewController {
         
         activityIndicator.stopAnimating()
         navigationItem.title = "SignUp"
+        isModalInPresentation = true
     }
     
     @IBAction private func usernameChanged(_ sender: UITextField) {
@@ -70,15 +76,12 @@ class SignupViewController: UIViewController, NotificatingViewController {
             switch result {
             case .success(let signupResponse):
                 DispatchQueue.main.async {
-                    let emailConfirmationViewController = UIViewController.instantiate(
-                        name: "EmailConfirmationViewController"
-                    ) as! EmailConfirmationViewController
-                    emailConfirmationViewController.email = email
-                    emailConfirmationViewController.signupResponse = signupResponse
-                    emailConfirmationViewController.successCompletion = { [weak self] email in
-                        self?.successCompletion?(email)
-                    }
-                    self?.navigationController?.pushViewController(emailConfirmationViewController, animated: true)
+                    self?.coordinator?.showEmailConfirmation(
+                        signupData: .init(
+                            email: email,
+                            signupResponse: signupResponse
+                        )
+                    )
                 }
             case .failure(let error):
                 self?.showErrorAlert(error)

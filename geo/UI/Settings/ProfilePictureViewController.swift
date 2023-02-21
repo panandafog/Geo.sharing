@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfilePictureViewController: UIViewController, NotificatingViewController {
+class ProfilePictureViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     private let authorizationService = AuthorizationService.shared
     private let usersService = UsersService.self
