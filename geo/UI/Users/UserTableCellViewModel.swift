@@ -7,9 +7,29 @@
 
 import UIKit
 
-struct UserTableCellViewModel {
+class UserTableCellViewModel {
     let user: User
     let actions: [Action]
+    
+    init(user: User, actions: [Action]) {
+        self.user = user
+        self.actions = actions
+    }
+    
+    func getProfilePicture(completion: @escaping (UIImage?) -> Void) {
+        ImagesService.getProfilePicture(userID: user.id) { result in
+            switch result {
+            case .success(let image):
+                completion(image)
+            case .failure:
+                completion(nil)
+            }
+        }
+    }
+    
+    func cancelGettingProfilePicture() {
+        // TODO: cancel request
+    }
 }
 
 extension UserTableCellViewModel {

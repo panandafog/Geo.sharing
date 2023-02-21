@@ -13,16 +13,6 @@ class SettingsCell: UITableViewCell {
     @IBOutlet private var valueLabel: UILabel!
     @IBOutlet private var iconImageView: UIImageView!
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        commonInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-    }
-    
     func setup(_ entry: SettingsViewController.SettingsEntry) {
         titleLabel.text = entry.kind.title
         valueLabel.text = entry.value?()
@@ -33,8 +23,6 @@ class SettingsCell: UITableViewCell {
             accessoryType = .disclosureIndicator
         }
     }
-    
-    private func commonInit() { }
     
     override func prepareForReuse() {
         super.prepareForReuse()
