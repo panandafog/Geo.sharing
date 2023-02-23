@@ -5,12 +5,14 @@
 //  Created by Andrey on 07.02.2023.
 //
 
+import Combine
 import UIKit
 
 class ProfilePictureViewController: UIViewController, Storyboarded, NotificatingViewController {
     
-    private let authorizationService = AuthorizationService.shared
-    private let usersService = UsersService.self
+    lazy var viewModel = ProfilePictureViewModel(delegate: self)
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var selectImageButton: UIButton!
@@ -18,13 +20,14 @@ class ProfilePictureViewController: UIViewController, Storyboarded, Notificating
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindViewModel()
         setupStyling()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateImage()
+        viewModel.downloadCurrnetImage()
     }
     
     @IBAction private func selectImageButtonTouched(_ sender: UIButton) {
@@ -34,27 +37,15 @@ class ProfilePictureViewController: UIViewController, Storyboarded, Notificating
         present(pickerController, animated: true)
     }
     
-    private func setupStyling() {
-        navigationItem.title = "Profile picture"
+    private func bindViewModel() {
+        viewModel.$image.sink { [weak self] output in
+            self?.imageView.image = output
+        }
+        .store(in: &cancellables)
     }
     
-    private func updateImage() {
-        guard let userID = authorizationService.uid else {
-            return
-        }
-        usersService.getProfilePicture(userID: userID) { [weak self] result in
-            switch result {
-            case .success(let image):
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-            case .failure(let error):
-                self?.showErrorAlert(error)
-                DispatchQueue.main.async {
-                    self?.imageView.image = UIImage.emptyProfilePicture
-                }
-            }
-        }
+    private func setupStyling() {
+        navigationItem.title = "Profile picture"
     }
 }
 
@@ -67,20 +58,16 @@ extension ProfilePictureViewController: UIImagePickerControllerDelegate {
             return
         }
         
-        usersService.setProfilePicture(image) { [weak self] result in
-            switch result {
-            case .success:
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-                self?.updateImage()
-            case .failure(let error):
-                self?.showErrorAlert(error)
-            }
-        }
+        viewModel.setProfilePicture(image: image)
     }
 }
 
 extension ProfilePictureViewController: UINavigationControllerDelegate {
     
+}
+
+extension ProfilePictureViewController: ProfilePictureViewModelDelegate {
+    func handleError(error: RequestError) {
+        showErrorAlert(error)
+    }
 }

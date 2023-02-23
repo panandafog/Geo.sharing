@@ -11,25 +11,18 @@ class NotificationCell: UITableViewCell {
     
     typealias ConfirmationCompletion = (FriendshipRequest, Bool) -> Void
     
-    private var completion: ConfirmationCompletion?
-    private var request: FriendshipRequest?
+    private var viewModel: NotificationCellViewModel?
     
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var acceptButton: UIButton!
     @IBOutlet private var declineButton: UIButton!
     
     @IBAction private func acceptButtonTouched(_ sender: UIButton) {
-        guard let request = request else {
-            return
-        }
-        completion?(request, true)
+        viewModel?.decisionHandler(true)
     }
     
     @IBAction private func declineButtonTouched(_ sender: UIButton) {
-        guard let request = request else {
-            return
-        }
-        completion?(request, false)
+        viewModel?.decisionHandler(false)
     }
     
     override func prepareForReuse() {
@@ -37,11 +30,13 @@ class NotificationCell: UITableViewCell {
         titleLabel.text = nil
     }
     
-    func setup(notification: FriendshipRequest, completion: @escaping ConfirmationCompletion) {
+    func setup(viewModel: NotificationCellViewModel) {
+        self.viewModel = viewModel
+        setupUI()
+    }
+    
+    private func setupUI() {
         titleLabel.text = "Friend request from "
-        + notification.sender.username
-        self.request = notification
-        
-        self.completion = completion
+        + (viewModel?.notification.sender.username ?? "...")
     }
 }

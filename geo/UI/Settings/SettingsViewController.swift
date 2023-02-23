@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol SettingsViewControllerDelegate: AnyObject {
+protocol SettingsViewControllerDelegate: AnyObject {
     func resetPassword()
     func showProfilePictureEdit()
     func signOut()
@@ -16,41 +16,7 @@ public protocol SettingsViewControllerDelegate: AnyObject {
 class SettingsViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     weak var coordinator: SettingsViewControllerDelegate?
-    
-    private let authorizationService = AuthorizationService.shared
-    
-    private lazy var settingGroups = [
-        SettingsGroup(
-            title: "Profile",
-            entries: [
-                SettingsEntry(
-                    kind: .profilePicture,
-                    value: nil,
-                    action: { [weak self] in self?.coordinator?.showProfilePictureEdit() }
-                ),
-                SettingsEntry(
-                    kind: .username,
-                    value: { [weak self] in self?.authorizationService.username },
-                    action: nil
-                ),
-                SettingsEntry(
-                    kind: .email,
-                    value: { [weak self] in self?.authorizationService.email },
-                    action: nil
-                ),
-                SettingsEntry(
-                    kind: .password,
-                    value: nil,
-                    action: { [weak self] in self?.coordinator?.resetPassword() }
-                ),
-                SettingsEntry(
-                    kind: .signOut,
-                    value: nil,
-                    action: { [weak self] in self?.coordinator?.signOut() }
-                )
-            ]
-        )
-    ]
+    private lazy var viewModel = SettingsViewModel(delegate: self)
       
     @IBOutlet private var table: UITableView!
     
@@ -83,12 +49,12 @@ extension SettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
-        let entry = settingGroups[indexPath.section].entries[indexPath.row]
+        let entry = viewModel.settingGroups[indexPath.section].entries[indexPath.row]
         entry.action?()
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let entry = settingGroups[indexPath.section].entries[indexPath.row]
+        let entry = viewModel.settingGroups[indexPath.section].entries[indexPath.row]
         return (entry.action == nil) ? nil : indexPath
     }
 }
@@ -96,82 +62,35 @@ extension SettingsViewController: UITableViewDelegate {
 extension SettingsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        settingGroups.count
+        viewModel.settingGroups.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        settingGroups[section].entries.count
+        viewModel.settingGroups[section].entries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsCell
-        let entry = settingGroups[indexPath.section].entries[indexPath.row]
+        let entry = viewModel.settingGroups[indexPath.section].entries[indexPath.row]
         cell.setup(entry)
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        settingGroups[section].title
+        viewModel.settingGroups[section].title
     }
 }
 
-extension SettingsViewController {
-    
-    struct SettingsGroup {
-        let title: String?
-        let entries: [SettingsEntry]
+extension SettingsViewController: SettingsViewModelDelegate {
+    func showProfilePictureEdit() {
+        coordinator?.showProfilePictureEdit()
     }
     
-    struct SettingsEntry {
-        let kind: EntryKind
-        let value: (() -> String?)?
-        let action: (() -> Void)?
+    func resetPassword() {
+        coordinator?.resetPassword()
     }
     
-    enum EntryKind {
-        case profilePicture
-        case username
-        case email
-        case password
-        case signOut
-        
-        var title: String {
-            switch self {
-            case .profilePicture:
-                return "Profile picture"
-            case .username:
-                return "Username"
-            case .email:
-                return "Email"
-            case .password:
-                return "Password"
-            case .signOut:
-                return "Sign out"
-            }
-        }
-        
-        var image: UIImage? {
-            switch self {
-            case .profilePicture:
-                return UIImage(systemName: "person.crop.rectangle")
-            case .username:
-                return UIImage(systemName: "rectangle.and.pencil.and.ellipsis")
-            case .email:
-                return UIImage(systemName: "envelope")
-            case .password:
-                return UIImage(systemName: "lock")
-            case .signOut:
-                return UIImage(systemName: "person.fill.xmark")
-            }
-        }
-        
-        var iconColor: UIColor? {
-            switch self {
-            case .signOut:
-                return .systemRed
-            default:
-                return .tintColor
-            }
-        }
+    func signOut() {
+        coordinator?.signOut()
     }
 }

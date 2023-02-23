@@ -13,7 +13,7 @@ class SettingsCell: UITableViewCell {
     @IBOutlet private var valueLabel: UILabel!
     @IBOutlet private var iconImageView: UIImageView!
     
-    func setup(_ entry: SettingsViewController.SettingsEntry) {
+    func setup(_ entry: SettingsViewModel.SettingsEntry) {
         titleLabel.text = entry.kind.title
         valueLabel.text = entry.value?()
         iconImageView.image = entry.kind.image

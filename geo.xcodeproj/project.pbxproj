@@ -43,6 +43,12 @@
 		0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A0B09297F00B600E9806A /* Endpoints.swift */; };
 		0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */; };
 		0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B843016294FA7EC000D5EDF /* LocationService.swift */; };
+		0BA1C1EA29A6C6CE00387882 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1E929A6C6CE00387882 /* ResetPasswordViewModel.swift */; };
+		0BA1C1EC29A774AE00387882 /* RequestPasswordResetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1EB29A774AE00387882 /* RequestPasswordResetViewModel.swift */; };
+		0BA1C1EE29A7767F00387882 /* ProfilePictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1ED29A7767F00387882 /* ProfilePictureViewModel.swift */; };
+		0BA1C1F229A77CCF00387882 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F129A77CCF00387882 /* SettingsViewModel.swift */; };
+		0BA1C1F429A77FEF00387882 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F329A77FEF00387882 /* NotificationsViewModel.swift */; };
+		0BA1C1F629A7827500387882 /* NotificationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F529A7827500387882 /* NotificationCellViewModel.swift */; };
 		0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */; };
 		0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A05429919C6400AB48DD /* SettingsViewController.swift */; };
 		0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */; };
@@ -137,6 +143,12 @@
 		0B5A0B09297F00B600E9806A /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		0B70166E298C3F4500E0E353 /* FriendAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAnnotationView.swift; sourceTree = "<group>"; };
 		0B843016294FA7EC000D5EDF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		0BA1C1E929A6C6CE00387882 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1EB29A774AE00387882 /* RequestPasswordResetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1ED29A7767F00387882 /* ProfilePictureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1F129A77CCF00387882 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1F329A77FEF00387882 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1F529A7827500387882 /* NotificationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCellViewModel.swift; sourceTree = "<group>"; };
 		0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendMKPointAnnotation.swift; sourceTree = "<group>"; };
 		0BB0A05429919C6400AB48DD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
@@ -208,8 +220,10 @@
 		0B00E696298866CA0049DC49 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				0BA1C1F329A77FEF00387882 /* NotificationsViewModel.swift */,
 				0B00E697298866DF0049DC49 /* NotificationsViewController.swift */,
 				0B00E699298866E90049DC49 /* NotificationsViewController.storyboard */,
+				0BA1C1F529A7827500387882 /* NotificationCellViewModel.swift */,
 				0B00E69B298868F30049DC49 /* NotificationCell.swift */,
 				0B00E69D298869030049DC49 /* NotificationCell.xib */,
 			);
@@ -220,8 +234,10 @@
 			isa = PBXGroup;
 			children = (
 				0B1AE4C529A38BB100B4E4F7 /* PasswordResetCoordinator.swift */,
+				0BA1C1EB29A774AE00387882 /* RequestPasswordResetViewModel.swift */,
 				0B528D04299D477500CA4A30 /* RequestPasswordResetViewController.swift */,
 				0B528D07299D479F00CA4A30 /* RequestPasswordResetViewController.storyboard */,
+				0BA1C1E929A6C6CE00387882 /* ResetPasswordViewModel.swift */,
 				0BB0A0602991C53600AB48DD /* ResetPasswordViewController.swift */,
 				0BB0A0622991C54B00AB48DD /* ResetPasswordViewController.storyboard */,
 			);
@@ -334,10 +350,12 @@
 		0BB0A05329919C4E00AB48DD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				0BA1C1F129A77CCF00387882 /* SettingsViewModel.swift */,
 				0BB0A05429919C6400AB48DD /* SettingsViewController.swift */,
 				0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */,
 				0BB0A0582991A2AD00AB48DD /* SettingsCell.swift */,
 				0BB0A05A2991A2B900AB48DD /* SettingsCell.xib */,
+				0BA1C1ED29A7767F00387882 /* ProfilePictureViewModel.swift */,
 				0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */,
 				0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */,
 			);
@@ -741,6 +759,8 @@
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
 				0B1AE4BD29A36B9600B4E4F7 /* MainCoordinator.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,
+				0BA1C1EE29A7767F00387882 /* ProfilePictureViewModel.swift in Sources */,
+				0BA1C1F629A7827500387882 /* NotificationCellViewModel.swift in Sources */,
 				0BE07F7F2993D7BB0040CECA /* String+Extensions.swift in Sources */,
 				0B00E69C298868F30049DC49 /* NotificationCell.swift in Sources */,
 				0B51D86E298940E800200B63 /* FriendshipRequestType.swift in Sources */,
@@ -762,11 +782,15 @@
 				0BE07F7D2992F0830040CECA /* ImagesService.swift in Sources */,
 				0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */,
 				0BE75A90298321CB00439A71 /* UsersService.swift in Sources */,
+				0BA1C1F429A77FEF00387882 /* NotificationsViewModel.swift in Sources */,
 				0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */,
 				0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */,
 				0BE07F812993D9350040CECA /* EmailConfirmationViewController.swift in Sources */,
+				0BA1C1F229A77CCF00387882 /* SettingsViewModel.swift in Sources */,
 				0B1AE4CA29A3FBAC00B4E4F7 /* UserTableCellViewModel.swift in Sources */,
+				0BA1C1EC29A774AE00387882 /* RequestPasswordResetViewModel.swift in Sources */,
 				0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */,
+				0BA1C1EA29A6C6CE00387882 /* ResetPasswordViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

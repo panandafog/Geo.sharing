@@ -5,13 +5,15 @@
 //  Created by Andrey on 30.01.2023.
 //
 
+import Combine
 import UIKit
 
 class NotificationsViewController: UIViewController, Storyboarded, NotificatingViewController {
     
-    private let friendsService = FriendsService.self
-    private var friendshipRequests = [FriendshipRequest]()
+    private lazy var viewModel = NotificationsViewModel(delegate: self)
     private let refreshControl = UIRefreshControl()
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     private let tableBackgroundView: EmptyTableBackgroundView = {
         let backgroundView = EmptyTableBackgroundView()
@@ -24,6 +26,7 @@ class NotificationsViewController: UIViewController, Storyboarded, NotificatingV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindViewModel()
         setupTable()
         setupRefreshControl()
         setupStyling()
@@ -32,23 +35,21 @@ class NotificationsViewController: UIViewController, Storyboarded, NotificatingV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        updateFriendshipRequests()
+        viewModel.updateFriendshipRequests()
     }
     
-    private func updateFriendshipRequests() {
-        friendsService.getFriendshipRequests(type: .incoming) { result in
-            switch result {
-            case .success(let friendshipRequests):
-                self.friendshipRequests = friendshipRequests
-                
-            case .failure(let error):
-                self.showErrorAlert(error)
-            }
-            DispatchQueue.main.async {
-                self.updateTable()
-                self.refreshControl.endRefreshing()
+    private func bindViewModel() {
+        viewModel.$cells.sink { [weak self] _ in
+            self?.updateTable()
+        }
+        .store(in: &cancellables)
+        
+        viewModel.$refreshingCells.sink { [weak self] output in
+            if !output {
+                self?.refreshControl.endRefreshing()
             }
         }
+        .store(in: &cancellables)
     }
     
     private func setupTable() {
@@ -62,7 +63,7 @@ class NotificationsViewController: UIViewController, Storyboarded, NotificatingV
     
     private func updateTable() {
         table.reloadData()
-        table.backgroundView?.isHidden = !friendshipRequests.isEmpty
+        table.backgroundView?.isHidden = !viewModel.cells.isEmpty
     }
     
     private func setupRefreshControl() {
@@ -76,7 +77,7 @@ class NotificationsViewController: UIViewController, Storyboarded, NotificatingV
     }
     
     @objc private func refresh(_ sender: AnyObject) {
-        updateFriendshipRequests()
+        viewModel.updateFriendshipRequests()
     }
 }
 
@@ -85,27 +86,18 @@ extension NotificationsViewController: UITableViewDelegate {
 
 extension NotificationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friendshipRequests.count
+        viewModel.cells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
-        cell.setup(
-            notification: friendshipRequests[indexPath.row]
-        ) { [weak self] request, confirmed in
-            self?.friendsService.answerOnFriendshipRequest(
-                senderID: request.sender.id,
-                accept: confirmed
-            ) { result in
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    self?.showErrorAlert(error)
-                }
-                self?.updateFriendshipRequests()
-            }
-        }
+        cell.setup(viewModel: viewModel.cells[indexPath.row])
         return cell
+    }
+}
+
+extension NotificationsViewController: NotificationsViewModelDelegate {
+    func handleError(error: RequestError) {
+        showErrorAlert(error)
     }
 }

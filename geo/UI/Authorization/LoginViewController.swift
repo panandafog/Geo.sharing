@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol LoginViewControllerDelegate: AnyObject {
+protocol LoginViewControllerDelegate: AnyObject {
     func resetPassword()
     func showSignUp()
     func handleLoginCompletion()

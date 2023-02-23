@@ -5,9 +5,10 @@
 //  Created by Andrey on 07.02.2023.
 //
 
+import Combine
 import UIKit
 
-public protocol ResetPasswordViewControllerDelegate: AnyObject {
+protocol ResetPasswordViewControllerDelegate: AnyObject {
     func handlePasswordResetCompletion()
 }
 
@@ -15,10 +16,9 @@ class ResetPasswordViewController: UIViewController, Storyboarded, NotificatingV
     
     weak var coordinator: ResetPasswordViewControllerDelegate?
     
-    private let authorizationService = AuthorizationService.shared
-    private var code: Int? {
-        Int(codeTextField.text ?? "")
-    }
+    lazy var viewModel = ResetPasswordViewModel(delegate: self)
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet private var newPasswordTextField: UITextField!
     @IBOutlet private var passwordConfirmationTextField: UITextField!
@@ -29,59 +29,66 @@ class ResetPasswordViewController: UIViewController, Storyboarded, NotificatingV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
         navigationItem.title = "Confirm password reset"
         isModalInPresentation = true
     }
     
     @IBAction private func passwordChanged(_ sender: UITextField) {
-        verifyCreds()
+        viewModel.newPassword = newPasswordTextField.text
     }
     @IBAction private func passwordConfirmationChanged(_ sender: UITextField) {
-        verifyCreds()
+        viewModel.passwordConfirmation = passwordConfirmationTextField.text
     }
     @IBAction private func codeChanged(_ sender: UITextField) {
-        verifyCreds()
+        viewModel.code = Int(codeTextField.text ?? "")
     }
-    
     @IBAction private func confirmationButtonTouched(_ sender: UIButton) {
-        confirmChangingPassword()
+        viewModel.confirmChangingPassword()
     }
     
-    private func verifyCreds() {
-        confirmationButton.isEnabled = (newPasswordTextField.text?.count ?? 0) >= AuthorizationService.minPasswordLength
-        && newPasswordTextField.text == passwordConfirmationTextField.text
-        && String(code ?? 0).count == AuthorizationService.confirmationCodeLength
-    }
-    
-    private func confirmChangingPassword() {
-        setControls(enabled: false)
-        activityIndicator.startAnimating()
+    private func bindViewModel() {
+        viewModel.$changesAllowed.sink { [weak self] output in
+            self?.setTextFields(enabled: output)
+        }
+        .store(in: &cancellables)
         
-        guard let newPassword = newPasswordTextField.text,
-              let code = code
-        else {
-            return
+        viewModel.$confirmationAllowed.sink { [weak self] output in
+            self?.setConfirmation(enabled: output)
         }
-        authorizationService.confirmPasswordChange(code: code, newPassword: newPassword) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.setControls(enabled: true)
-                self?.activityIndicator.stopAnimating()
-            }
-            
-            switch result {
-            case .success(()):
-                self?.authorizationService.signOut()
-                self?.coordinator?.handlePasswordResetCompletion()
-            case .failure(let error):
-                self?.showErrorAlert(error)
-            }
+        .store(in: &cancellables)
+        
+        viewModel.$activityInProgress.sink { [weak self] output in
+            self?.setActivity(enabled: output)
         }
+        .store(in: &cancellables)
     }
     
-    private func setControls(enabled: Bool) {
-        confirmationButton.isEnabled = enabled
+    private func setTextFields(enabled: Bool) {
         newPasswordTextField.isEnabled = enabled
         passwordConfirmationTextField.isEnabled = enabled
         codeTextField.isEnabled = enabled
+    }
+    
+    private func setConfirmation(enabled: Bool) {
+        confirmationButton.isEnabled = enabled
+    }
+    
+    private func setActivity(enabled: Bool) {
+        if enabled {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
+}
+
+extension ResetPasswordViewController: ResetPasswordViewModelDelegate {
+    func handlePasswordResetCompletion() {
+        coordinator?.handlePasswordResetCompletion()
+    }
+    
+    func handleError(error: RequestError) {
+        showErrorAlert(error)
     }
 }
