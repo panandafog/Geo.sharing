@@ -11,6 +11,10 @@ class MainCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
+    lazy var usersVC = UsersViewController.instantiateFromStoryboard()
+    lazy var notificationsVC = NotificationsViewController.instantiateFromStoryboard()
+    lazy var settingsVC = SettingsViewController.instantiateFromStoryboard()
+    
     private var rootVC: MapViewController? {
         navigationController.viewControllers.first {
             $0 as? MapViewController != nil
@@ -42,20 +46,17 @@ extension MainCoordinator: AuthorizationCoordinatorDelegate {
 
 extension MainCoordinator: MapViewControllerDelegate {
     func showFriends() {
-        let vc = UsersViewController.instantiateFromStoryboard()
-        vc.coordinator = self
-        navigationController.pushViewController(vc, animated: true)
+        usersVC.coordinator = self
+        navigationController.pushViewController(usersVC, animated: true)
     }
     
     func showNotifications() {
-        let vc = NotificationsViewController.instantiateFromStoryboard()
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.pushViewController(notificationsVC, animated: true)
     }
     
     func showSettings() {
-        let vc = SettingsViewController.instantiateFromStoryboard()
-        vc.coordinator = self
-        navigationController.pushViewController(vc, animated: true)
+        settingsVC.coordinator = self
+        navigationController.pushViewController(settingsVC, animated: true)
     }
     
     func showAuthorization() {
