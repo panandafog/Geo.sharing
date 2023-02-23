@@ -39,7 +39,9 @@ class ProfilePictureViewController: UIViewController, Storyboarded, Notificating
     
     private func bindViewModel() {
         viewModel.$image.sink { [weak self] output in
-            self?.imageView.image = output
+            DispatchQueue.main.async {
+                self?.imageView.image = output
+            }
         }
         .store(in: &cancellables)
     }

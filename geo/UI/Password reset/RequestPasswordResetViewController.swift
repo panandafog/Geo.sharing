@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 protocol RequestPasswordReseViewControllerDelegate: AnyObject {
-    func confirmPasswordReset()
+    func confirmPasswordReset(email: String)
 }
 
 class RequestPasswordResetViewController: UIViewController, Storyboarded, NotificatingViewController {
@@ -44,17 +44,23 @@ class RequestPasswordResetViewController: UIViewController, Storyboarded, Notifi
     
     private func bindViewModel() {
         viewModel.$changesAllowed.sink { [weak self] output in
-            self?.emailTextField.isEnabled = output
+            DispatchQueue.main.async {
+                self?.emailTextField.isEnabled = output
+            }
         }
         .store(in: &cancellables)
         
         viewModel.$confirmationAllowed.sink { [weak self] output in
-            self?.confirmationButton.isEnabled = output
+            DispatchQueue.main.async {
+                self?.confirmationButton.isEnabled = output
+            }
         }
         .store(in: &cancellables)
         
         viewModel.$activityInProgress.sink { [weak self] output in
-            self?.setActivity(enabled: output)
+            DispatchQueue.main.async {
+                self?.setActivity(enabled: output)
+            }
         }
         .store(in: &cancellables)
     }
@@ -70,7 +76,10 @@ class RequestPasswordResetViewController: UIViewController, Storyboarded, Notifi
 
 extension RequestPasswordResetViewController: RequestPasswordResetViewModelDelegate {
     func handlePasswordResetConfirmation() {
-        coordinator?.confirmPasswordReset()
+        guard let email = viewModel.email else {
+            return
+        }
+        coordinator?.confirmPasswordReset(email: email)
     }
     
     func handleError(error: RequestError) {

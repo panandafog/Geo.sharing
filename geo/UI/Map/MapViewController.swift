@@ -19,18 +19,13 @@ protocol MapViewControllerDelegate: AnyObject {
 
 class MapViewController: UIViewController, Storyboarded, NotificatingViewController {
     
+    private lazy var viewModel = MapViewModel(delegate: self)
     weak var coordinator: MapViewControllerDelegate?
     
-    private let locationManager = LocationManager.shared
-    private let authorizationService = AuthorizationService.shared
-    private let usersService = UsersService.self
-    private let friendsService = FriendsService.self
+    private var cancellables: Set<AnyCancellable> = []
     
     private let mapZoomOffset = 200
     private let friendsBarHeight = 20
-    
-    private var annotationsTimer: Timer?
-    private var notificationsTimer: Timer?
     
     private var zoomMapToUserEnabled: Bool {
         get {
@@ -71,9 +66,12 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindViewModel()
+        
         setupMap()
         setLocationButtonConfiguration()
-        authorizeAndStart()
+        
+        viewModel.authorizeAndStart()
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -94,22 +92,30 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         setLocationButtonConfiguration()
     }
     
+    private func bindViewModel() {
+        viewModel.$notificationsCount.sink { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.updateNotificationsButton()
+            }
+        }
+        .store(in: &cancellables)
+        
+        viewModel.$friendships.sink { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.updateAnnotations()
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
     // MARK: - Event handlers
     
     func handleLoginCompletion() {
-        startUpdatingLocation()
-        startUpdatingUsersAnnotations()
-        startUpdatingNotifications()
+        viewModel.handleLoggigIn()
     }
     
     func handleSignoutCompletion() {
-        stopUpdatingLocation()
-        stopUpdatingUsersAnnotations()
-        stopUpdatingNotifications()
-        
-        removeAllUsersAnnotations()
-        authorizationService.signOut()
-        authorizeAndStart()
+        viewModel.signOut()
     }
     
     func show(user: User) {
@@ -143,7 +149,7 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     }
     
     private func zoomMapToUserLocation(animated: Bool = true) {
-        guard let userLocation = locationManager.location?.coordinate else {
+        guard let userLocation = viewModel.userLocation else {
             return
         }
         zoomMapTo(coordinate: userLocation, animated: animated)
@@ -158,67 +164,18 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         map.setRegion(viewRegion, animated: animated)
     }
     
-    // MARK: - Location
-    
-    private func authorizeAndStart() {
-        guard !authorizationService.authorized else {
-            startUpdatingLocation()
-            startUpdatingUsersAnnotations()
-            startUpdatingNotifications()
-            return
-        }
-        
-        coordinator?.showAuthorization()
-    }
-    
-    private func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
-    }
-    
-    private func stopUpdatingLocation() {
-        locationManager.stopUpdatingLocation()
-    }
-    
     // MARK: - Annotations
     
-    private func startUpdatingUsersAnnotations() {
-        annotationsTimer = Timer.scheduledTimer(
-            withTimeInterval: 2,
-            repeats: true
-        ) { [weak self] _ in
-            self?.updateUsersForAnnotations()
-        }
-    }
-    
-    private func stopUpdatingUsersAnnotations() {
-        annotationsTimer?.invalidate()
-    }
-    
-    private func removeAllUsersAnnotations() {
-        updateAnnotations(users: [])
-    }
-    
-    private func updateUsersForAnnotations() {
-        usersService.getFriendships { [weak self] result in
-            switch result {
-            case .success(let friendships):
-                self?.updateAnnotations(users: friendships.compactMap { $0.user })
-            case .failure(let error):
-                self?.showErrorAlert(error)
-            }
-        }
-    }
-    
-    private func updateAnnotations(users: [User]) {
+    private func updateAnnotations() {
         let existingAnnotations = map.annotations.compactMap {
             $0 as? FriendMKPointAnnotation
         }
         // remove unneeded annotations
-        for annotation in existingAnnotations where !users.contains(annotation.user) {
+        for annotation in existingAnnotations where !viewModel.friends.contains(annotation.user) {
             map.removeAnnotation(annotation)
         }
         
-        for user in users {
+        for user in viewModel.friends {
             if let existingAnnotation = existingAnnotations.first(where: { $0.user == user }) {
                 // move existing annotation
                 UIView.animate(withDuration: 1) {
@@ -234,35 +191,12 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         }
     }
     
-    // MARK: - Notifications
-    
-    private func startUpdatingNotifications() {
-        notificationsTimer = Timer.scheduledTimer(
-            withTimeInterval: 2,
-            repeats: true
-        ) { [weak self] _ in
-            self?.updateNotifications()
+    private func updateNotificationsButton() {
+        if viewModel.notificationsCount > 0 {
+            notificationsButton.tintColor = .systemOrange
+        } else {
+            notificationsButton.tintColor = .systemGray
         }
-    }
-    
-    private func stopUpdatingNotifications() {
-        notificationsTimer?.invalidate()
-    }
-    
-    private func updateNotifications() {
-        friendsService.getFriendshipRequests(type: .incoming) { [weak self] result in
-            switch result {
-            case .success(let friendshipRequests):
-                self?.handleNotifications(exist: !friendshipRequests.isEmpty)
-                
-            case .failure:
-                break
-            }
-        }
-    }
-    
-    private func handleNotifications(exist: Bool) {
-        notificationsButton.tintColor = exist ? .systemOrange : .systemGray
     }
 }
 
@@ -288,5 +222,15 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         setLocationButtonConfiguration()
+    }
+}
+
+extension MapViewController: MapViewModelDelegate {
+    func handleError(error: RequestError) {
+        showErrorAlert(error)
+    }
+    
+    func showAuthorization() {
+        coordinator?.showAuthorization()
     }
 }

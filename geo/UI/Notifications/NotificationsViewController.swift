@@ -27,6 +27,7 @@ class NotificationsViewController: UIViewController, Storyboarded, NotificatingV
         super.viewDidLoad()
         
         bindViewModel()
+        
         setupTable()
         setupRefreshControl()
         setupStyling()
@@ -40,13 +41,17 @@ class NotificationsViewController: UIViewController, Storyboarded, NotificatingV
     
     private func bindViewModel() {
         viewModel.$cells.sink { [weak self] _ in
-            self?.updateTable()
+            DispatchQueue.main.async {
+                self?.updateTable()
+            }
         }
         .store(in: &cancellables)
         
         viewModel.$refreshingCells.sink { [weak self] output in
             if !output {
-                self?.refreshControl.endRefreshing()
+                DispatchQueue.main.async {
+                    self?.refreshControl.endRefreshing()
+                }
             }
         }
         .store(in: &cancellables)
@@ -86,7 +91,7 @@ extension NotificationsViewController: UITableViewDelegate {
 
 extension NotificationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.cells.count
+        return viewModel.cells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

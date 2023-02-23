@@ -52,6 +52,7 @@
 		0BA1C1F829A7898300387882 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F729A7898300387882 /* SignupViewModel.swift */; };
 		0BA1C1FA29A78D0F00387882 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F929A78D0F00387882 /* LoginViewModel.swift */; };
 		0BA1C1FC29A78FE700387882 /* EmailConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1FB29A78FE700387882 /* EmailConfirmationViewModel.swift */; };
+		0BA1C1FE29A7F4A000387882 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1FD29A7F4A000387882 /* MapViewModel.swift */; };
 		0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */; };
 		0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A05429919C6400AB48DD /* SettingsViewController.swift */; };
 		0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */; };
@@ -155,6 +156,7 @@
 		0BA1C1F729A7898300387882 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		0BA1C1F929A78D0F00387882 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0BA1C1FB29A78FE700387882 /* EmailConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailConfirmationViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1FD29A7F4A000387882 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendMKPointAnnotation.swift; sourceTree = "<group>"; };
 		0BB0A05429919C6400AB48DD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
@@ -336,9 +338,10 @@
 			isa = PBXGroup;
 			children = (
 				0B1AE4BC29A36B9600B4E4F7 /* MainCoordinator.swift */,
-				0B70166D298C3DA300E0E353 /* Annotations */,
+				0BA1C1FD29A7F4A000387882 /* MapViewModel.swift */,
 				0B400171294E68C300EBE854 /* MapViewController.swift */,
 				0B400173294E68C300EBE854 /* MapViewController.storyboard */,
+				0B70166D298C3DA300E0E353 /* Annotations */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */,
 				0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */,
 				0B51D8722989448000200B63 /* SearchedUser.swift in Sources */,
+				0BA1C1FE29A7F4A000387882 /* MapViewModel.swift in Sources */,
 				0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */,
 				0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */,
 				0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */,

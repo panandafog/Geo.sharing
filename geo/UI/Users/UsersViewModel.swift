@@ -73,11 +73,12 @@ class UsersViewModel {
             let searchedUser = searchResults.foundUsers[indexPath.row]
             let user = searchedUser.user
             
-            var actions: [UserTableCellViewModel.Action] = [
-                showOnMapAction(user: user)
-            ]
+            var actions: [UserTableCellViewModel.Action] = []
             if let friendship = searchedUser.friendship {
                 actions.append(removeFriendAction(friendship: friendship))
+                if let user = friendship.user {
+                    actions.append(showOnMapAction(user: user))
+                }
             } else if let friendshipRequest = searchedUser.friendshipRequest {
                 actions.append(deleteRequestAction(friendshipRequest: friendshipRequest))
             } else {

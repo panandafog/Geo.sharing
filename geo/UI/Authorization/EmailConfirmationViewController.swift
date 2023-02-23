@@ -46,17 +46,23 @@ class EmailConfirmationViewController: UIViewController, Storyboarded, Notificat
     
     private func bindViewModel() {
         viewModel.$changesAllowed.sink { [weak self] output in
-            self?.setTextFields(enabled: output)
+            DispatchQueue.main.async {
+                self?.setTextFields(enabled: output)
+            }
         }
         .store(in: &cancellables)
         
         viewModel.$confirmationAllowed.sink { [weak self] output in
-            self?.setConfirmation(enabled: output)
+            DispatchQueue.main.async {
+                self?.setConfirmation(enabled: output)
+            }
         }
         .store(in: &cancellables)
         
         viewModel.$activityInProgress.sink { [weak self] output in
-            self?.setActivity(enabled: output)
+            DispatchQueue.main.async {
+                self?.setActivity(enabled: output)
+            }
         }
         .store(in: &cancellables)
     }

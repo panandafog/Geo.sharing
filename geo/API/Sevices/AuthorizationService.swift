@@ -124,16 +124,25 @@ class AuthorizationService: ApiService {
         )
     }
     
-    func requestPasswordChange(completion: @escaping EmptyCompletion) {
+    func requestPasswordChange(email: String, completion: @escaping EmptyCompletion) {
         Self.sendRequest(
-            method: .get,
+            method: .post,
             url: Endpoints.requestPasswordChangeComponents.url!,
-            requiresAuthorization: true,
+            requiresAuthorization: false,
+            parameters: .init(
+                parameters: ["email": email],
+                encoding: .jsonBody
+            ),
             completion: completion
         )
     }
     
-    func confirmPasswordChange(code: Int, newPassword: String, completion: @escaping EmptyCompletion) {
+    func confirmPasswordChange(
+        email: String,
+        code: Int,
+        newPassword: String,
+        completion: @escaping EmptyCompletion
+    ) {
         let completionHandler: EmptyCompletion = { result in
             switch result {
             case .success:
@@ -147,9 +156,10 @@ class AuthorizationService: ApiService {
         Self.sendRequest(
             method: .post,
             url: Endpoints.confirmPasswordChangeComponents.url!,
-            requiresAuthorization: true,
+            requiresAuthorization: false,
             parameters: .init(
                 parameters: [
+                    "email": email,
                     "code": String(code),
                     "new_password": newPassword
                 ],

@@ -38,11 +38,15 @@ class RequestPasswordResetViewModel: ObservableObject {
     }
     
     func confirmResetPassword() {
+        guard let email = email else {
+            return
+        }
+        
         changesAllowed = false
         confirmationAllowed = false
         activityInProgress = true
         
-        authorizationService.requestPasswordChange { [weak self] result in
+        authorizationService.requestPasswordChange(email: email) { [weak self] result in
             self?.changesAllowed = true
             self?.confirmationAllowed = true
             self?.activityInProgress = false

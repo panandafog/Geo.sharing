@@ -38,6 +38,7 @@ class ResetPasswordViewModel: ObservableObject {
             verifyCreds()
         }
     }
+    var email: String?
     
     init(delegate: ResetPasswordViewModelDelegate) {
         self.delegate = delegate
@@ -51,7 +52,11 @@ class ResetPasswordViewModel: ObservableObject {
     }
     
     func confirmChangingPassword() {
-        guard let code = code, let newPassword = newPassword else {
+        guard
+            let code = code,
+            let newPassword = newPassword,
+            let email = email
+        else {
             return
         }
         
@@ -60,6 +65,7 @@ class ResetPasswordViewModel: ObservableObject {
         activityInProgress = true
         
         authorizationService.confirmPasswordChange(
+            email: email,
             code: code,
             newPassword: newPassword
         ) { [weak self] result in
