@@ -49,6 +49,9 @@
 		0BA1C1F229A77CCF00387882 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F129A77CCF00387882 /* SettingsViewModel.swift */; };
 		0BA1C1F429A77FEF00387882 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F329A77FEF00387882 /* NotificationsViewModel.swift */; };
 		0BA1C1F629A7827500387882 /* NotificationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F529A7827500387882 /* NotificationCellViewModel.swift */; };
+		0BA1C1F829A7898300387882 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F729A7898300387882 /* SignupViewModel.swift */; };
+		0BA1C1FA29A78D0F00387882 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F929A78D0F00387882 /* LoginViewModel.swift */; };
+		0BA1C1FC29A78FE700387882 /* EmailConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1FB29A78FE700387882 /* EmailConfirmationViewModel.swift */; };
 		0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */; };
 		0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A05429919C6400AB48DD /* SettingsViewController.swift */; };
 		0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */; };
@@ -149,6 +152,9 @@
 		0BA1C1F129A77CCF00387882 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		0BA1C1F329A77FEF00387882 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		0BA1C1F529A7827500387882 /* NotificationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCellViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1F729A7898300387882 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1F929A78D0F00387882 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1FB29A78FE700387882 /* EmailConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailConfirmationViewModel.swift; sourceTree = "<group>"; };
 		0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendMKPointAnnotation.swift; sourceTree = "<group>"; };
 		0BB0A05429919C6400AB48DD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
@@ -395,10 +401,13 @@
 			isa = PBXGroup;
 			children = (
 				0B1AE4C229A37FD300B4E4F7 /* AuthorizationCoordinator.swift */,
+				0BA1C1F729A7898300387882 /* SignupViewModel.swift */,
 				0BC08A4229798E090026BA27 /* SignupViewController.swift */,
 				0BC08A3C29798DB00026BA27 /* SignupViewController.storyboard */,
+				0BA1C1F929A78D0F00387882 /* LoginViewModel.swift */,
 				0BC08A4429798E1A0026BA27 /* LoginViewController.swift */,
 				0BC08A3E29798DD90026BA27 /* LoginViewController.storyboard */,
+				0BA1C1FB29A78FE700387882 /* EmailConfirmationViewModel.swift */,
 				0BE07F802993D9350040CECA /* EmailConfirmationViewController.swift */,
 				0BE07F822993D9470040CECA /* EmailConfirmationViewController.storyboard */,
 			);
@@ -753,10 +762,13 @@
 				0BB60E6E29990BAD0065AECB /* RequestError.swift in Sources */,
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
 				0BB60E7029991C590065AECB /* NotificatingViewController.swift in Sources */,
+				0BA1C1F829A7898300387882 /* SignupViewModel.swift in Sources */,
 				0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */,
 				0BB60E722999202A0065AECB /* ErrorResponse.swift in Sources */,
 				0B2E3EC429A4B5A60016391D /* DateHelper.swift in Sources */,
+				0BA1C1FA29A78D0F00387882 /* LoginViewModel.swift in Sources */,
 				0BC443F12983FA5F00D31C15 /* UserTableCell.swift in Sources */,
+				0BA1C1FC29A78FE700387882 /* EmailConfirmationViewModel.swift in Sources */,
 				0B1AE4BD29A36B9600B4E4F7 /* MainCoordinator.swift in Sources */,
 				0B70166F298C3F4500E0E353 /* FriendAnnotationView.swift in Sources */,
 				0BA1C1EE29A7767F00387882 /* ProfilePictureViewModel.swift in Sources */,

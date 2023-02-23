@@ -50,7 +50,6 @@ class ResetPasswordViewModel: ObservableObject {
         && String(code ?? 0).count == AuthorizationService.confirmationCodeLength
     }
     
-    
     func confirmChangingPassword() {
         guard let code = code, let newPassword = newPassword else {
             return

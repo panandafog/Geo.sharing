@@ -30,7 +30,7 @@ class AuthorizationCoordinator: Coordinator {
 
 extension AuthorizationCoordinator: SignupViewControllerDelegate {
     func showEmailConfirmation(
-        signupData: EmailConfirmationViewController.SignupData
+        signupData: EmailConfirmationViewModel.SignupData
     ) {
         let vc = EmailConfirmationViewController.instantiateFromStoryboard()
         vc.coordinator = self

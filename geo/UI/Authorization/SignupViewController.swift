@@ -5,17 +5,20 @@
 //  Created by Andrey on 19.01.2023.
 //
 
+import Combine
 import UIKit
 
 protocol SignupViewControllerDelegate: AnyObject {
-    func showEmailConfirmation(signupData: EmailConfirmationViewController.SignupData)
+    func showEmailConfirmation(signupData: EmailConfirmationViewModel.SignupData)
 }
 
 class SignupViewController: UIViewController, Storyboarded, NotificatingViewController {
     
     weak var coordinator: SignupViewControllerDelegate?
     
-    private let authorizationService = AuthorizationService.shared
+    lazy var viewModel = SignupViewModel(delegate: self)
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var emailTextField: UITextField!
@@ -29,78 +32,79 @@ class SignupViewController: UIViewController, Storyboarded, NotificatingViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindViewModel()
         activityIndicator.stopAnimating()
         navigationItem.title = "SignUp"
         isModalInPresentation = true
     }
     
     @IBAction private func usernameChanged(_ sender: UITextField) {
-        verifyCreds()
+        viewModel.username = usernameTextField.text
     }
     
     @IBAction private func emailChanged(_ sender: UITextField) {
-        verifyCreds()
+        viewModel.email = emailTextField.text
     }
     
     @IBAction private func passwordChanged(_ sender: UITextField) {
-        verifyCreds()
+        viewModel.password = passwordTextField.text
     }
     
     @IBAction private func passwordConfirmationChanged(_ sender: UITextField) {
-        verifyCreds()
+        viewModel.passwordConfirm = passwordConfirmTextField.text
     }
     
     @IBAction private func submitButtonTouched(_ sender: UIButton) {
-        guard let username = usernameTextField.text,
-              let email = emailTextField.text,
-              let password = passwordTextField.text,
-              password == passwordConfirmTextField.text
-        else {
-            return
-        }
-        
-        activityIndicator.startAnimating()
-        setControls(enabled: false)
-        
-        authorizationService.signup(
-            username: username,
-            email: email,
-            password: password
-        ) { [weak self] result in
-            
-            DispatchQueue.main.async {
-                self?.activityIndicator.stopAnimating()
-                self?.setControls(enabled: true)
-            }
-            
-            switch result {
-            case .success(let signupResponse):
-                DispatchQueue.main.async {
-                    self?.coordinator?.showEmailConfirmation(
-                        signupData: .init(
-                            email: email,
-                            signupResponse: signupResponse
-                        )
-                    )
-                }
-            case .failure(let error):
-                self?.showErrorAlert(error)
-            }
-        }
+        viewModel.signup()
     }
     
-    private func verifyCreds() {
-        submitButton.isEnabled = (usernameTextField.text?.count ?? 0) >= AuthorizationService.minUsernameLength
-        && (passwordTextField.text?.count ?? 0) >= AuthorizationService.minPasswordLength
-        && passwordConfirmTextField.text == passwordTextField.text
-        && (emailTextField.text?.isValidEmailAddress ?? false)
+    private func bindViewModel() {
+        viewModel.$changesAllowed.sink { [weak self] output in
+            self?.setTextFields(enabled: output)
+        }
+        .store(in: &cancellables)
+        
+        viewModel.$confirmationAllowed.sink { [weak self] output in
+            self?.setConfirmation(enabled: output)
+        }
+        .store(in: &cancellables)
+        
+        viewModel.$activityInProgress.sink { [weak self] output in
+            self?.setActivity(enabled: output)
+        }
+        .store(in: &cancellables)
     }
     
-    private func setControls(enabled: Bool) {
-        submitButton.isEnabled = enabled
+    private func setTextFields(enabled: Bool) {
         usernameTextField.isEnabled = enabled
         emailTextField.isEnabled = enabled
         passwordTextField.isEnabled = enabled
         passwordConfirmTextField.isEnabled = enabled
+    }
+    
+    private func setConfirmation(enabled: Bool) {
+        submitButton.isEnabled = enabled
+    }
+    
+    private func setActivity(enabled: Bool) {
+        if enabled {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
+}
+
+extension SignupViewController: SignupViewModelDelegate {
+    func showEmailConfirmation(
+        signupData: EmailConfirmationViewModel.SignupData
+    ) {
+        coordinator?.showEmailConfirmation(
+            signupData: signupData
+        )
+    }
+    
+    func handleError(error: RequestError) {
+        showErrorAlert(error)
     }
 }

@@ -5,6 +5,7 @@
 //  Created by Andrey on 08.02.2023.
 //
 
+import Combine
 import UIKit
 
 protocol EmailConfirmationViewControllerDelegate: AnyObject {
@@ -15,12 +16,9 @@ class EmailConfirmationViewController: UIViewController, Storyboarded, Notificat
     
     weak var coordinator: EmailConfirmationViewControllerDelegate?
     
-    private let authorizationService = AuthorizationService.shared
+    lazy var viewModel = EmailConfirmationViewModel(delegate: self)
     
-    private var signupData: SignupData?
-    var code: Int? {
-        Int(codeTextField.text ?? "")
-    }
+    private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet private var codeTextField: UITextField!
     
@@ -28,43 +26,64 @@ class EmailConfirmationViewController: UIViewController, Storyboarded, Notificat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bindViewModel()
         navigationItem.title = "Confirm email address"
         isModalInPresentation = true
     }
     
     @IBAction private func codeChanged(_ sender: UITextField) {
-        verifyCode()
+        viewModel.code = Int(codeTextField.text ?? "")
     }
     
     @IBAction private func submitButtonTouched(_ sender: UIButton) {
-        guard let code = code,
-              let signupResponse = signupData?.signupResponse,
-              let email = signupData?.email else {
-            return
-        }
-        authorizationService.verifyEmail(code: code, signupResponse: signupResponse) { [weak self] result in
-            switch result {
-            case .success:
-                self?.coordinator?.returnToLogin(email: email)
-            case .failure(let error):
-                self?.showErrorAlert(error)
-            }
-        }
+        viewModel.verifyEmail()
     }
     
-    func setup(signupData: SignupData) {
-        self.signupData = signupData
+    func setup(signupData: EmailConfirmationViewModel.SignupData) {
+        self.viewModel.signupData = signupData
     }
     
-    private func verifyCode() {
-        submitButton.isEnabled = String(code ?? 0).count == AuthorizationService.confirmationCodeLength
+    private func bindViewModel() {
+        viewModel.$changesAllowed.sink { [weak self] output in
+            self?.setTextFields(enabled: output)
+        }
+        .store(in: &cancellables)
+        
+        viewModel.$confirmationAllowed.sink { [weak self] output in
+            self?.setConfirmation(enabled: output)
+        }
+        .store(in: &cancellables)
+        
+        viewModel.$activityInProgress.sink { [weak self] output in
+            self?.setActivity(enabled: output)
+        }
+        .store(in: &cancellables)
+    }
+    
+    private func setTextFields(enabled: Bool) {
+        codeTextField.isEnabled = enabled
+    }
+    
+    private func setConfirmation(enabled: Bool) {
+        submitButton.isEnabled = enabled
+    }
+    
+    private func setActivity(enabled: Bool) {
+//        if enabled {
+//            activityIndicator.startAnimating()
+//        } else {
+//            activityIndicator.stopAnimating()
+//        }
     }
 }
 
-extension EmailConfirmationViewController {
+extension EmailConfirmationViewController: EmailConfirmationViewModelDelegate {
+    func handleEmailConfirmation(email: String) {
+        coordinator?.returnToLogin(email: email)
+    }
     
-    struct SignupData {
-        let email: String
-        let signupResponse: AuthorizationService.SignupResponse
+    func handleError(error: RequestError) {
+        showErrorAlert(error)
     }
 }
