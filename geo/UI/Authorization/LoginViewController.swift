@@ -22,25 +22,24 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
     
     private var cancellables: Set<AnyCancellable> = []
     
+    private var invalidInputTimer: Timer?
+    
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var submitButton: UIButton!
     @IBOutlet private var createAccountButton: UIButton!
     @IBOutlet private var resetPasswordButton: UIButton!
     
+    @IBOutlet private var inputErrorLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         bindViewModel()
-        
-        navigationItem.title = "LogIn"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        isModalInPresentation = true
-        
-        activityIndicator.stopAnimating()
-        submitButton.isEnabled = false
+        setupStyling()
+        viewModel.setInitialInput()
+        emailTextField.text = viewModel.email
     }
     
     @IBAction private func usernameChanged(_ sender: UITextField) {
@@ -89,6 +88,26 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
             }
         }
         .store(in: &cancellables)
+        
+        viewModel.$invalidInput.sink { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.handleInvalidInput()
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
+    private func setupStyling() {
+        for textField in [emailTextField, passwordTextField] {
+            textField?.set(style: .common)
+        }
+        
+        navigationItem.title = "LogIn"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        isModalInPresentation = true
+        
+        activityIndicator.stopAnimating()
+        submitButton.isEnabled = false
     }
     
     private func setTextFields(enabled: Bool) {
@@ -107,6 +126,46 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
             activityIndicator.stopAnimating()
         }
     }
+    
+    private func handleInvalidInput() {
+        guard let invalidInputType = viewModel.invalidInput else {
+            invalidInputTimer?.invalidate()
+            showInvalidInput(nil)
+            return
+        }
+        
+        invalidInputTimer?.invalidate()
+        invalidInputTimer = Timer.scheduledTimer(
+            withTimeInterval: Animations.invalidInputTimerInterval,
+            repeats: false
+        ) { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.showInvalidInput(invalidInputType)
+            }
+        }
+    }
+    
+    private func showInvalidInput(
+        _ invalidInputType: LoginViewModel.InvalidInputType?
+    ) {
+        let message = invalidInputType?.errorMessage
+        
+        self.inputErrorLabel.fadeTransition(
+            Animations.invalidInputAnimationDuration
+        )
+        self.inputErrorLabel.text = message
+        
+        UIView.animate(
+            withDuration: Animations.invalidInputAnimationDuration
+        ) {
+            self.emailTextField.set(
+                style: invalidInputType?.emailHighlightStyle ?? .common
+            )
+            self.passwordTextField.set(
+                style: invalidInputType?.passwordHighlightStyle ?? .common
+            )
+        }
+    }
 }
 
 extension LoginViewController: LoginViewModelDelegate {
@@ -116,5 +175,33 @@ extension LoginViewController: LoginViewModelDelegate {
     
     func handleError(error: RequestError) {
         showErrorAlert(error)
+    }
+}
+
+extension LoginViewModel.InvalidInputType {
+    
+    var errorMessage: String {
+        switch self {
+        case .invalidEmail:
+            return "Please enter valid email"
+        case .tooShortPassword:
+            return "Password is too short"
+        }
+    }
+    
+    var passwordHighlightStyle: UITextField.Style {
+        if self == .tooShortPassword {
+            return .invalidInput
+        } else {
+            return .common
+        }
+    }
+    
+    var emailHighlightStyle: UITextField.Style {
+        if self == .invalidEmail {
+            return .invalidInput
+        } else {
+            return .common
+        }
     }
 }

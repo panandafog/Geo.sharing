@@ -22,6 +22,7 @@ class ResetPasswordViewModel: ObservableObject {
     @Published var changesAllowed = true
     @Published var confirmationAllowed = false
     @Published var activityInProgress = false
+    @Published var invalidInput: InvalidInputType?
     
     var newPassword: String? {
         didSet {
@@ -45,10 +46,21 @@ class ResetPasswordViewModel: ObservableObject {
     }
     
     private func verifyCreds() {
-        confirmationAllowed = (newPassword ?? "").count >= AuthorizationService.minPasswordLength
-        && newPassword == passwordConfirmation
-        && code != nil
-        && String(code ?? 0).count == AuthorizationService.confirmationCodeLength
+        let passwordIsValid = (newPassword?.count ?? 0) >= AuthorizationService.minPasswordLength
+        let passwordConfirmationIsValid = passwordConfirmation == newPassword
+        let codeIsValid = String(code ?? 0).count == AuthorizationService.confirmationCodeLength
+        
+        confirmationAllowed = passwordIsValid && passwordConfirmationIsValid && codeIsValid
+        
+        if !passwordIsValid && (newPassword?.count ?? 0) > 0 {
+            invalidInput = .tooShortPassword
+        } else if !passwordConfirmationIsValid && (passwordConfirmation?.count ?? 0) > 0 {
+            invalidInput = .unmatchingPasswordConfirmation
+        } else if !codeIsValid && code != nil {
+            invalidInput = .invalidCode
+        } else {
+            invalidInput = nil
+        }
     }
     
     func confirmChangingPassword() {
@@ -81,5 +93,14 @@ class ResetPasswordViewModel: ObservableObject {
                 self?.delegate?.handleError(error: error)
             }
         }
+    }
+}
+
+extension ResetPasswordViewModel {
+    
+    enum InvalidInputType {
+        case tooShortPassword
+        case unmatchingPasswordConfirmation
+        case invalidCode
     }
 }

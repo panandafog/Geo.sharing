@@ -21,6 +21,7 @@ class SignupViewModel {
     @Published var changesAllowed = true
     @Published var confirmationAllowed = false
     @Published var activityInProgress = false
+    @Published var invalidInput: InvalidInputType?
     
     var username: String? {
         didSet {
@@ -48,10 +49,24 @@ class SignupViewModel {
     }
     
     private func verifyCreds() {
-        confirmationAllowed = (username?.count ?? 0) >= AuthorizationService.minUsernameLength
-        && (password?.count ?? 0) >= AuthorizationService.minPasswordLength
-        && passwordConfirm == password
-        && (email?.isValidEmailAddress ?? false)
+        let usernameIsValid = (username?.count ?? 0) >= AuthorizationService.minUsernameLength
+        let emailIsValid = (email?.isValidEmailAddress ?? false)
+        let passwordIsValid = (password?.count ?? 0) >= AuthorizationService.minPasswordLength
+        let passwordConfirmationIsValid = passwordConfirm == password
+        
+        confirmationAllowed = usernameIsValid && emailIsValid && passwordIsValid && passwordConfirmationIsValid
+        
+        if !usernameIsValid && (username?.count ?? 0) > 0 {
+            invalidInput = .tooShortUsername
+        } else if !emailIsValid && (email?.count ?? 0) > 0 {
+            invalidInput = .invalidEmail
+        } else if !passwordIsValid && (password?.count ?? 0) > 0 {
+            invalidInput = .tooShortPassword
+        } else if !passwordConfirmationIsValid && (passwordConfirm?.count ?? 0) > 0 {
+            invalidInput = .unmatchingPasswordConfirmation
+        } else {
+            invalidInput = nil
+        }
     }
     
     func signup() {
@@ -88,5 +103,15 @@ class SignupViewModel {
                 self?.delegate?.handleError(error: error)
             }
         }
+    }
+}
+
+extension SignupViewModel {
+    
+    enum InvalidInputType {
+        case tooShortUsername
+        case invalidEmail
+        case tooShortPassword
+        case unmatchingPasswordConfirmation
     }
 }

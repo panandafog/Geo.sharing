@@ -172,8 +172,6 @@ class AuthorizationService: ApiService {
     func signOut() {
         uid = nil
         token = nil
-        email = nil
-        username = nil
     }
 }
 
