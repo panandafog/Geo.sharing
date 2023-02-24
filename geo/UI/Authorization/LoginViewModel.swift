@@ -38,6 +38,10 @@ class LoginViewModel {
         self.delegate = delegate
     }
     
+    func setInitialInput() {
+        self.email = authorizationService.email
+    }
+    
     private func verifyCreds() {
         let emailIsValid = (email?.isValidEmailAddress ?? false)
         && (email?.count ?? 0) >= AuthorizationService.minUsernameLength
@@ -86,22 +90,8 @@ class LoginViewModel {
 
 extension LoginViewModel {
     
-    enum InputTarget {
-        case email
-        case password
-    }
-    
     enum InvalidInputType {
         case invalidEmail
         case tooShortPassword
-        
-        var target: InputTarget {
-            switch self {
-            case .invalidEmail:
-                return .email
-            case .tooShortPassword:
-                return .password
-            }
-        }
     }
 }

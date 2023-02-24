@@ -22,6 +22,7 @@ class RequestPasswordResetViewModel: ObservableObject {
     @Published var changesAllowed = true
     @Published var confirmationAllowed = false
     @Published var activityInProgress = false
+    @Published var invalidInput: InvalidInputType?
     
     var email: String? {
         didSet {
@@ -33,8 +34,19 @@ class RequestPasswordResetViewModel: ObservableObject {
         self.delegate = delegate
     }
     
+    func setInitialInput() {
+        self.email = authorizationService.email
+    }
+    
     private func verifyCreds() {
-        confirmationAllowed = email?.isValidEmailAddress ?? false
+        let emailIsValid = email?.isValidEmailAddress ?? false
+        confirmationAllowed = emailIsValid
+        
+        if !emailIsValid {
+            invalidInput = .invalidEmail
+        } else {
+            invalidInput = nil
+        }
     }
     
     func confirmResetPassword() {
@@ -58,5 +70,12 @@ class RequestPasswordResetViewModel: ObservableObject {
                 self?.delegate?.handleError(error: error)
             }
         }
+    }
+}
+
+extension RequestPasswordResetViewModel {
+    
+    enum InvalidInputType {
+        case invalidEmail
     }
 }

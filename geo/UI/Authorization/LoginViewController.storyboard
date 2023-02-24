@@ -81,7 +81,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cA-7c-qCm">
                                 <rect key="frame" x="40" y="306" width="334" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="Z7s-Fw-2iy"/>
+                                    <constraint firstAttribute="height" priority="750" constant="75" id="Z7s-Fw-2iy"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" systemColor="systemRedColor"/>

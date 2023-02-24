@@ -20,18 +20,22 @@ class RequestPasswordResetViewController: UIViewController, Storyboarded, Notifi
     
     private var cancellables: Set<AnyCancellable> = []
     
+    private var invalidInputTimer: Timer?
+    
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var confirmationButton: UIButton!
     
+    @IBOutlet private var inputErrorLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         bindViewModel()
+        setupStyling()
+        
+        viewModel.setInitialInput()
         emailTextField.text = viewModel.email
-        navigationItem.title = "Reset password"
-        isModalInPresentation = true
     }
     
     @IBAction private func emailChanged(_ sender: UITextField) {
@@ -63,6 +67,20 @@ class RequestPasswordResetViewController: UIViewController, Storyboarded, Notifi
             }
         }
         .store(in: &cancellables)
+        
+        viewModel.$invalidInput.sink { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.handleInvalidInput()
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
+    private func setupStyling() {
+        emailTextField.set(style: .common)
+        
+        navigationItem.title = "Reset password"
+        isModalInPresentation = true
     }
     
     private func setActivity(enabled: Bool) {
@@ -70,6 +88,43 @@ class RequestPasswordResetViewController: UIViewController, Storyboarded, Notifi
             activityIndicator.startAnimating()
         } else {
             activityIndicator.stopAnimating()
+        }
+    }
+    
+    private func handleInvalidInput() {
+        guard let invalidInputType = viewModel.invalidInput else {
+            invalidInputTimer?.invalidate()
+            showInvalidInput(nil)
+            return
+        }
+        
+        invalidInputTimer?.invalidate()
+        invalidInputTimer = Timer.scheduledTimer(
+            withTimeInterval: Animations.invalidInputTimerInterval,
+            repeats: false
+        ) { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.showInvalidInput(invalidInputType)
+            }
+        }
+    }
+    
+    private func showInvalidInput(
+        _ invalidInputType: RequestPasswordResetViewModel.InvalidInputType?
+    ) {
+        let message = invalidInputType?.errorMessage
+        
+        self.inputErrorLabel.fadeTransition(
+            Animations.invalidInputAnimationDuration
+        )
+        self.inputErrorLabel.text = message
+        
+        UIView.animate(
+            withDuration: Animations.invalidInputAnimationDuration
+        ) {
+            self.emailTextField.set(
+                style: invalidInputType?.emailHighlightStyle ?? .common
+            )
         }
     }
 }
@@ -84,5 +139,23 @@ extension RequestPasswordResetViewController: RequestPasswordResetViewModelDeleg
     
     func handleError(error: RequestError) {
         showErrorAlert(error)
+    }
+}
+
+extension RequestPasswordResetViewModel.InvalidInputType {
+    
+    var errorMessage: String {
+        switch self {
+        case .invalidEmail:
+            return "Please enter valid email"
+        }
+    }
+    
+    var emailHighlightStyle: UITextField.Style {
+        if self == .invalidEmail {
+            return .invalidInput
+        } else {
+            return .common
+        }
     }
 }

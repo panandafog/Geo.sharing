@@ -20,11 +20,14 @@ class SignupViewController: UIViewController, Storyboarded, NotificatingViewCont
     
     private var cancellables: Set<AnyCancellable> = []
     
+    private var invalidInputTimer: Timer?
+    
     @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var passwordConfirmTextField: UITextField!
     
+    @IBOutlet private var inputErrorLabel: UILabel!
     @IBOutlet private var submitButton: UIButton!
     
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
@@ -33,9 +36,7 @@ class SignupViewController: UIViewController, Storyboarded, NotificatingViewCont
         super.viewDidLoad()
         
         bindViewModel()
-        activityIndicator.stopAnimating()
-        navigationItem.title = "SignUp"
-        isModalInPresentation = true
+        setupStyling()
     }
     
     @IBAction private func usernameChanged(_ sender: UITextField) {
@@ -79,6 +80,23 @@ class SignupViewController: UIViewController, Storyboarded, NotificatingViewCont
             }
         }
         .store(in: &cancellables)
+        
+        viewModel.$invalidInput.sink { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.handleInvalidInput()
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
+    private func setupStyling() {
+        for textField in [usernameTextField, emailTextField, passwordTextField, passwordConfirmTextField] {
+            textField?.set(style: .common)
+        }
+        
+        activityIndicator.stopAnimating()
+        navigationItem.title = "SignUp"
+        isModalInPresentation = true
     }
     
     private func setTextFields(enabled: Bool) {
@@ -99,6 +117,52 @@ class SignupViewController: UIViewController, Storyboarded, NotificatingViewCont
             activityIndicator.stopAnimating()
         }
     }
+    
+    private func handleInvalidInput() {
+        guard let invalidInputType = viewModel.invalidInput else {
+            invalidInputTimer?.invalidate()
+            showInvalidInput(nil)
+            return
+        }
+        
+        invalidInputTimer?.invalidate()
+        invalidInputTimer = Timer.scheduledTimer(
+            withTimeInterval: Animations.invalidInputTimerInterval,
+            repeats: false
+        ) { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.showInvalidInput(invalidInputType)
+            }
+        }
+    }
+    
+    private func showInvalidInput(
+        _ invalidInputType: SignupViewModel.InvalidInputType?
+    ) {
+        let message = invalidInputType?.errorMessage
+        
+        self.inputErrorLabel.fadeTransition(
+            Animations.invalidInputAnimationDuration
+        )
+        self.inputErrorLabel.text = message
+        
+        UIView.animate(
+            withDuration: Animations.invalidInputAnimationDuration
+        ) {
+            self.emailTextField.set(
+                style: invalidInputType?.emailHighlightStyle ?? .common
+            )
+            self.usernameTextField.set(
+                style: invalidInputType?.usernameHighlightStyle ?? .common
+            )
+            self.passwordTextField.set(
+                style: invalidInputType?.passwordHighlightStyle ?? .common
+            )
+            self.passwordConfirmTextField.set(
+                style: invalidInputType?.passwordConfirmationHighlightStyle ?? .common
+            )
+        }
+    }
 }
 
 extension SignupViewController: SignupViewModelDelegate {
@@ -112,5 +176,53 @@ extension SignupViewController: SignupViewModelDelegate {
     
     func handleError(error: RequestError) {
         showErrorAlert(error)
+    }
+}
+
+extension SignupViewModel.InvalidInputType {
+    
+    var errorMessage: String {
+        switch self {
+        case .tooShortUsername:
+            return "Username is too short"
+        case .invalidEmail:
+            return "Please enter valid email"
+        case .tooShortPassword:
+            return "Password is too short"
+        case .unmatchingPasswordConfirmation:
+            return "Incorrect password confirmation"
+        }
+    }
+    
+    var usernameHighlightStyle: UITextField.Style {
+        if self == .tooShortUsername {
+            return .invalidInput
+        } else {
+            return .common
+        }
+    }
+    
+    var emailHighlightStyle: UITextField.Style {
+        if self == .invalidEmail {
+            return .invalidInput
+        } else {
+            return .common
+        }
+    }
+    
+    var passwordHighlightStyle: UITextField.Style {
+        if self == .tooShortPassword {
+            return .invalidInput
+        } else {
+            return .common
+        }
+    }
+    
+    var passwordConfirmationHighlightStyle: UITextField.Style {
+        if self == .unmatchingPasswordConfirmation {
+            return .invalidInput
+        } else {
+            return .common
+        }
     }
 }

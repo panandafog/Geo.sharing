@@ -16,9 +16,6 @@ protocol LoginViewControllerDelegate: AnyObject {
 
 class LoginViewController: UIViewController, Storyboarded, NotificatingViewController {
     
-    private static let invalidInputTimerInterval = 2.0
-    private static let invalidInputAnimationDuration = 0.75
-    
     weak var coordinator: LoginViewControllerDelegate?
     
     lazy var viewModel = LoginViewModel(delegate: self)
@@ -40,13 +37,9 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
         super.viewDidLoad()
         
         bindViewModel()
-        
-        navigationItem.title = "LogIn"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        isModalInPresentation = true
-        
-        activityIndicator.stopAnimating()
-        submitButton.isEnabled = false
+        setupStyling()
+        viewModel.setInitialInput()
+        emailTextField.text = viewModel.email
     }
     
     @IBAction private func usernameChanged(_ sender: UITextField) {
@@ -104,6 +97,19 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
         .store(in: &cancellables)
     }
     
+    private func setupStyling() {
+        for textField in [emailTextField, passwordTextField] {
+            textField?.set(style: .common)
+        }
+        
+        navigationItem.title = "LogIn"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        isModalInPresentation = true
+        
+        activityIndicator.stopAnimating()
+        submitButton.isEnabled = false
+    }
+    
     private func setTextFields(enabled: Bool) {
         emailTextField.isEnabled = enabled
         passwordTextField.isEnabled = enabled
@@ -130,10 +136,12 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
         
         invalidInputTimer?.invalidate()
         invalidInputTimer = Timer.scheduledTimer(
-            withTimeInterval: Self.invalidInputTimerInterval,
+            withTimeInterval: Animations.invalidInputTimerInterval,
             repeats: false
         ) { [weak self] _ in
-            self?.showInvalidInput(invalidInputType)
+            DispatchQueue.main.async {
+                self?.showInvalidInput(invalidInputType)
+            }
         }
     }
     
@@ -143,18 +151,17 @@ class LoginViewController: UIViewController, Storyboarded, NotificatingViewContr
         let message = invalidInputType?.errorMessage
         
         self.inputErrorLabel.fadeTransition(
-            Self.invalidInputAnimationDuration
+            Animations.invalidInputAnimationDuration
         )
         self.inputErrorLabel.text = message
-        self.inputErrorLabel.isHidden = message == nil
         
         UIView.animate(
-            withDuration: Self.invalidInputAnimationDuration
+            withDuration: Animations.invalidInputAnimationDuration
         ) {
-            self.emailTextField.setHighlighted(
+            self.emailTextField.set(
                 style: invalidInputType?.emailHighlightStyle ?? .common
             )
-            self.passwordTextField.setHighlighted(
+            self.passwordTextField.set(
                 style: invalidInputType?.passwordHighlightStyle ?? .common
             )
         }
@@ -182,20 +189,18 @@ extension LoginViewModel.InvalidInputType {
         }
     }
     
-    var passwordHighlightStyle: UITextField.HighlightingStyle {
-        switch self.target {
-        case .password:
+    var passwordHighlightStyle: UITextField.Style {
+        if self == .tooShortPassword {
             return .invalidInput
-        default:
+        } else {
             return .common
         }
     }
     
-    var emailHighlightStyle: UITextField.HighlightingStyle {
-        switch self.target {
-        case .email:
+    var emailHighlightStyle: UITextField.Style {
+        if self == .invalidEmail {
             return .invalidInput
-        default:
+        } else {
             return .common
         }
     }

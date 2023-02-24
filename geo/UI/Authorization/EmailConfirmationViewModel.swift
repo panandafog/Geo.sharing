@@ -21,6 +21,7 @@ class EmailConfirmationViewModel {
     @Published var changesAllowed = true
     @Published var confirmationAllowed = false
     @Published var activityInProgress = false
+    @Published var invalidInput: InvalidInputType?
     
     var signupData: SignupData?
     var code: Int? {
@@ -34,7 +35,15 @@ class EmailConfirmationViewModel {
     }
     
     private func verifyCode() {
-        confirmationAllowed = String(code ?? 0).count == AuthorizationService.confirmationCodeLength
+        let codeIsValid = String(code ?? 0).count == AuthorizationService.confirmationCodeLength
+        
+        confirmationAllowed = codeIsValid
+        
+        if !codeIsValid && code != nil {
+            invalidInput = .invalidCode
+        } else {
+            invalidInput = nil
+        }
     }
     
     func verifyEmail() {
@@ -73,3 +82,11 @@ extension EmailConfirmationViewModel {
         let signupResponse: AuthorizationService.SignupResponse
     }
 }
+
+extension EmailConfirmationViewModel {
+    
+    enum InvalidInputType {
+        case invalidCode
+    }
+}
+

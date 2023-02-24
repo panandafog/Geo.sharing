@@ -39,22 +39,36 @@
                                     <action selector="submitButtonTouched:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Wio-Dj-ZcO"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2V-4h-RGi">
+                                <rect key="frame" x="40" y="348" width="334" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="750" constant="75" id="lZ2-ma-aX7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <keyboardLayoutGuide key="keyboard" id="C6g-ND-tMT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="N4h-d0-eL8" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="2rH-hP-P9O"/>
+                            <constraint firstItem="g2V-4h-RGi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="FQ5-9H-2eO"/>
                             <constraint firstItem="N4h-d0-eL8" firstAttribute="top" secondItem="Ul5-Ja-tDL" secondAttribute="bottom" constant="8" symbolic="YES" id="IkA-4l-tMF"/>
                             <constraint firstItem="Ul5-Ja-tDL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="LFC-co-hvs"/>
                             <constraint firstItem="Ul5-Ja-tDL" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" priority="750" id="MCf-2l-iKQ"/>
                             <constraint firstItem="Ul5-Ja-tDL" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="MFf-HS-NW0"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="g2V-4h-RGi" secondAttribute="trailing" constant="40" id="b0X-hC-b8u"/>
                             <constraint firstItem="C6g-ND-tMT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="N4h-d0-eL8" secondAttribute="bottom" constant="8" symbolic="YES" id="gM7-6E-HZt"/>
+                            <constraint firstItem="Ul5-Ja-tDL" firstAttribute="top" secondItem="g2V-4h-RGi" secondAttribute="bottom" constant="8" symbolic="YES" id="uRg-ui-PJF"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ul5-Ja-tDL" secondAttribute="trailing" constant="40" id="wzi-tH-ZE6"/>
+                            <constraint firstItem="g2V-4h-RGi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="zUh-ik-3xl"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="codeTextField" destination="Ul5-Ja-tDL" id="ehx-f3-1YX"/>
+                        <outlet property="inputErrorLabel" destination="g2V-4h-RGi" id="3qC-70-AZt"/>
                         <outlet property="submitButton" destination="N4h-d0-eL8" id="gUt-Cp-g5V"/>
                     </connections>
                 </viewController>
@@ -66,6 +80,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

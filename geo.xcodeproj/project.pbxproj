@@ -55,6 +55,7 @@
 		0BA1C1FE29A7F4A000387882 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1FD29A7F4A000387882 /* MapViewModel.swift */; };
 		0BA1C20029A82B7900387882 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1FF29A82B7900387882 /* UITextField+Extensions.swift */; };
 		0BA1C20229A8348800387882 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C20129A8348800387882 /* UIView+Extensions.swift */; };
+		0BA1C20429A8A3F200387882 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C20329A8A3F200387882 /* Animations.swift */; };
 		0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */; };
 		0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A05429919C6400AB48DD /* SettingsViewController.swift */; };
 		0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */; };
@@ -161,6 +162,7 @@
 		0BA1C1FD29A7F4A000387882 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		0BA1C1FF29A82B7900387882 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		0BA1C20129A8348800387882 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		0BA1C20329A8A3F200387882 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendMKPointAnnotation.swift; sourceTree = "<group>"; };
 		0BB0A05429919C6400AB48DD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 		0BC08A4029798DE00026BA27 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				0BA1C20329A8A3F200387882 /* Animations.swift */,
 				0B1AE4BE29A36BA200B4E4F7 /* Coordinator.swift */,
 				0B1AE4C029A3742A00B4E4F7 /* Storyboarded.swift */,
 				0BC08A4129798DEC0026BA27 /* Authorization */,
@@ -757,6 +760,7 @@
 			files = (
 				0B1AE4C129A3742A00B4E4F7 /* Storyboarded.swift in Sources */,
 				0B528D01299D2F3A00CA4A30 /* FriendCalloutView.swift in Sources */,
+				0BA1C20429A8A3F200387882 /* Animations.swift in Sources */,
 				0BA1C20029A82B7900387882 /* UITextField+Extensions.swift in Sources */,
 				0B1AE4C329A37FD300B4E4F7 /* AuthorizationCoordinator.swift in Sources */,
 				0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */,
