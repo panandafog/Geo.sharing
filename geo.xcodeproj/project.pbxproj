@@ -82,6 +82,12 @@
 		0BE07F7F2993D7BB0040CECA /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE07F7E2993D7BB0040CECA /* String+Extensions.swift */; };
 		0BE07F812993D9350040CECA /* EmailConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE07F802993D9350040CECA /* EmailConfirmationViewController.swift */; };
 		0BE07F832993D9470040CECA /* EmailConfirmationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BE07F822993D9470040CECA /* EmailConfirmationViewController.storyboard */; };
+		0BE4F60529A8E663005D1CC5 /* MapStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F60429A8E663005D1CC5 /* MapStatusView.swift */; };
+		0BE4F60829A8E6E5005D1CC5 /* MapStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F60729A8E6E5005D1CC5 /* MapStatusViewModel.swift */; };
+		0BE4F60A29A8E939005D1CC5 /* ConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F60929A8E939005D1CC5 /* ConnectionStatus.swift */; };
+		0BE4F60C29A8FD12005D1CC5 /* MapStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F60B29A8FD12005D1CC5 /* MapStatus.swift */; };
+		0BE4F60E29A8FD2E005D1CC5 /* LocationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F60D29A8FD2E005D1CC5 /* LocationStatus.swift */; };
+		0BE4F61229A922AD005D1CC5 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61129A922AD005D1CC5 /* LocationManagerDelegate.swift */; };
 		0BE75A8929830EDB00439A71 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8829830EDB00439A71 /* User.swift */; };
 		0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */; };
 		0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8D2983152F00439A71 /* Friendship.swift */; };
@@ -189,6 +195,12 @@
 		0BE07F7E2993D7BB0040CECA /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		0BE07F802993D9350040CECA /* EmailConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailConfirmationViewController.swift; sourceTree = "<group>"; };
 		0BE07F822993D9470040CECA /* EmailConfirmationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EmailConfirmationViewController.storyboard; sourceTree = "<group>"; };
+		0BE4F60429A8E663005D1CC5 /* MapStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStatusView.swift; sourceTree = "<group>"; };
+		0BE4F60729A8E6E5005D1CC5 /* MapStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStatusViewModel.swift; sourceTree = "<group>"; };
+		0BE4F60929A8E939005D1CC5 /* ConnectionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatus.swift; sourceTree = "<group>"; };
+		0BE4F60B29A8FD12005D1CC5 /* MapStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStatus.swift; sourceTree = "<group>"; };
+		0BE4F60D29A8FD2E005D1CC5 /* LocationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStatus.swift; sourceTree = "<group>"; };
+		0BE4F61129A922AD005D1CC5 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		0BE75A8829830EDB00439A71 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0BE75A8B29830F5000439A71 /* FriendshipRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRequest.swift; sourceTree = "<group>"; };
 		0BE75A8D2983152F00439A71 /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
@@ -325,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				0B40019D294E6D7900EBE854 /* LocationManager.swift */,
+				0BE4F61129A922AD005D1CC5 /* LocationManagerDelegate.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -350,6 +363,7 @@
 				0B400171294E68C300EBE854 /* MapViewController.swift */,
 				0B400173294E68C300EBE854 /* MapViewController.storyboard */,
 				0B70166D298C3DA300E0E353 /* Annotations */,
+				0BE4F60629A8E6BC005D1CC5 /* MapStatusView */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -451,6 +465,18 @@
 				0B00E69429842DAE0049DC49 /* UserTableCell.xib */,
 			);
 			path = Users;
+			sourceTree = "<group>";
+		};
+		0BE4F60629A8E6BC005D1CC5 /* MapStatusView */ = {
+			isa = PBXGroup;
+			children = (
+				0BE4F60429A8E663005D1CC5 /* MapStatusView.swift */,
+				0BE4F60729A8E6E5005D1CC5 /* MapStatusViewModel.swift */,
+				0BE4F60929A8E939005D1CC5 /* ConnectionStatus.swift */,
+				0BE4F60B29A8FD12005D1CC5 /* MapStatus.swift */,
+				0BE4F60D29A8FD2E005D1CC5 /* LocationStatus.swift */,
+			);
+			path = MapStatusView;
 			sourceTree = "<group>";
 		};
 		0BE75A8A29830EE800439A71 /* Models */ = {
@@ -763,6 +789,7 @@
 				0BA1C20429A8A3F200387882 /* Animations.swift in Sources */,
 				0BA1C20029A82B7900387882 /* UITextField+Extensions.swift in Sources */,
 				0B1AE4C329A37FD300B4E4F7 /* AuthorizationCoordinator.swift in Sources */,
+				0BE4F60A29A8E939005D1CC5 /* ConnectionStatus.swift in Sources */,
 				0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */,
 				0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */,
 				0B51D8722989448000200B63 /* SearchedUser.swift in Sources */,
@@ -772,12 +799,14 @@
 				0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */,
 				0B528D03299D45C200CA4A30 /* UIImage+Extensions.swift in Sources */,
 				0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */,
+				0BE4F60C29A8FD12005D1CC5 /* MapStatus.swift in Sources */,
 				0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */,
 				0B00E6A229886A6E0049DC49 /* ApiService.swift in Sources */,
 				0BB60E6E29990BAD0065AECB /* RequestError.swift in Sources */,
 				0B400172294E68C300EBE854 /* MapViewController.swift in Sources */,
 				0BB60E7029991C590065AECB /* NotificatingViewController.swift in Sources */,
 				0BA1C1F829A7898300387882 /* SignupViewModel.swift in Sources */,
+				0BE4F61229A922AD005D1CC5 /* LocationManagerDelegate.swift in Sources */,
 				0BB0A0612991C53600AB48DD /* ResetPasswordViewController.swift in Sources */,
 				0BB60E722999202A0065AECB /* ErrorResponse.swift in Sources */,
 				0B2E3EC429A4B5A60016391D /* DateHelper.swift in Sources */,
@@ -794,10 +823,12 @@
 				0B528D05299D477500CA4A30 /* RequestPasswordResetViewController.swift in Sources */,
 				0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */,
 				0BB0A05D2991C4F900AB48DD /* ProfilePictureViewController.swift in Sources */,
+				0BE4F60529A8E663005D1CC5 /* MapStatusView.swift in Sources */,
 				0BB0A0592991A2AD00AB48DD /* SettingsCell.swift in Sources */,
 				0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */,
 				0B1AE4BF29A36BA200B4E4F7 /* Coordinator.swift in Sources */,
 				0B00E698298866DF0049DC49 /* NotificationsViewController.swift in Sources */,
+				0BE4F60829A8E6E5005D1CC5 /* MapStatusViewModel.swift in Sources */,
 				0BC08A4529798E1A0026BA27 /* LoginViewController.swift in Sources */,
 				0B00E6A02988695B0049DC49 /* FriendsService.swift in Sources */,
 				0BE75A8929830EDB00439A71 /* User.swift in Sources */,
@@ -818,6 +849,7 @@
 				0B1AE4CA29A3FBAC00B4E4F7 /* UserTableCellViewModel.swift in Sources */,
 				0BA1C1EC29A774AE00387882 /* RequestPasswordResetViewModel.swift in Sources */,
 				0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */,
+				0BE4F60E29A8FD2E005D1CC5 /* LocationStatus.swift in Sources */,
 				0BA1C1EA29A6C6CE00387882 /* ResetPasswordViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

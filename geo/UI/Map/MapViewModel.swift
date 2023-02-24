@@ -8,12 +8,12 @@
 import Combine
 import MapKit
 
-protocol MapViewModelDelegate: AnyObject {
+protocol MapViewModelDelegate: LocationManagerDelegate, AnyObject {
     func handleError(error: RequestError)
     func showAuthorization()
 }
 
-class MapViewModel: ObservableObject {
+class MapViewModel: ObservableObject, MapStatusViewModel {
     
     private static let notificationsUpdateInterval = 2.0
     private static let friendshipsUpdateInterval = 2.0
@@ -28,8 +28,30 @@ class MapViewModel: ObservableObject {
     private var friendshipsTimer: Timer?
     private var notificationsTimer: Timer?
     
+    private var cancellables: Set<AnyCancellable> = []
+    
     @Published var notificationsCount = 0
     @Published var friendships: [Friendship] = []
+    
+    @Published var mapStatus = MapStatus(
+        connectionStatus: .initial,
+        locationStatus: .initial,
+        action: nil
+    )
+    var statusPublisher: Published<MapStatus>.Publisher {
+        $mapStatus
+    }
+    
+    private var friendsConnectionStatus: ConnectionStatus = .initial {
+        didSet {
+            updateConnectionStatus()
+        }
+    }
+    private var locationConnectionStatus: ConnectionStatus = .initial {
+        didSet {
+            updateConnectionStatus()
+        }
+    }
     
     var friends: [User] {
         friendships.compactMap { $0.user }
@@ -41,9 +63,22 @@ class MapViewModel: ObservableObject {
     
     init(delegate: MapViewModelDelegate) {
         self.delegate = delegate
+        bindLocationManager()
     }
     
     // MARK: - Location
+    
+    func bindLocationManager() {
+        locationManager.$locationStatus.sink { [weak self] output in
+            self?.mapStatus.locationStatus = output
+        }
+        .store(in: &cancellables)
+        
+        locationManager.$connectionStatus.sink { [weak self] output in
+            self?.locationConnectionStatus = output
+        }
+        .store(in: &cancellables)
+    }
     
     func authorizeAndStart() {
         guard !authorizationService.authorized else {
@@ -57,7 +92,8 @@ class MapViewModel: ObservableObject {
     }
     
     func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
+        guard let delegate = delegate else { return }
+        locationManager.startUpdatingLocation(delegate: delegate)
     }
     
     func stopUpdatingLocation() {
@@ -80,13 +116,18 @@ class MapViewModel: ObservableObject {
     }
     
     private func updateFriendships() {
+        if friendsConnectionStatus != .ok {
+            friendsConnectionStatus = .establishing
+        }
+        
         usersService.getFriendships { [weak self] result in
             switch result {
             case .success(let friendships):
+                self?.friendsConnectionStatus = .ok
                 self?.friendships = friendships
             case .failure(let error):
+                self?.friendsConnectionStatus = .failed
                 self?.delegate?.handleError(error: error)
-                self?.stopUpdatingFriendships()
             }
         }
     }
@@ -114,6 +155,26 @@ class MapViewModel: ObservableObject {
                 
             case .failure:
                 break
+            }
+        }
+    }
+    
+    // MARK: - ConnectionStatus
+    
+    func updateConnectionStatus() {
+        mapStatus.connectionStatus = ConnectionStatus(
+            rawValue: max(friendsConnectionStatus.rawValue, locationConnectionStatus.rawValue)
+        ) ?? .failed
+        
+        if mapStatus.action == nil {
+            mapStatus.action = { [weak self] in
+                guard let self = self,
+                      let delegate = self.delegate else {
+                    return
+                }
+                self.locationManager.startUpdatingLocation(
+                    delegate: delegate
+                )
             }
         }
     }
