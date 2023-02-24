@@ -21,6 +21,7 @@ class LoginViewModel {
     @Published var changesAllowed = true
     @Published var confirmationAllowed = false
     @Published var activityInProgress = false
+    @Published var invalidInput: InvalidInputType?
     
     var email: String? {
         didSet {
@@ -38,9 +39,19 @@ class LoginViewModel {
     }
     
     private func verifyCreds() {
-        confirmationAllowed = (email?.count ?? 0) >= AuthorizationService.minUsernameLength
-        && (password?.count ?? 0) >= AuthorizationService.minPasswordLength
-        && (email?.isValidEmailAddress ?? false)
+        let emailIsValid = (email?.isValidEmailAddress ?? false)
+        && (email?.count ?? 0) >= AuthorizationService.minUsernameLength
+        let passwordIsValid = (password?.count ?? 0) >= AuthorizationService.minPasswordLength
+        
+        confirmationAllowed = emailIsValid && passwordIsValid
+        
+        if !emailIsValid && (email?.count ?? 0) > 0 {
+            invalidInput = .invalidEmail
+        } else if !passwordIsValid && (password?.count ?? 0) > 0 {
+            invalidInput = .tooShortPassword
+        } else {
+            invalidInput = nil
+        }
     }
     
     func login() {
@@ -68,6 +79,28 @@ class LoginViewModel {
                 self?.delegate?.handleLoginCompletion()
             case .failure(let error):
                 self?.delegate?.handleError(error: error)
+            }
+        }
+    }
+}
+
+extension LoginViewModel {
+    
+    enum InputTarget {
+        case email
+        case password
+    }
+    
+    enum InvalidInputType {
+        case invalidEmail
+        case tooShortPassword
+        
+        var target: InputTarget {
+            switch self {
+            case .invalidEmail:
+                return .email
+            case .tooShortPassword:
+                return .password
             }
         }
     }

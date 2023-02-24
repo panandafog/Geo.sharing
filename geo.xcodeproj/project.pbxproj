@@ -53,6 +53,8 @@
 		0BA1C1FA29A78D0F00387882 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1F929A78D0F00387882 /* LoginViewModel.swift */; };
 		0BA1C1FC29A78FE700387882 /* EmailConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1FB29A78FE700387882 /* EmailConfirmationViewModel.swift */; };
 		0BA1C1FE29A7F4A000387882 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1FD29A7F4A000387882 /* MapViewModel.swift */; };
+		0BA1C20029A82B7900387882 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C1FF29A82B7900387882 /* UITextField+Extensions.swift */; };
+		0BA1C20229A8348800387882 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA1C20129A8348800387882 /* UIView+Extensions.swift */; };
 		0BB0A0502991162500AB48DD /* FriendMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */; };
 		0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0A05429919C6400AB48DD /* SettingsViewController.swift */; };
 		0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */; };
@@ -157,6 +159,8 @@
 		0BA1C1F929A78D0F00387882 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0BA1C1FB29A78FE700387882 /* EmailConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailConfirmationViewModel.swift; sourceTree = "<group>"; };
 		0BA1C1FD29A7F4A000387882 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		0BA1C1FF29A82B7900387882 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		0BA1C20129A8348800387882 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		0BB0A04F2991162500AB48DD /* FriendMKPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendMKPointAnnotation.swift; sourceTree = "<group>"; };
 		0BB0A05429919C6400AB48DD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0BB0A05629919C6C00AB48DD /* SettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsViewController.storyboard; sourceTree = "<group>"; };
@@ -330,6 +334,8 @@
 				0BB0A0662992D76C00AB48DD /* MKAnnotation+Extensions.swift */,
 				0BE07F7E2993D7BB0040CECA /* String+Extensions.swift */,
 				0B528D02299D45C200CA4A30 /* UIImage+Extensions.swift */,
+				0BA1C1FF29A82B7900387882 /* UITextField+Extensions.swift */,
+				0BA1C20129A8348800387882 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -751,6 +757,7 @@
 			files = (
 				0B1AE4C129A3742A00B4E4F7 /* Storyboarded.swift in Sources */,
 				0B528D01299D2F3A00CA4A30 /* FriendCalloutView.swift in Sources */,
+				0BA1C20029A82B7900387882 /* UITextField+Extensions.swift in Sources */,
 				0B1AE4C329A37FD300B4E4F7 /* AuthorizationCoordinator.swift in Sources */,
 				0B40019E294E6D7900EBE854 /* LocationManager.swift in Sources */,
 				0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */,
@@ -790,6 +797,7 @@
 				0BC08A4529798E1A0026BA27 /* LoginViewController.swift in Sources */,
 				0B00E6A02988695B0049DC49 /* FriendsService.swift in Sources */,
 				0BE75A8929830EDB00439A71 /* User.swift in Sources */,
+				0BA1C20229A8348800387882 /* UIView+Extensions.swift in Sources */,
 				0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */,
 				0B1AE4C829A3BF5B00B4E4F7 /* UsersViewModel.swift in Sources */,
 				0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */,
@@ -993,8 +1001,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1026,8 +1034,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

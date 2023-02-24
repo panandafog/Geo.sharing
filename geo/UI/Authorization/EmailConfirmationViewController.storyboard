@@ -19,6 +19,9 @@
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="code from email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ul5-Ja-tDL">
                                 <rect key="frame" x="40" y="431" width="334" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="Zfq-Nh-JA7"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="one-time-code"/>
                                 <connections>
@@ -27,6 +30,9 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4h-d0-eL8">
                                 <rect key="frame" x="168" y="473" width="78" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="cZY-Rn-jrG"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Submit"/>
                                 <connections>
@@ -35,13 +41,15 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <keyboardLayoutGuide key="keyboard" id="C6g-ND-tMT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="N4h-d0-eL8" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="2rH-hP-P9O"/>
                             <constraint firstItem="N4h-d0-eL8" firstAttribute="top" secondItem="Ul5-Ja-tDL" secondAttribute="bottom" constant="8" symbolic="YES" id="IkA-4l-tMF"/>
                             <constraint firstItem="Ul5-Ja-tDL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="LFC-co-hvs"/>
-                            <constraint firstItem="Ul5-Ja-tDL" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="MCf-2l-iKQ"/>
+                            <constraint firstItem="Ul5-Ja-tDL" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" priority="750" id="MCf-2l-iKQ"/>
                             <constraint firstItem="Ul5-Ja-tDL" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="MFf-HS-NW0"/>
+                            <constraint firstItem="C6g-ND-tMT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="N4h-d0-eL8" secondAttribute="bottom" constant="8" symbolic="YES" id="gM7-6E-HZt"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ul5-Ja-tDL" secondAttribute="trailing" constant="40" id="wzi-tH-ZE6"/>
                         </constraints>
                     </view>
