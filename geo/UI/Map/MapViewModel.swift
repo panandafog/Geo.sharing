@@ -7,6 +7,7 @@
 
 import Combine
 import MapKit
+import Swinject
 
 protocol MapViewModelDelegate: LocationManagerDelegate, AnyObject {
     func handleError(error: RequestError)
@@ -18,10 +19,10 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     private static let notificationsUpdateInterval = 2.0
     private static let friendshipsUpdateInterval = 2.0
     
-    private let locationManager = LocationManager.shared
-    private let authorizationService = AuthorizationService.shared
-    private let usersService = UsersService.self
-    private let friendsService = FriendsService.self
+    private let locationManager: LocationManager
+    private let authorizationService: AuthorizationService
+    private let usersService: UsersService
+    private let friendsService: FriendsService
     
     private weak var delegate: MapViewModelDelegate?
     
@@ -54,15 +55,21 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     }
     
     var friends: [User] {
-        friendships.compactMap { $0.user }
+        friendships.compactMap { $0.user() }
     }
     
     var userLocation: CLLocationCoordinate2D? {
         locationManager.location?.coordinate
     }
     
-    init(delegate: MapViewModelDelegate) {
+    init(delegate: MapViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        
+        self.locationManager = container.resolve(LocationManager.self)!
+        self.authorizationService = container.resolve(AuthorizationService.self)!
+        self.usersService = container.resolve(UsersService.self)!
+        self.friendsService = container.resolve(FriendsService.self)!
+        
         bindLocationManager()
     }
     

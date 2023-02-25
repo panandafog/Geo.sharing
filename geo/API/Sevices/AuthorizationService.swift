@@ -7,12 +7,16 @@
 
 import Alamofire
 
-class AuthorizationService: ApiService {
+class AuthorizationService: SendingRequestsService {
     
-    static let shared = AuthorizationService()
     static let minUsernameLength = 6
     static let minPasswordLength = 6
     static let confirmationCodeLength = 6
+    
+    var authorizationHeader: Alamofire.HTTPHeader? {
+        guard let token = token else { return nil }
+        return makeAuthorizationHeader(token: token)
+    }
     
     let defaults = UserDefaults.standard
     
@@ -60,8 +64,6 @@ class AuthorizationService: ApiService {
         token != nil && uid != nil
     }
     
-    private init() {}
-    
     func login(email: String, password: String, completion: @escaping EmptyCompletion) {
         let completionHandler: ((Result<LoginResponse, RequestError>) -> Void) = { result in
             switch result {
@@ -76,7 +78,7 @@ class AuthorizationService: ApiService {
             }
         }
         
-        Self.sendRequest(
+        sendRequest(
             method: .post,
             url: Endpoints.loginComponents.url!,
             requiresAuthorization: false,
@@ -92,7 +94,7 @@ class AuthorizationService: ApiService {
     }
     
     func signup(username: String, email: String, password: String, completion: @escaping (Result<SignupResponse, RequestError>) -> Void) {
-        Self.sendRequest(
+        sendRequest(
             method: .post,
             url: Endpoints.signupComponents.url!,
             requiresAuthorization: false,
@@ -109,7 +111,7 @@ class AuthorizationService: ApiService {
     }
     
     func verifyEmail(code: Int, signupResponse: SignupResponse, completion: @escaping EmptyCompletion) {
-        Self.sendRequest(
+        sendRequest(
             method: .post,
             url: Endpoints.confirmEmailComponents.url!,
             requiresAuthorization: false,
@@ -125,7 +127,7 @@ class AuthorizationService: ApiService {
     }
     
     func requestPasswordChange(email: String, completion: @escaping EmptyCompletion) {
-        Self.sendRequest(
+        sendRequest(
             method: .post,
             url: Endpoints.requestPasswordChangeComponents.url!,
             requiresAuthorization: false,
@@ -153,7 +155,7 @@ class AuthorizationService: ApiService {
             }
         }
         
-        Self.sendRequest(
+        sendRequest(
             method: .post,
             url: Endpoints.confirmPasswordChangeComponents.url!,
             requiresAuthorization: false,

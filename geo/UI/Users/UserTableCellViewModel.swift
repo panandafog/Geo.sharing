@@ -5,6 +5,7 @@
 //  Created by Andrey on 20.02.2023.
 //
 
+import Swinject
 import UIKit
 
 class UserTableCellViewModel {
@@ -16,8 +17,8 @@ class UserTableCellViewModel {
         self.actions = actions
     }
     
-    func getProfilePicture(completion: @escaping (UIImage?) -> Void) {
-        ImagesService.getProfilePicture(userID: user.id) { result in
+    func getProfilePicture(container: Container = .defaultContainer, completion: @escaping (UIImage?) -> Void) {
+        container.resolve(ImagesService.self)?.getProfilePicture(userID: user.id) { result in
             switch result {
             case .success(let image):
                 completion(image)

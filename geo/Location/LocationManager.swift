@@ -6,12 +6,12 @@
 //
 
 import CoreLocation
+import Swinject
 
 class LocationManager: NSObject, ObservableObject {
     
-    static let shared = LocationManager()
-    
     let locationManager = CLLocationManager()
+    let locationService: LocationService
     
     var premissionStatus: PermissionStatus {
         switch locationManager.authorizationStatus {
@@ -35,8 +35,14 @@ class LocationManager: NSObject, ObservableObject {
     @Published var connectionStatus: ConnectionStatus = .initial
     @Published var locationStatus: LocationStatus = .initial
     
-    override private init() {
+    override convenience init() {
+        self.init(container: .defaultContainer)
+    }
+    
+    init(container: Container) {
+        locationService = container.resolve(LocationService.self)!
         super.init()
+        
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.pausesLocationUpdatesAutomatically = false
@@ -91,11 +97,11 @@ extension LocationManager: CLLocationManagerDelegate {
         self.locationStatus = .ok
         
         if let location = self.location {
-            LocationService.sendLocation(location) { result in
+            locationService.sendLocation(location) { result in
                 switch result {
                 case .success:
                     self.connectionStatus = .ok
-                case .failure:
+                case .failure(let error):
                     self.connectionStatus = .failed
                 }
             }

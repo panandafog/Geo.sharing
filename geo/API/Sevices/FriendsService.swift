@@ -7,11 +7,17 @@
 
 import Alamofire
 
-enum FriendsService: ApiService {
+class FriendsService: AuthorizingService, SendingRequestsService {
     
     typealias FriendshipRequestsCompletion = (Result<[FriendshipRequest], RequestError>) -> Void
     
-    static func getFriendshipRequests(type: FriendshipRequestType, completion: @escaping FriendshipRequestsCompletion) {
+    let authorizationService: AuthorizationService
+    
+    init(authorizationService: AuthorizationService) {
+        self.authorizationService = authorizationService
+    }
+    
+    func getFriendshipRequests(type: FriendshipRequestType, completion: @escaping FriendshipRequestsCompletion) {
         let urlComponents: URLComponents
         switch type {
         case .incoming:
@@ -28,7 +34,7 @@ enum FriendsService: ApiService {
         )
     }
   
-    static func answerOnFriendshipRequest(senderID: String, accept: Bool, completion: @escaping EmptyCompletion) {
+    func answerOnFriendshipRequest(senderID: String, accept: Bool, completion: @escaping EmptyCompletion) {
         let urlComponents: URLComponents
         if accept {
             urlComponents = Endpoints.acceptFriendshipRequestComponents
@@ -48,7 +54,7 @@ enum FriendsService: ApiService {
         )
     }
     
-    static func sendFriendshipRequest(recipientID: String, completion: @escaping EmptyCompletion) {
+    func sendFriendshipRequest(recipientID: String, completion: @escaping EmptyCompletion) {
         sendRequest(
             method: .post,
             url: Endpoints.createFriendshipRequestComponents.url!,
@@ -61,7 +67,7 @@ enum FriendsService: ApiService {
         )
     }
     
-    static func deleteFriendshipRequest(recipientID: String, completion: @escaping EmptyCompletion) {
+    func deleteFriendshipRequest(recipientID: String, completion: @escaping EmptyCompletion) {
         sendRequest(
             method: .post,
             url: Endpoints.deleteFriendshipRequestComponents.url!,
@@ -74,7 +80,7 @@ enum FriendsService: ApiService {
         )
     }
     
-    static func deleteFriend(userID: String, completion: @escaping EmptyCompletion) {
+    func deleteFriend(userID: String, completion: @escaping EmptyCompletion) {
         sendRequest(
             method: .post,
             url: Endpoints.deleteFriendComponents.url!,

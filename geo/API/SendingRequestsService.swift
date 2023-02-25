@@ -1,29 +1,28 @@
 //
-//  ApiService.swift
+//  SendingRequestsService.swift
 //  geo
 //
-//  Created by Andrey on 31.01.2023.
+//  Created by Andrey on 25.02.2023.
 //
 
 import Alamofire
 import Foundation
 
-protocol ApiService {
+protocol SendingRequestsService {
     typealias EmptyCompletion = (Result<Void, RequestError>) -> Void
+    
+    var authorizationHeader: HTTPHeader? { get }
 }
 
-extension ApiService {
+extension SendingRequestsService {
     
     private static var successfulStatusCodes: ClosedRange<Int> { 200 ... 299 }
     
-    static var authorizationHeader: HTTPHeader? {
-        guard let token = AuthorizationService.shared.token else {
-            return nil
-        }
-        return .authorization(bearerToken: token)
+    func makeAuthorizationHeader(token: String) -> HTTPHeader {
+        .authorization(bearerToken: token)
     }
     
-    static func sendRequest<ResponseBodyType>(method: HTTPMethod, url: URL, requiresAuthorization: Bool, parameters parametersInfo: ParametersInfo? = nil, headers: [HTTPHeader] = [], completion: @escaping (Result<ResponseBodyType, RequestError>) -> Void) {
+    func sendRequest<ResponseBodyType>(method: HTTPMethod, url: URL, requiresAuthorization: Bool, parameters parametersInfo: ParametersInfo? = nil, headers: [HTTPHeader] = [], completion: @escaping (Result<ResponseBodyType, RequestError>) -> Void) {
         do {
             try makeRequest(method: method, url: url, requiresAuthorization: requiresAuthorization, parameters: parametersInfo, headers: headers)
                 .response { response in
@@ -51,7 +50,7 @@ extension ApiService {
                     
                     let statusCode = response.response?.statusCode
                     var statusCodeIsSuccessful = false
-                    if let statusCode = statusCode, successfulStatusCodes.contains(statusCode) {
+                    if let statusCode = statusCode, Self.successfulStatusCodes.contains(statusCode) {
                         statusCodeIsSuccessful = true
                     }
                     
@@ -74,7 +73,7 @@ extension ApiService {
         }
     }
     
-    private static func makeRequest(method: HTTPMethod, url: URL, requiresAuthorization: Bool, parameters parametersInfo: ParametersInfo?, headers: [HTTPHeader]) throws -> DataRequest {
+    private func makeRequest(method: HTTPMethod, url: URL, requiresAuthorization: Bool, parameters parametersInfo: ParametersInfo?, headers: [HTTPHeader]) throws -> DataRequest {
         var headers = headers
         if requiresAuthorization {
             guard let authorizationHeader = authorizationHeader else {
@@ -89,24 +88,5 @@ extension ApiService {
             encoding: parametersInfo?.encoding.alamofireEncoding ?? URLEncoding.default,
             headers: HTTPHeaders(headers)
         )
-    }
-}
-
-struct ParametersInfo {
-    let parameters: [String: Any]
-    let encoding: ParameterEncoding
-}
-
-enum ParameterEncoding {
-    case query
-    case jsonBody
-    
-    var alamofireEncoding: Alamofire.ParameterEncoding {
-        switch self {
-        case .query:
-            return URLEncoding(destination: .queryString)
-        case .jsonBody:
-            return JSONEncoding.default
-        }
     }
 }

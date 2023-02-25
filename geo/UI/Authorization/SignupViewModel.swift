@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Swinject
 
 protocol SignupViewModelDelegate: AnyObject {
     func showEmailConfirmation(signupData: EmailConfirmationViewModel.SignupData)
@@ -14,7 +15,7 @@ protocol SignupViewModelDelegate: AnyObject {
 
 class SignupViewModel {
     
-    private let authorizationService = AuthorizationService.shared
+    private let authorizationService: AuthorizationService
     
     private weak var delegate: SignupViewModelDelegate?
     
@@ -44,8 +45,9 @@ class SignupViewModel {
         }
     }
     
-    init(delegate: SignupViewModelDelegate) {
+    init(delegate: SignupViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        self.authorizationService = container.resolve(AuthorizationService.self)!
     }
     
     private func verifyCreds() {

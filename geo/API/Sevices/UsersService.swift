@@ -7,16 +7,22 @@
 
 import Alamofire
 
-enum UsersService: ApiService {
+class UsersService: AuthorizingService, SendingRequestsService {
     
     typealias UsersCompletion = (Result<[User], RequestError>) -> Void
     typealias SearchedUsersCompletion = (Result<[SearchedUser], RequestError>) -> Void
     typealias FriendsipsCompletion = (Result<[Friendship], RequestError>) -> Void
     typealias ImageCompletion = (Result<UIImage, RequestError>) -> Void
     
-    private static let friendsService = FriendsService.self
+    let authorizationService: AuthorizationService
+    let friendsService: FriendsService
     
-    static func getFriendships(completion: @escaping FriendsipsCompletion) {
+    init(authorizationService: AuthorizationService, friendsService: FriendsService) {
+        self.authorizationService = authorizationService
+        self.friendsService = friendsService
+    }
+    
+    func getFriendships(completion: @escaping FriendsipsCompletion) {
         sendRequest(
             method: .get,
             url: Endpoints.getFriendsComponents.url!,
@@ -25,22 +31,22 @@ enum UsersService: ApiService {
         )
     }
     
-    static func searchUsers(username: String, completion: @escaping SearchedUsersCompletion) {
-        friendsService.getFriendshipRequests(type: .outgoing) { result in
+    func searchUsers(username: String, completion: @escaping SearchedUsersCompletion) {
+        friendsService.getFriendshipRequests(type: .outgoing) { [weak self] result in
             switch result {
             case .success(let requests):
-                Self.searchUsers(username: username, friendsipRequests: requests, completion: completion)
+                self?.searchUsers(username: username, friendsipRequests: requests, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
     
-    private static func searchUsers(username: String, friendsipRequests: [FriendshipRequest], completion: @escaping SearchedUsersCompletion) {
-        let completionHandler: ((Result<[User], RequestError>) -> Void) = { result in
+    private func searchUsers(username: String, friendsipRequests: [FriendshipRequest], completion: @escaping SearchedUsersCompletion) {
+        let completionHandler: ((Result<[User], RequestError>) -> Void) = { [weak self] result in
             switch result {
             case .success(let users):
-                searchUsers(
+                self?.searchUsers(
                     users: users,
                     friendsipRequests: friendsipRequests,
                     completion: completion
@@ -64,7 +70,7 @@ enum UsersService: ApiService {
         )
     }
     
-    private static func searchUsers(users: [User], friendsipRequests: [FriendshipRequest], completion: @escaping SearchedUsersCompletion) {
+    private func searchUsers(users: [User], friendsipRequests: [FriendshipRequest], completion: @escaping SearchedUsersCompletion) {
         getFriendships { result in
             switch result {
             case .success(let friendships):
@@ -91,8 +97,8 @@ enum UsersService: ApiService {
         }
     }
     
-    static func setProfilePicture(_ image: UIImage, completion: @escaping EmptyCompletion) {
-        guard let authorizationHeader = Self.authorizationHeader else {
+    func setProfilePicture(_ image: UIImage, completion: @escaping EmptyCompletion) {
+        guard let authorizationHeader = authorizationHeader else {
             return
         }
         let headers: HTTPHeaders = [
@@ -128,8 +134,8 @@ enum UsersService: ApiService {
         }
     }
     
-    static func getProfilePicture(userID: String, completion: @escaping ImageCompletion) {
-        guard let authorizationHeader = Self.authorizationHeader else {
+    func getProfilePicture(userID: String, completion: @escaping ImageCompletion) {
+        guard let authorizationHeader = authorizationHeader else {
             return
         }
         let headers: HTTPHeaders = [

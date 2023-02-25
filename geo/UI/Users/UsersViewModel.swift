@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Swinject
 
 class UsersViewModel {
     
     private static let minQueryLength = 3
     
-    private let usersService = UsersService.self
-    private let friendsService = FriendsService.self
+    private let usersService: UsersService
+    private let friendsService: FriendsService
     
     private (set) var friendshipsData = FriendshipsData(friendships: [], resultsType: .none)
     private (set) var searchResults = SearchResults(foundUsers: [], resultsType: .none)
@@ -37,13 +38,17 @@ class UsersViewModel {
         categoryToShow: @escaping (() -> Category),
         searchQuery: @escaping (() -> String?),
         showUserOnMap: @escaping ((User) -> Void),
-        errorHandler: @escaping ((RequestError) -> Void)
+        errorHandler: @escaping ((RequestError) -> Void),
+        container: Container = .defaultContainer
     ) {
         self.reloadTableView = reloadTableView
         self.categoryToShow = categoryToShow
         self.searchQuery = searchQuery
         self.showUserOnMap = showUserOnMap
         self.errorHandler = errorHandler
+        
+        self.usersService = container.resolve(UsersService.self)!
+        self.friendsService = container.resolve(FriendsService .self)!
     }
     
     func reloadTable() {
@@ -60,7 +65,7 @@ class UsersViewModel {
         switch categoryToShow() {
         case .friends:
             let friendship = friendshipsData.friendships[indexPath.row]
-            if let user = friendship.user {
+            if let user = friendship.user() {
                 result = .init(
                     user: user,
                     actions: [
@@ -76,7 +81,7 @@ class UsersViewModel {
             var actions: [UserTableCellViewModel.Action] = []
             if let friendship = searchedUser.friendship {
                 actions.append(removeFriendAction(friendship: friendship))
-                if let user = friendship.user {
+                if let user = friendship.user() {
                     actions.append(showOnMapAction(user: user))
                 }
             } else if let friendshipRequest = searchedUser.friendshipRequest {
@@ -158,7 +163,7 @@ class UsersViewModel {
     }
     
     private func removeFriend(friendship: Friendship) {
-        guard let userID = friendship.user?.id else {
+        guard let userID = friendship.user()?.id else {
             return
         }
         friendsService.deleteFriend(userID: userID) { result in

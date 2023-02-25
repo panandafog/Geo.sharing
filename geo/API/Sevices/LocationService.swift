@@ -8,11 +8,16 @@
 import Alamofire
 import CoreLocation
 
-enum LocationService: ApiService {
-    
+class LocationService: AuthorizingService, SendingRequestsService {
     typealias SendingLocationCompletion = (Result<Void, RequestError>) -> Void
     
-    static func sendLocation(_ location: CLLocation, completion: @escaping SendingLocationCompletion) {
+    let authorizationService: AuthorizationService
+    
+    init(authorizationService: AuthorizationService) {
+        self.authorizationService = authorizationService
+    }
+    
+    func sendLocation(_ location: CLLocation, completion: @escaping SendingLocationCompletion) {
         sendLocation(
             latitude: location.coordinate.latitude,
             longitude: location.coordinate.longitude,
@@ -20,7 +25,7 @@ enum LocationService: ApiService {
         )
     }
     
-    static func sendLocation(latitude: Double, longitude: Double, completion: @escaping SendingLocationCompletion) {
+    func sendLocation(latitude: Double, longitude: Double, completion: @escaping SendingLocationCompletion) {
         sendRequest(
             method: .post,
             url: Endpoints.saveLocationComponents.url!,
