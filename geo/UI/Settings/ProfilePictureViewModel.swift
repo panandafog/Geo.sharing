@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Swinject
 import UIKit
 
 protocol ProfilePictureViewModelDelegate: AnyObject {
@@ -14,15 +15,17 @@ protocol ProfilePictureViewModelDelegate: AnyObject {
 
 class ProfilePictureViewModel: ObservableObject {
     
-    private let authorizationService = AuthorizationService.shared
-    private let usersService = UsersService.self
+    private let authorizationService: AuthorizationService
+    private let usersService: UsersService
     
     @Published var image = UIImage.emptyProfilePicture
     
     private weak var delegate: ProfilePictureViewModelDelegate?
     
-    init(delegate: ProfilePictureViewModelDelegate) {
+    init(delegate: ProfilePictureViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        self.authorizationService = container.resolve(AuthorizationService.self)!
+        self.usersService = container.resolve(UsersService.self)!
     }
     
     func downloadCurrnetImage() {

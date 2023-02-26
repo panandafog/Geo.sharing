@@ -7,6 +7,7 @@
 
 import MapKit
 import SnapKit
+import Swinject
 import UIKit
 
 class FriendAnnotationView: MKAnnotationView {
@@ -82,7 +83,8 @@ class FriendAnnotationView: MKAnnotationView {
         guard let user = user else {
             return
         }
-        ImagesService.getProfilePicture(userID: user.id) { [weak self] result in
+        
+        Container.defaultContainer.resolve(ImagesService.self)!.getProfilePicture(userID: user.id) { [weak self] result in
             switch result {
             case .success(let image):
                 self?.imageView?.image = image

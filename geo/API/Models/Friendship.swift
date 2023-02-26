@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Swinject
 
 struct Friendship: Codable {
     let id: String
     let user1, user2: User
     
-    var user: User? {
-        guard let userID = AuthorizationService.shared.uid else {
+    func user(container: Container = .defaultContainer) -> User? {
+        guard let userID = container.resolve(AuthorizationService.self)?.uid else {
             return nil
         }
         

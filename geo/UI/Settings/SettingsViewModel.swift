@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Swinject
 import UIKit
 
 protocol SettingsViewModelDelegate: AnyObject {
@@ -16,7 +17,7 @@ protocol SettingsViewModelDelegate: AnyObject {
 
 class SettingsViewModel {
     
-    private let authorizationService = AuthorizationService.shared
+    private let authorizationService: AuthorizationService
     private weak var delegate: SettingsViewModelDelegate?
     
     private (set) lazy var settingGroups = [
@@ -52,8 +53,9 @@ class SettingsViewModel {
         )
     ]
     
-    init(delegate: SettingsViewModelDelegate) {
+    init(delegate: SettingsViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        self.authorizationService = container.resolve(AuthorizationService.self)!
     }
 }
 

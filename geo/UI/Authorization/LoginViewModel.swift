@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Swinject
 
 protocol LoginViewModelDelegate: AnyObject {
     func handleLoginCompletion()
@@ -14,7 +15,7 @@ protocol LoginViewModelDelegate: AnyObject {
 
 class LoginViewModel {
     
-    private let authorizationService = AuthorizationService.shared
+    private let authorizationService: AuthorizationService
     
     private weak var delegate: LoginViewModelDelegate?
     
@@ -34,8 +35,9 @@ class LoginViewModel {
         }
     }
     
-    init(delegate: LoginViewModelDelegate) {
+    init(delegate: LoginViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        self.authorizationService = container.resolve(AuthorizationService.self)!
     }
     
     func setInitialInput() {

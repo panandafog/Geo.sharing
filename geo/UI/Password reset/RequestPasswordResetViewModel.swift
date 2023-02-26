@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import Swinject
 
 protocol RequestPasswordResetViewModelDelegate: AnyObject {
     func handlePasswordResetConfirmation()
@@ -15,7 +15,7 @@ protocol RequestPasswordResetViewModelDelegate: AnyObject {
 
 class RequestPasswordResetViewModel: ObservableObject {
     
-    private let authorizationService = AuthorizationService.shared
+    private let authorizationService: AuthorizationService
     
     private weak var delegate: RequestPasswordResetViewModelDelegate?
     
@@ -30,8 +30,9 @@ class RequestPasswordResetViewModel: ObservableObject {
         }
     }
     
-    init(delegate: RequestPasswordResetViewModelDelegate) {
+    init(delegate: RequestPasswordResetViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        self.authorizationService = container.resolve(AuthorizationService.self)!
     }
     
     func setInitialInput() {

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Swinject
 
 protocol EmailConfirmationViewModelDelegate: AnyObject {
     func handleEmailConfirmation(email: String)
@@ -14,7 +15,7 @@ protocol EmailConfirmationViewModelDelegate: AnyObject {
 
 class EmailConfirmationViewModel {
     
-    private let authorizationService = AuthorizationService.shared
+    private let authorizationService: AuthorizationService
     
     private weak var delegate: EmailConfirmationViewModelDelegate?
     
@@ -30,8 +31,9 @@ class EmailConfirmationViewModel {
         }
     }
     
-    init(delegate: EmailConfirmationViewModelDelegate) {
+    init(delegate: EmailConfirmationViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        self.authorizationService = container.resolve(AuthorizationService.self)!
     }
     
     private func verifyCode() {

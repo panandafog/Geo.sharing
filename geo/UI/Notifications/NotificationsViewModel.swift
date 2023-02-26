@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import Swinject
 
 protocol NotificationsViewModelDelegate: AnyObject {
     func handleError(error: RequestError)
@@ -14,14 +14,15 @@ protocol NotificationsViewModelDelegate: AnyObject {
 
 class NotificationsViewModel {
     
-    private let friendsService = FriendsService.self
+    private let friendsService: FriendsService
     private weak var delegate: NotificationsViewModelDelegate?
     
     @Published var cells = [NotificationCellViewModel]()
     @Published var refreshingCells = false
     
-    init(delegate: NotificationsViewModelDelegate) {
+    init(delegate: NotificationsViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        self.friendsService = container.resolve(FriendsService.self)!
     }
     
     func updateFriendshipRequests() {

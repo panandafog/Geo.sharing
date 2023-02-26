@@ -62,6 +62,7 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     @IBOutlet private var settingsButton: UIButton!
     @IBOutlet private var usersButton: UIButton!
     @IBOutlet private var myLocationButton: UIButton!
+    @IBOutlet private var mapStatusView: MapStatusView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,7 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         bindViewModel()
         
         setupMap()
+        setupMapStatusView()
         setLocationButtonConfiguration()
         
         viewModel.authorizeAndStart()
@@ -90,6 +92,10 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     @IBAction private func mylocationButtonTouched(_ sender: UIButton) {
         zoomMapToUserEnabled.toggle()
         setLocationButtonConfiguration()
+    }
+    
+    @IBAction private func connectionStatusViewTouched(_ sender: MapStatusView) {
+        viewModel.mapStatus.action?()
     }
     
     private func bindViewModel() {
@@ -131,6 +137,10 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     
     private func setLocationButtonConfiguration() {
         self.myLocationButton.configuration = locationButtonConfiguration
+    }
+    
+    private func setupMapStatusView() {
+        mapStatusView.setup(viewModel: viewModel)
     }
     
     // MARK: - Map
@@ -226,6 +236,7 @@ extension MapViewController: MKMapViewDelegate {
 }
 
 extension MapViewController: MapViewModelDelegate {
+    
     func handleError(error: RequestError) {
         showErrorAlert(error)
     }
@@ -234,3 +245,5 @@ extension MapViewController: MapViewModelDelegate {
         coordinator?.showAuthorization()
     }
 }
+
+extension MapViewController: LocationManagerDelegate { }

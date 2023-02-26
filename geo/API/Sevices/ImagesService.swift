@@ -7,11 +7,18 @@
 
 import Kingfisher
 
-enum ImagesService: ApiService {
+class ImagesService: AuthorizingService, SendingRequestsService {
     
     typealias ImageCompletion = (Result<UIImage, RequestError>) -> Void
-    static func getProfilePicture(userID: String, completion: @escaping ImageCompletion) {
-        guard let authorizationHeader = Self.authorizationHeader else {
+    
+    let authorizationService: AuthorizationService
+    
+    init(authorizationService: AuthorizationService) {
+        self.authorizationService = authorizationService
+    }
+    
+    func getProfilePicture(userID: String, completion: @escaping ImageCompletion) {
+        guard let authorizationHeader = authorizationHeader else {
             return
         }
         

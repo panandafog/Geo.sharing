@@ -73,20 +73,31 @@
                                     <action selector="settingsButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XcY-9p-eaf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhJ-3h-9Np" customClass="MapStatusView" customModule="geo" customModuleProvider="target">
+                                <rect key="frame" x="20" y="793" width="75" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Button"/>
+                                <connections>
+                                    <action selector="connectionStatusViewTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mhn-3w-CtJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="yJb-lY-ZQa" firstAttribute="width" secondItem="GCz-Kh-HJT" secondAttribute="width" id="2Fh-Dl-g5t"/>
                             <constraint firstItem="yJb-lY-ZQa" firstAttribute="top" secondItem="GCz-Kh-HJT" secondAttribute="bottom" constant="18" id="4xv-tb-VuH"/>
+                            <constraint firstItem="v04-pW-cOr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fhJ-3h-9Np" secondAttribute="trailing" constant="20" id="8eo-DW-Vkb"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Azp-QH-AI3"/>
                             <constraint firstItem="gLr-4V-caj" firstAttribute="height" secondItem="GCz-Kh-HJT" secondAttribute="height" id="Cqp-Pu-GlH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gLr-4V-caj" secondAttribute="trailing" constant="20" id="E1E-qS-iSk"/>
+                            <constraint firstItem="fhJ-3h-9Np" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="FFM-hH-b3A"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GCz-Kh-HJT" secondAttribute="trailing" constant="20" id="Gzq-fe-iuQ"/>
                             <constraint firstItem="v04-pW-cOr" firstAttribute="width" secondItem="GCz-Kh-HJT" secondAttribute="width" id="IBl-fN-XeZ"/>
                             <constraint firstItem="GCz-Kh-HJT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="Ks9-Rf-bbl"/>
                             <constraint firstItem="yJb-lY-ZQa" firstAttribute="trailing" secondItem="GCz-Kh-HJT" secondAttribute="trailing" id="Uzd-uM-ZEh"/>
                             <constraint firstItem="q9K-H5-oi9" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="aM0-yh-DdA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fhJ-3h-9Np" secondAttribute="bottom" constant="34" id="chN-Rs-cBB"/>
                             <constraint firstItem="v04-pW-cOr" firstAttribute="top" secondItem="gLr-4V-caj" secondAttribute="bottom" constant="18" id="d92-Nr-g3U"/>
                             <constraint firstItem="yJb-lY-ZQa" firstAttribute="height" secondItem="GCz-Kh-HJT" secondAttribute="height" id="eVl-SX-06t"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="v04-pW-cOr" secondAttribute="trailing" constant="20" id="eeK-gM-lm1"/>
@@ -100,6 +111,7 @@
                     <navigationItem key="navigationItem" id="DJV-0I-48V"/>
                     <connections>
                         <outlet property="map" destination="q9K-H5-oi9" id="OVZ-9L-2wB"/>
+                        <outlet property="mapStatusView" destination="fhJ-3h-9Np" id="2Ox-ZH-mWx"/>
                         <outlet property="myLocationButton" destination="v04-pW-cOr" id="DXf-Wt-88u"/>
                         <outlet property="notificationsButton" destination="GCz-Kh-HJT" id="0j7-c9-K7s"/>
                         <outlet property="settingsButton" destination="yJb-lY-ZQa" id="mea-KB-hQo"/>

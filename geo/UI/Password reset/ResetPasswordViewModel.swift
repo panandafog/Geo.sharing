@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import Swinject
 
 protocol ResetPasswordViewModelDelegate: AnyObject {
     func handlePasswordResetCompletion()
@@ -15,7 +15,7 @@ protocol ResetPasswordViewModelDelegate: AnyObject {
 
 class ResetPasswordViewModel: ObservableObject {
     
-    private let authorizationService = AuthorizationService.shared
+    private let authorizationService: AuthorizationService
     
     private weak var delegate: ResetPasswordViewModelDelegate?
     
@@ -41,8 +41,9 @@ class ResetPasswordViewModel: ObservableObject {
     }
     var email: String?
     
-    init(delegate: ResetPasswordViewModelDelegate) {
+    init(delegate: ResetPasswordViewModelDelegate, container: Container = .defaultContainer) {
         self.delegate = delegate
+        self.authorizationService = container.resolve(AuthorizationService.self)!
     }
     
     private func verifyCreds() {

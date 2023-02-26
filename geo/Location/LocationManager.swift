@@ -6,14 +6,14 @@
 //
 
 import CoreLocation
+import Swinject
 
 class LocationManager: NSObject, ObservableObject {
     
-    static let shared = LocationManager()
-    
     let locationManager = CLLocationManager()
+    let locationService: LocationService
     
-    var status: Status {
+    var premissionStatus: PermissionStatus {
         switch locationManager.authorizationStatus {
         case .notDetermined:
             return .needToRequest
@@ -24,7 +24,7 @@ class LocationManager: NSObject, ObservableObject {
         case .authorizedAlways:
             return .ok
         case .authorizedWhenInUse:
-            return .needToRequest
+            return .ok
         @unknown default:
             return .needToRequest
         }
@@ -32,22 +32,55 @@ class LocationManager: NSObject, ObservableObject {
     
     @Published var location: CLLocation?
     
-    override private init() {
+    @Published var connectionStatus: ConnectionStatus = .initial
+    @Published var locationStatus: LocationStatus = .initial
+    
+    override convenience init() {
+        self.init(container: .defaultContainer)
+    }
+    
+    init(container: Container) {
+        locationService = container.resolve(LocationService.self)!
         super.init()
+        
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.pausesLocationUpdatesAutomatically = false
     }
     
-    func startUpdatingLocation() {
-        if status == .needToRequest {
+    func startUpdatingLocation(delegate: LocationManagerDelegate) {
+        switch premissionStatus {
+        case .needToRequest:
             locationManager.requestAlwaysAuthorization()
+        case .denied:
+            delegate.openLocationSettings()
+        default:
+            break
         }
         locationManager.startUpdatingLocation()
     }
     
     func stopUpdatingLocation() {
         locationManager.stopUpdatingLocation()
+        locationStatus = .initial
+        connectionStatus = .initial
+    }
+    
+    private func updateLocationStatus() {
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            locationStatus = .noPermission
+        case .restricted:
+            locationStatus = .noPermission
+        case .denied:
+            locationStatus = .noPermission
+        case .authorizedAlways:
+            locationStatus = .notStarted
+        case .authorizedWhenInUse:
+            locationStatus = .notStarted
+        @unknown default:
+            locationStatus = .noPermission
+        }
     }
 }
 
@@ -57,9 +90,21 @@ extension LocationManager: CLLocationManagerDelegate {
         _ manager: CLLocationManager,
         didUpdateLocations locations: [CLLocation]
     ) {
+        if connectionStatus != .ok {
+            connectionStatus = .establishing
+        }
         self.location = locations.first
+        self.locationStatus = .ok
+        
         if let location = self.location {
-            LocationService.sendLocation(location) { _ in }
+            locationService.sendLocation(location) { result in
+                switch result {
+                case .success:
+                    self.connectionStatus = .ok
+                case .failure(let error):
+                    self.connectionStatus = .failed
+                }
+            }
         }
     }
     
@@ -74,13 +119,13 @@ extension LocationManager: CLLocationManagerDelegate {
         _ manager: CLLocationManager,
         didChangeAuthorization status: CLAuthorizationStatus
     ) {
-        // Handle changes if location permissions
+        updateLocationStatus()
     }
 }
 
 extension LocationManager {
     
-    enum Status {
+    enum PermissionStatus {
         case ok
         case needToRequest
         case denied
