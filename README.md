@@ -11,8 +11,8 @@ Currently available in [TestFlight](https://testflight.apple.com/join/oEfXra0e)
 
 ## Screenshots
 
-![Screenshot1](https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_1.png)
-![Screenshot2](https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_2.png)
+<img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_1.png" width="200">
+<img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_2.png" width="200">
 
 ## Other
 
