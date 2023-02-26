@@ -1056,6 +1056,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = geo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Geo.share;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "The app needs permission to receive your geolocation in order to share it with your friends";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs permission to receive your geolocation in order to share it with your friends";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = "";
@@ -1068,7 +1069,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.7;
+				MARKETING_VERSION = 0.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.panandafog.geoshare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1089,6 +1090,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = geo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Geo.share;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "The app needs permission to receive your geolocation in order to share it with your friends";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app needs permission to receive your geolocation in order to share it with your friends";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = "";
@@ -1101,7 +1103,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.7;
+				MARKETING_VERSION = 0.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.panandafog.geoshare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
