@@ -11,8 +11,10 @@ Currently available in [TestFlight](https://testflight.apple.com/join/oEfXra0e)
 
 ## Screenshots
 
-<img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_1.png" width="200">
-<img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_2.png" width="200">
+<p float="left">
+    <img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_1.png" width="200">
+    <img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_2.png" width="200">
+</p>
 
 ## Other
 
