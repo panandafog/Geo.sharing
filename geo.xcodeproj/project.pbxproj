@@ -25,6 +25,7 @@
 		0B3490C529DAE1BA009CCD02 /* LocationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3490C429DAE1BA009CCD02 /* LocationMode.swift */; };
 		0B3490C729DAE62B009CCD02 /* SettingsSwitcherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3490C629DAE62B009CCD02 /* SettingsSwitcherCell.swift */; };
 		0B3490C929DAE63C009CCD02 /* SettingsSwitcherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3490C829DAE63C009CCD02 /* SettingsSwitcherCell.xib */; };
+		0B3490CB29DB4286009CCD02 /* UIStylingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3490CA29DB4286009CCD02 /* UIStylingHelper.swift */; };
 		0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016D294E68C300EBE854 /* AppDelegate.swift */; };
 		0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016F294E68C300EBE854 /* SceneDelegate.swift */; };
 		0B400172294E68C300EBE854 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400171294E68C300EBE854 /* MapViewController.swift */; };
@@ -142,6 +143,7 @@
 		0B3490C429DAE1BA009CCD02 /* LocationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMode.swift; sourceTree = "<group>"; };
 		0B3490C629DAE62B009CCD02 /* SettingsSwitcherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitcherCell.swift; sourceTree = "<group>"; };
 		0B3490C829DAE63C009CCD02 /* SettingsSwitcherCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitcherCell.xib; sourceTree = "<group>"; };
+		0B3490CA29DB4286009CCD02 /* UIStylingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStylingHelper.swift; sourceTree = "<group>"; };
 		0B40016A294E68C300EBE854 /* geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B40016D294E68C300EBE854 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B40016F294E68C300EBE854 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				0BC443EF2983FA4A00D31C15 /* Users */,
 				0BB60E6F29991C590065AECB /* NotificatingViewController.swift */,
 				0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */,
+				0B3490CA29DB4286009CCD02 /* UIStylingHelper.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */,
 				0BE4F60E29A8FD2E005D1CC5 /* LocationStatus.swift in Sources */,
 				0BA1C1EA29A6C6CE00387882 /* ResetPasswordViewModel.swift in Sources */,
+				0B3490CB29DB4286009CCD02 /* UIStylingHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

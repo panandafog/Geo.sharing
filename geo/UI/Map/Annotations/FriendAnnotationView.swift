@@ -40,16 +40,19 @@ class FriendAnnotationView: MKAnnotationView {
         
         backgroundColor = .tintColor
         layer.cornerRadius = Self.cornerRadius
+        setupUI()
     }
-
+    
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
+    private func setupUI() {
         setupImageView()
-        
+    }
+    
+    func updateUI() {
         if let user = (annotation as? FriendMKPointAnnotation)?.user {
             canShowCallout = true
             detailCalloutAccessoryView = FriendCalloutView(user: user)
@@ -57,6 +60,7 @@ class FriendAnnotationView: MKAnnotationView {
             canShowCallout = false
             detailCalloutAccessoryView = nil
         }
+        updateImage()
     }
     
     private func setupImageView() {
@@ -67,6 +71,10 @@ class FriendAnnotationView: MKAnnotationView {
         addSubview(imageView)
         self.imageView = imageView
         
+        setDefaultImage()
+    }
+    
+    private func updateImage() {
         guard let user = user else {
             setDefaultImage()
             return
@@ -89,7 +97,7 @@ class FriendAnnotationView: MKAnnotationView {
     
     private func setDefaultImage() {
         imageView?.image = UIImage.emptyProfilePicture
-        imageView?.tintColor = .systemGray4
+        imageView?.tintColor = .secondarySystemBackground
     }
     
     override func prepareForDisplay() {

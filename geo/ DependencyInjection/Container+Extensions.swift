@@ -22,6 +22,8 @@ extension Container {
                 authorizationService: resolver.resolve(AuthorizationService.self)!
             )
         }
+        .inObjectScope(.container)
+        
         container.register(LocationManager.self) { resolver in
             LocationManager(
                 locationService: resolver.resolve(LocationService.self)!,

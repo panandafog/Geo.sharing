@@ -39,24 +39,6 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         }
     }
     
-    private let enabledLocationButtonConfiguration: UIButton.Configuration = {
-        var configuration = UIButton.Configuration.filled()
-        configuration.image = UIImage(systemName: "location.fill")
-        return configuration
-    }()
-    private let disabledLocationButtonConfiguration: UIButton.Configuration = {
-        var configuration = UIButton.Configuration.tinted()
-        configuration.image = UIImage(systemName: "location.fill")
-        return configuration
-    }()
-    private var locationButtonConfiguration: UIButton.Configuration {
-        if zoomMapToUserEnabled {
-            return enabledLocationButtonConfiguration
-        } else {
-            return disabledLocationButtonConfiguration
-        }
-    }
-    
     @IBOutlet private var map: MKMapView!
     @IBOutlet private var notificationsButton: UIButton!
     @IBOutlet private var settingsButton: UIButton!
@@ -70,8 +52,8 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         bindViewModel()
         
         setupMap()
+        setupStyling()
         setupMapStatusView()
-        setLocationButtonConfiguration()
         
         viewModel.authorizeAndStart()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -135,8 +117,19 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     
     // MARK: - UI
     
+    private func setupStyling() {
+        UIStylingHelper.makeMapButton(notificationsButton)
+        UIStylingHelper.makeMapButton(settingsButton)
+        UIStylingHelper.makeMapButton(usersButton)
+        UIStylingHelper.makeMapButton(myLocationButton)
+        
+        setLocationButtonConfiguration()
+    }
+    
     private func setLocationButtonConfiguration() {
-        self.myLocationButton.configuration = locationButtonConfiguration
+        self.myLocationButton.configuration = UIStylingHelper.locationButtonConfiguration(
+            enabled: zoomMapToUserEnabled
+        )
     }
     
     private func setupMapStatusView() {
@@ -226,7 +219,7 @@ extension MapViewController: MKMapViewDelegate {
             annotationView!.annotation = annotation
         }
 
-        annotationView?.setupUI()
+        annotationView?.updateUI()
         return annotationView
     }
     
