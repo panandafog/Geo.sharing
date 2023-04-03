@@ -18,7 +18,7 @@ class AuthorizationService: SendingRequestsService {
         return makeAuthorizationHeader(token: token)
     }
     
-    let defaults = UserDefaults.standard
+    private let defaults = UserDefaults.standard
     
     private let uidKey = "uid"
     var uid: String? {

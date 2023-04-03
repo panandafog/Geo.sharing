@@ -23,7 +23,6 @@ class FriendAnnotationView: MKAnnotationView {
         (annotation as? FriendMKPointAnnotation)?.user
     }
     
-    private var titleLabel: UILabel?
     private var imageView: UIImageView?
     
     private let rect = CGRect(x: 0, y: 0, width: size, height: size)
@@ -49,7 +48,6 @@ class FriendAnnotationView: MKAnnotationView {
     }
     
     func setupUI() {
-        setupLabel()
         setupImageView()
         
         if let user = (annotation as? FriendMKPointAnnotation)?.user {
@@ -61,19 +59,8 @@ class FriendAnnotationView: MKAnnotationView {
         }
     }
     
-    private func setupLabel() {
-        let titleLabel = UILabel(frame: contentRect)
-        titleLabel.text = user?.username ?? "..."
-        titleLabel.textAlignment = .center
-        titleLabel.layer.cornerRadius = Self.contentCornerRadius
-        
-        addSubview(titleLabel)
-        self.titleLabel = titleLabel
-    }
-    
     private func setupImageView() {
         let imageView = UIImageView(frame: contentRect)
-        imageView.isHidden = true
         imageView.layer.cornerRadius = Self.contentCornerRadius
         imageView.layer.masksToBounds = true
         
@@ -81,19 +68,28 @@ class FriendAnnotationView: MKAnnotationView {
         self.imageView = imageView
         
         guard let user = user else {
+            setDefaultImage()
             return
         }
         
         Container.defaultContainer.resolve(ImagesService.self)!.getProfilePicture(userID: user.id) { [weak self] result in
             switch result {
             case .success(let image):
-                self?.imageView?.image = image
-                self?.imageView?.isHidden = false
-                self?.titleLabel?.isHidden = true
+                DispatchQueue.main.async {
+                    self?.imageView?.image = image
+                }
             case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.setDefaultImage()
+                }
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func setDefaultImage() {
+        imageView?.image = UIImage.emptyProfilePicture
+        imageView?.tintColor = .systemGray4
     }
     
     override func prepareForDisplay() {

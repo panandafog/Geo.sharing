@@ -5,16 +5,18 @@
 //  Created by Andrey on 18.12.2022.
 //
 
+import Combine
 import CoreLocation
 import Swinject
 
 class LocationManager: NSObject, ObservableObject {
     
-    let locationManager = CLLocationManager()
+    let clLocationManager = CLLocationManager()
     let locationService: LocationService
+    let settingsService: SettingsService
     
     var premissionStatus: PermissionStatus {
-        switch locationManager.authorizationStatus {
+        switch clLocationManager.authorizationStatus {
         case .notDetermined:
             return .needToRequest
         case .restricted:
@@ -35,39 +37,59 @@ class LocationManager: NSObject, ObservableObject {
     @Published var connectionStatus: ConnectionStatus = .initial
     @Published var locationStatus: LocationStatus = .initial
     
-    override convenience init() {
-        self.init(container: .defaultContainer)
-    }
+    var delegate: LocationManagerDelegate?
     
-    init(container: Container) {
-        locationService = container.resolve(LocationService.self)!
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init(locationService: LocationService, settingsService: SettingsService) {
+        self.locationService = locationService
+        self.settingsService = settingsService
         super.init()
         
-        locationManager.delegate = self
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.pausesLocationUpdatesAutomatically = false
+        clLocationManager.delegate = self
+        clLocationManager.allowsBackgroundLocationUpdates = true
+        clLocationManager.pausesLocationUpdatesAutomatically = false
+        
+        bindSettingsService()
     }
     
-    func startUpdatingLocation(delegate: LocationManagerDelegate) {
+    func startUpdatingLocation(mode: LocationMode? = nil) {
+        let mode = mode ?? settingsService.currentLocationMode
+        
         switch premissionStatus {
         case .needToRequest:
-            locationManager.requestAlwaysAuthorization()
+            clLocationManager.requestAlwaysAuthorization()
         case .denied:
-            delegate.openLocationSettings()
+            delegate?.openLocationSettings()
         default:
             break
         }
-        locationManager.startUpdatingLocation()
+        
+        debugPrint("-=-=- start updates \(mode)")
+        switch mode {
+        case .precise:
+            clLocationManager.startUpdatingLocation()
+        case .economical:
+            clLocationManager.startMonitoringSignificantLocationChanges()
+        }
     }
     
     func stopUpdatingLocation() {
-        locationManager.stopUpdatingLocation()
-        locationStatus = .initial
-        connectionStatus = .initial
+        clLocationManager.stopUpdatingLocation()
+        locationStatus = .notStarted
+        connectionStatus = .notStarted
+    }
+    
+    private func bindSettingsService() {
+        settingsService.$currentLocationMode.sink { [weak self] mode in
+            self?.stopUpdatingLocation()
+            self?.startUpdatingLocation(mode: mode)
+        }
+        .store(in: &cancellables)
     }
     
     private func updateLocationStatus() {
-        switch locationManager.authorizationStatus {
+        switch clLocationManager.authorizationStatus {
         case .notDetermined:
             locationStatus = .noPermission
         case .restricted:

@@ -76,6 +76,8 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     // MARK: - Location
     
     func bindLocationManager() {
+        locationManager.delegate = delegate
+        
         locationManager.$locationStatus.sink { [weak self] output in
             self?.mapStatus.locationStatus = output
         }
@@ -100,7 +102,7 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     
     func startUpdatingLocation() {
         guard let delegate = delegate else { return }
-        locationManager.startUpdatingLocation(delegate: delegate)
+        locationManager.startUpdatingLocation()
     }
     
     func stopUpdatingLocation() {
@@ -179,9 +181,7 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
                       let delegate = self.delegate else {
                     return
                 }
-                self.locationManager.startUpdatingLocation(
-                    delegate: delegate
-                )
+                self.locationManager.startUpdatingLocation()
             }
         }
     }

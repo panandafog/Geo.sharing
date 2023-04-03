@@ -12,13 +12,20 @@ extension Container {
     static let defaultContainer: Container = {
         let container = Container()
         
-        container.register(LocationManager.self) { _ in
-            LocationManager()
+        container.register(SettingsService.self) { _ in
+            SettingsService()
         }
+        .inObjectScope(.container)
         
         container.register(LocationService.self) { resolver in
             LocationService(
                 authorizationService: resolver.resolve(AuthorizationService.self)!
+            )
+        }
+        container.register(LocationManager.self) { resolver in
+            LocationManager(
+                locationService: resolver.resolve(LocationService.self)!,
+                settingsService: resolver.resolve(SettingsService.self)!
             )
         }
         container.register(AuthorizationService.self) { _ in
