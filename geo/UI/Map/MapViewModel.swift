@@ -16,7 +16,7 @@ protocol MapViewModelDelegate: LocationManagerDelegate, AnyObject {
 
 class MapViewModel: ObservableObject, MapStatusViewModel {
     
-    private static let notificationsUpdateInterval = 2.0
+    private static let notificationsUpdateInterval = 5.0
     private static let friendshipsUpdateInterval = 2.0
     
     private let locationManager: LocationManager
@@ -54,6 +54,8 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
         }
     }
     
+    private var handledConnectionError = false
+    
     var friends: [User] {
         friendships.compactMap { $0.user() }
     }
@@ -76,6 +78,8 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     // MARK: - Location
     
     func bindLocationManager() {
+        locationManager.delegate = delegate
+        
         locationManager.$locationStatus.sink { [weak self] output in
             self?.mapStatus.locationStatus = output
         }
@@ -100,7 +104,7 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     
     func startUpdatingLocation() {
         guard let delegate = delegate else { return }
-        locationManager.startUpdatingLocation(delegate: delegate)
+        locationManager.startUpdatingLocation()
     }
     
     func stopUpdatingLocation() {
@@ -132,9 +136,13 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
             case .success(let friendships):
                 self?.friendsConnectionStatus = .ok
                 self?.friendships = friendships
+                self?.handledConnectionError = false
             case .failure(let error):
                 self?.friendsConnectionStatus = .failed
-                self?.delegate?.handleError(error: error)
+                if !(self?.handledConnectionError ?? true) {
+                    self?.delegate?.handleError(error: error)
+                    self?.handledConnectionError = true
+                }
             }
         }
     }
@@ -179,9 +187,7 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
                       let delegate = self.delegate else {
                     return
                 }
-                self.locationManager.startUpdatingLocation(
-                    delegate: delegate
-                )
+                self.locationManager.startUpdatingLocation()
             }
         }
     }

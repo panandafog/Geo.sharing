@@ -5,19 +5,22 @@
 //  Created by Andrey on 18.12.2022.
 //
 
+import Swinject
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    
     var coordinator: MainCoordinator?
     var window: UIWindow?
     
+    private let settingsService = Container.defaultContainer.resolve(SettingsService.self)
+    private let authorizationService = Container.defaultContainer.resolve(AuthorizationService.self)!
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = scene as? UIWindowScene else {
-            return
-        }
+        guard let windowScene = scene as? UIWindowScene else { return }
         
         let navigationController = UINavigationController()
-        coordinator = MainCoordinator(navigationController: navigationController)
+        coordinator = MainCoordinator(navigationController: navigationController, authorizationService: authorizationService)
         coordinator!.start()
         
         window = UIWindow(windowScene: windowScene)
@@ -43,13 +46,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
+        settingsService?.locationModeKind = .foreground
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
+        settingsService?.locationModeKind = .background
     }
 }

@@ -8,10 +8,10 @@
 import Alamofire
 import CoreLocation
 
-class LocationService: AuthorizingService, SendingRequestsService {
+class LocationService {
     typealias SendingLocationCompletion = (Result<Void, RequestError>) -> Void
     
-    let authorizationService: AuthorizationService
+    private let authorizationService: AuthorizationService
     
     init(authorizationService: AuthorizationService) {
         self.authorizationService = authorizationService
@@ -39,5 +39,11 @@ class LocationService: AuthorizingService, SendingRequestsService {
             ),
             completion: completion
         )
+    }
+}
+
+extension LocationService: SendingRequestsService {
+    var authorizationDelegate: AuthorizationDelegate? {
+        authorizationService
     }
 }

@@ -12,4 +12,3 @@ enum LocationStatus: Int {
     
     static let initial = LocationStatus.notStarted
 }
-

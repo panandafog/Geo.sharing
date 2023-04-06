@@ -21,6 +21,11 @@
 		0B1AE4C829A3BF5B00B4E4F7 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */; };
 		0B1AE4CA29A3FBAC00B4E4F7 /* UserTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AE4C929A3FBAC00B4E4F7 /* UserTableCellViewModel.swift */; };
 		0B2E3EC429A4B5A60016391D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2E3EC329A4B5A60016391D /* DateHelper.swift */; };
+		0B3490C329DAE184009CCD02 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3490C229DAE184009CCD02 /* SettingsService.swift */; };
+		0B3490C529DAE1BA009CCD02 /* LocationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3490C429DAE1BA009CCD02 /* LocationMode.swift */; };
+		0B3490C729DAE62B009CCD02 /* SettingsSwitcherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3490C629DAE62B009CCD02 /* SettingsSwitcherCell.swift */; };
+		0B3490C929DAE63C009CCD02 /* SettingsSwitcherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3490C829DAE63C009CCD02 /* SettingsSwitcherCell.xib */; };
+		0B3490CB29DB4286009CCD02 /* UIStylingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3490CA29DB4286009CCD02 /* UIStylingHelper.swift */; };
 		0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016D294E68C300EBE854 /* AppDelegate.swift */; };
 		0B400170294E68C300EBE854 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B40016F294E68C300EBE854 /* SceneDelegate.swift */; };
 		0B400172294E68C300EBE854 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B400171294E68C300EBE854 /* MapViewController.swift */; };
@@ -88,7 +93,6 @@
 		0BE4F60E29A8FD2E005D1CC5 /* LocationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F60D29A8FD2E005D1CC5 /* LocationStatus.swift */; };
 		0BE4F61229A922AD005D1CC5 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61129A922AD005D1CC5 /* LocationManagerDelegate.swift */; };
 		0BE4F61729AA1D84005D1CC5 /* Container+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61629AA1D84005D1CC5 /* Container+Extensions.swift */; };
-		0BE4F61929AA2444005D1CC5 /* AuthorizingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61829AA2444005D1CC5 /* AuthorizingService.swift */; };
 		0BE4F61B29AA245D005D1CC5 /* SendingRequestsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61A29AA245D005D1CC5 /* SendingRequestsService.swift */; };
 		0BE4F61D29AA2681005D1CC5 /* ParametersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61C29AA2681005D1CC5 /* ParametersInfo.swift */; };
 		0BE4F61F29AA2698005D1CC5 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61E29AA2698005D1CC5 /* ParameterEncoding.swift */; };
@@ -134,6 +138,12 @@
 		0B1AE4C729A3BF5B00B4E4F7 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		0B1AE4C929A3FBAC00B4E4F7 /* UserTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableCellViewModel.swift; sourceTree = "<group>"; };
 		0B2E3EC329A4B5A60016391D /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		0B3490C229DAE184009CCD02 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		0B3490C429DAE1BA009CCD02 /* LocationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMode.swift; sourceTree = "<group>"; };
+		0B3490C629DAE62B009CCD02 /* SettingsSwitcherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitcherCell.swift; sourceTree = "<group>"; };
+		0B3490C829DAE63C009CCD02 /* SettingsSwitcherCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitcherCell.xib; sourceTree = "<group>"; };
+		0B3490CA29DB4286009CCD02 /* UIStylingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStylingHelper.swift; sourceTree = "<group>"; };
+		0B3490CC29DB4F89009CCD02 /* geo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = geo.entitlements; sourceTree = "<group>"; };
 		0B40016A294E68C300EBE854 /* geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B40016D294E68C300EBE854 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B40016F294E68C300EBE854 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -205,7 +215,6 @@
 		0BE4F60D29A8FD2E005D1CC5 /* LocationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStatus.swift; sourceTree = "<group>"; };
 		0BE4F61129A922AD005D1CC5 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		0BE4F61629AA1D84005D1CC5 /* Container+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Extensions.swift"; sourceTree = "<group>"; };
-		0BE4F61829AA2444005D1CC5 /* AuthorizingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizingService.swift; sourceTree = "<group>"; };
 		0BE4F61A29AA245D005D1CC5 /* SendingRequestsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingRequestsService.swift; sourceTree = "<group>"; };
 		0BE4F61C29AA2681005D1CC5 /* ParametersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersInfo.swift; sourceTree = "<group>"; };
 		0BE4F61E29AA2698005D1CC5 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
@@ -311,6 +320,7 @@
 		0B40016C294E68C300EBE854 /* geo */ = {
 			isa = PBXGroup;
 			children = (
+				0B3490CC29DB4F89009CCD02 /* geo.entitlements */,
 				0BE4F61529AA1D49005D1CC5 /*  DependencyInjection */,
 				0BC08A4829798FC90026BA27 /* API */,
 				0B5A0B06297F003500E9806A /* Extensions */,
@@ -398,6 +408,8 @@
 				0BA1C1ED29A7767F00387882 /* ProfilePictureViewModel.swift */,
 				0BB0A05C2991C4F900AB48DD /* ProfilePictureViewController.swift */,
 				0BB0A05E2991C51300AB48DD /* ProfilePictureViewController.storyboard */,
+				0B3490C629DAE62B009CCD02 /* SettingsSwitcherCell.swift */,
+				0B3490C829DAE63C009CCD02 /* SettingsSwitcherCell.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -410,6 +422,7 @@
 				0BE07F7C2992F0830040CECA /* ImagesService.swift */,
 				0B00E69F2988695B0049DC49 /* FriendsService.swift */,
 				0BE75A8F298321CB00439A71 /* UsersService.swift */,
+				0B3490C229DAE184009CCD02 /* SettingsService.swift */,
 			);
 			path = Sevices;
 			sourceTree = "<group>";
@@ -428,6 +441,7 @@
 				0BC443EF2983FA4A00D31C15 /* Users */,
 				0BB60E6F29991C590065AECB /* NotificatingViewController.swift */,
 				0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */,
+				0B3490CA29DB4286009CCD02 /* UIStylingHelper.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -455,7 +469,6 @@
 				0B2E3EC229A4B58F0016391D /* Helpers */,
 				0BB60E6C29990A9C0065AECB /* Sevices */,
 				0BE75A8A29830EE800439A71 /* Models */,
-				0BE4F61829AA2444005D1CC5 /* AuthorizingService.swift */,
 				0BE4F61A29AA245D005D1CC5 /* SendingRequestsService.swift */,
 				0B5A0B09297F00B600E9806A /* Endpoints.swift */,
 				0BB60E6D29990BAD0065AECB /* RequestError.swift */,
@@ -508,6 +521,7 @@
 				0BE75A8D2983152F00439A71 /* Friendship.swift */,
 				0B51D86D298940E800200B63 /* FriendshipRequestType.swift */,
 				0BB60E712999202A0065AECB /* ErrorResponse.swift */,
+				0B3490C429DAE1BA009CCD02 /* LocationMode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -648,6 +662,7 @@
 				0B00E69529842DAE0049DC49 /* UserTableCell.xib in Resources */,
 				0BE07F832993D9470040CECA /* EmailConfirmationViewController.storyboard in Resources */,
 				0B528D08299D479F00CA4A30 /* RequestPasswordResetViewController.storyboard in Resources */,
+				0B3490C929DAE63C009CCD02 /* SettingsSwitcherCell.xib in Resources */,
 				0B40017A294E68C500EBE854 /* LaunchScreen.storyboard in Resources */,
 				0BB0A05729919C6C00AB48DD /* SettingsViewController.storyboard in Resources */,
 				0BB0A0632991C54B00AB48DD /* ResetPasswordViewController.storyboard in Resources */,
@@ -814,7 +829,6 @@
 				0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */,
 				0B51D8722989448000200B63 /* SearchedUser.swift in Sources */,
 				0BA1C1FE29A7F4A000387882 /* MapViewModel.swift in Sources */,
-				0BE4F61929AA2444005D1CC5 /* AuthorizingService.swift in Sources */,
 				0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */,
 				0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */,
 				0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */,
@@ -822,6 +836,7 @@
 				0B843017294FA7EC000D5EDF /* LocationService.swift in Sources */,
 				0BE4F61729AA1D84005D1CC5 /* Container+Extensions.swift in Sources */,
 				0BE4F60C29A8FD12005D1CC5 /* MapStatus.swift in Sources */,
+				0B3490C329DAE184009CCD02 /* SettingsService.swift in Sources */,
 				0BE4F61F29AA2698005D1CC5 /* ParameterEncoding.swift in Sources */,
 				0BB0A0672992D76C00AB48DD /* MKAnnotation+Extensions.swift in Sources */,
 				0BB60E6E29990BAD0065AECB /* RequestError.swift in Sources */,
@@ -858,6 +873,7 @@
 				0BA1C20229A8348800387882 /* UIView+Extensions.swift in Sources */,
 				0B40016E294E68C300EBE854 /* AppDelegate.swift in Sources */,
 				0B1AE4C829A3BF5B00B4E4F7 /* UsersViewModel.swift in Sources */,
+				0B3490C529DAE1BA009CCD02 /* LocationMode.swift in Sources */,
 				0BB0A0652992D60600AB48DD /* MKMapView+Extensions.swift in Sources */,
 				0BE75A8C29830F5000439A71 /* FriendshipRequest.swift in Sources */,
 				0B1AE4C629A38BB100B4E4F7 /* PasswordResetCoordinator.swift in Sources */,
@@ -867,6 +883,7 @@
 				0BE75A90298321CB00439A71 /* UsersService.swift in Sources */,
 				0BA1C1F429A77FEF00387882 /* NotificationsViewModel.swift in Sources */,
 				0B5A0B0A297F00B600E9806A /* Endpoints.swift in Sources */,
+				0B3490C729DAE62B009CCD02 /* SettingsSwitcherCell.swift in Sources */,
 				0B5A0B08297F006A00E9806A /* Secrets.swift in Sources */,
 				0BE07F812993D9350040CECA /* EmailConfirmationViewController.swift in Sources */,
 				0BA1C1F229A77CCF00387882 /* SettingsViewModel.swift in Sources */,
@@ -875,6 +892,7 @@
 				0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */,
 				0BE4F60E29A8FD2E005D1CC5 /* LocationStatus.swift in Sources */,
 				0BA1C1EA29A6C6CE00387882 /* ResetPasswordViewModel.swift in Sources */,
+				0B3490CB29DB4286009CCD02 /* UIStylingHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1050,6 +1068,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = geo/geo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HG9ZBM8AV;
@@ -1069,7 +1088,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.8;
+				MARKETING_VERSION = 0.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.panandafog.geoshare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1084,6 +1103,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = geo/geo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HG9ZBM8AV;
@@ -1103,7 +1123,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.8;
+				MARKETING_VERSION = 0.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.panandafog.geoshare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

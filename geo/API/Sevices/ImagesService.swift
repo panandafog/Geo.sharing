@@ -7,18 +7,18 @@
 
 import Kingfisher
 
-class ImagesService: AuthorizingService, SendingRequestsService {
+class ImagesService {
     
     typealias ImageCompletion = (Result<UIImage, RequestError>) -> Void
     
-    let authorizationService: AuthorizationService
+    private let authorizationService: AuthorizationService
     
     init(authorizationService: AuthorizationService) {
         self.authorizationService = authorizationService
     }
     
     func getProfilePicture(userID: String, completion: @escaping ImageCompletion) {
-        guard let authorizationHeader = authorizationHeader else {
+        guard let authorizationHeader = authorizationDelegate?.authorizationHeader else {
             return
         }
         
@@ -44,5 +44,11 @@ class ImagesService: AuthorizingService, SendingRequestsService {
                 completion(.failure(.parsingResponse))
             }
         }
+    }
+}
+
+extension ImagesService: SendingRequestsService {
+    var authorizationDelegate: AuthorizationDelegate? {
+        authorizationService
     }
 }
