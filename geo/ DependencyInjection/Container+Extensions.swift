@@ -17,6 +17,11 @@ extension Container {
         }
         .inObjectScope(.container)
         
+        container.register(AuthorizationService.self) { _ in
+            AuthorizationService()
+        }
+        .inObjectScope(.container)
+        
         container.register(LocationService.self) { resolver in
             LocationService(
                 authorizationService: resolver.resolve(AuthorizationService.self)!
@@ -30,9 +35,7 @@ extension Container {
                 settingsService: resolver.resolve(SettingsService.self)!
             )
         }
-        container.register(AuthorizationService.self) { _ in
-            AuthorizationService()
-        }
+        
         container.register(UsersService.self) { resolver in
             UsersService(
                 authorizationService: resolver.resolve(AuthorizationService.self)!,

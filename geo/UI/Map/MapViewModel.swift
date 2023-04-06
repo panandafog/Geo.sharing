@@ -16,7 +16,7 @@ protocol MapViewModelDelegate: LocationManagerDelegate, AnyObject {
 
 class MapViewModel: ObservableObject, MapStatusViewModel {
     
-    private static let notificationsUpdateInterval = 2.0
+    private static let notificationsUpdateInterval = 5.0
     private static let friendshipsUpdateInterval = 2.0
     
     private let locationManager: LocationManager
@@ -53,6 +53,8 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
             updateConnectionStatus()
         }
     }
+    
+    private var handledConnectionError = false
     
     var friends: [User] {
         friendships.compactMap { $0.user() }
@@ -134,9 +136,13 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
             case .success(let friendships):
                 self?.friendsConnectionStatus = .ok
                 self?.friendships = friendships
+                self?.handledConnectionError = false
             case .failure(let error):
                 self?.friendsConnectionStatus = .failed
-                self?.delegate?.handleError(error: error)
+                if !(self?.handledConnectionError ?? true) {
+                    self?.delegate?.handleError(error: error)
+                    self?.handledConnectionError = true
+                }
             }
         }
     }

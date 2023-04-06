@@ -14,14 +14,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     private let settingsService = Container.defaultContainer.resolve(SettingsService.self)
+    private let authorizationService = Container.defaultContainer.resolve(AuthorizationService.self)!
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = scene as? UIWindowScene else {
-            return
-        }
+        guard let windowScene = scene as? UIWindowScene else { return }
         
         let navigationController = UINavigationController()
-        coordinator = MainCoordinator(navigationController: navigationController)
+        coordinator = MainCoordinator(navigationController: navigationController, authorizationService: authorizationService)
         coordinator!.start()
         
         window = UIWindow(windowScene: windowScene)

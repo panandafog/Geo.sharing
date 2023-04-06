@@ -5,6 +5,7 @@
 //  Created by Andrey on 20.02.2023.
 //
 
+import Combine
 import UIKit
 
 class MainCoordinator: Coordinator {
@@ -15,20 +16,29 @@ class MainCoordinator: Coordinator {
     lazy var notificationsVC = NotificationsViewController.instantiateFromStoryboard()
     lazy var settingsVC = SettingsViewController.instantiateFromStoryboard()
     
+    private let authorizationService: AuthorizationService
     private var rootVC: MapViewController? {
         navigationController.viewControllers.first {
             $0 as? MapViewController != nil
         } as? MapViewController
     }
     
-    init(navigationController: UINavigationController) {
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init(navigationController: UINavigationController, authorizationService: AuthorizationService) {
         self.navigationController = navigationController
+        self.authorizationService = authorizationService
     }
     
     func start() {
         let vc = MapViewController.instantiateFromStoryboard()
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
+        
+        authorizationService.objectWillChange.sink { [weak self] _ in
+            self?.signOut()
+        }
+        .store(in: &cancellables)
     }
 }
 

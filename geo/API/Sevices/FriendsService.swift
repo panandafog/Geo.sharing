@@ -7,11 +7,11 @@
 
 import Alamofire
 
-class FriendsService: AuthorizingService, SendingRequestsService {
+class FriendsService {
     
     typealias FriendshipRequestsCompletion = (Result<[FriendshipRequest], RequestError>) -> Void
     
-    let authorizationService: AuthorizationService
+    private let authorizationService: AuthorizationService
     
     init(authorizationService: AuthorizationService) {
         self.authorizationService = authorizationService
@@ -91,5 +91,11 @@ class FriendsService: AuthorizingService, SendingRequestsService {
             ),
             completion: completion
         )
+    }
+}
+
+extension FriendsService: SendingRequestsService {
+    var authorizationDelegate: AuthorizationDelegate? {
+        authorizationService
     }
 }

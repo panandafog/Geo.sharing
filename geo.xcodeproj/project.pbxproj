@@ -93,7 +93,6 @@
 		0BE4F60E29A8FD2E005D1CC5 /* LocationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F60D29A8FD2E005D1CC5 /* LocationStatus.swift */; };
 		0BE4F61229A922AD005D1CC5 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61129A922AD005D1CC5 /* LocationManagerDelegate.swift */; };
 		0BE4F61729AA1D84005D1CC5 /* Container+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61629AA1D84005D1CC5 /* Container+Extensions.swift */; };
-		0BE4F61929AA2444005D1CC5 /* AuthorizingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61829AA2444005D1CC5 /* AuthorizingService.swift */; };
 		0BE4F61B29AA245D005D1CC5 /* SendingRequestsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61A29AA245D005D1CC5 /* SendingRequestsService.swift */; };
 		0BE4F61D29AA2681005D1CC5 /* ParametersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61C29AA2681005D1CC5 /* ParametersInfo.swift */; };
 		0BE4F61F29AA2698005D1CC5 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE4F61E29AA2698005D1CC5 /* ParameterEncoding.swift */; };
@@ -144,6 +143,7 @@
 		0B3490C629DAE62B009CCD02 /* SettingsSwitcherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitcherCell.swift; sourceTree = "<group>"; };
 		0B3490C829DAE63C009CCD02 /* SettingsSwitcherCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsSwitcherCell.xib; sourceTree = "<group>"; };
 		0B3490CA29DB4286009CCD02 /* UIStylingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStylingHelper.swift; sourceTree = "<group>"; };
+		0B3490CC29DB4F89009CCD02 /* geo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = geo.entitlements; sourceTree = "<group>"; };
 		0B40016A294E68C300EBE854 /* geo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B40016D294E68C300EBE854 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B40016F294E68C300EBE854 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -215,7 +215,6 @@
 		0BE4F60D29A8FD2E005D1CC5 /* LocationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStatus.swift; sourceTree = "<group>"; };
 		0BE4F61129A922AD005D1CC5 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		0BE4F61629AA1D84005D1CC5 /* Container+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Extensions.swift"; sourceTree = "<group>"; };
-		0BE4F61829AA2444005D1CC5 /* AuthorizingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizingService.swift; sourceTree = "<group>"; };
 		0BE4F61A29AA245D005D1CC5 /* SendingRequestsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingRequestsService.swift; sourceTree = "<group>"; };
 		0BE4F61C29AA2681005D1CC5 /* ParametersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersInfo.swift; sourceTree = "<group>"; };
 		0BE4F61E29AA2698005D1CC5 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
@@ -321,6 +320,7 @@
 		0B40016C294E68C300EBE854 /* geo */ = {
 			isa = PBXGroup;
 			children = (
+				0B3490CC29DB4F89009CCD02 /* geo.entitlements */,
 				0BE4F61529AA1D49005D1CC5 /*  DependencyInjection */,
 				0BC08A4829798FC90026BA27 /* API */,
 				0B5A0B06297F003500E9806A /* Extensions */,
@@ -469,7 +469,6 @@
 				0B2E3EC229A4B58F0016391D /* Helpers */,
 				0BB60E6C29990A9C0065AECB /* Sevices */,
 				0BE75A8A29830EE800439A71 /* Models */,
-				0BE4F61829AA2444005D1CC5 /* AuthorizingService.swift */,
 				0BE4F61A29AA245D005D1CC5 /* SendingRequestsService.swift */,
 				0B5A0B09297F00B600E9806A /* Endpoints.swift */,
 				0BB60E6D29990BAD0065AECB /* RequestError.swift */,
@@ -830,7 +829,6 @@
 				0BC08A4A29798FEE0026BA27 /* AuthorizationService.swift in Sources */,
 				0B51D8722989448000200B63 /* SearchedUser.swift in Sources */,
 				0BA1C1FE29A7F4A000387882 /* MapViewModel.swift in Sources */,
-				0BE4F61929AA2444005D1CC5 /* AuthorizingService.swift in Sources */,
 				0BD2DEC72981575D00CCAF28 /* UsersViewController.swift in Sources */,
 				0BC08A4329798E090026BA27 /* SignupViewController.swift in Sources */,
 				0B528CFD299A842400CA4A30 /* EmptyTableBackgroundView.swift in Sources */,
@@ -1070,6 +1068,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = geo/geo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HG9ZBM8AV;
@@ -1104,6 +1103,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = geo/geo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HG9ZBM8AV;

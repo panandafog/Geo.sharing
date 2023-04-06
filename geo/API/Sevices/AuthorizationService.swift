@@ -6,17 +6,13 @@
 //
 
 import Alamofire
+import Combine
 
-class AuthorizationService: SendingRequestsService {
+class AuthorizationService: ObservableObject {
     
     static let minUsernameLength = 6
     static let minPasswordLength = 6
     static let confirmationCodeLength = 6
-    
-    var authorizationHeader: Alamofire.HTTPHeader? {
-        guard let token = token else { return nil }
-        return makeAuthorizationHeader(token: token)
-    }
     
     private let defaults = UserDefaults.standard
     
@@ -170,10 +166,28 @@ class AuthorizationService: SendingRequestsService {
             completion: completionHandler
         )
     }
+}
+
+extension AuthorizationService: AuthorizationDelegate {
+    
+    var authorizationHeader: Alamofire.HTTPHeader? {
+        guard let token = token else { return nil }
+        return makeAuthorizationHeader(token: token)
+    }
     
     func signOut() {
+        let wasAuthorized = authorized
         uid = nil
         token = nil
+        if wasAuthorized {
+            objectWillChange.send()
+        }
+    }
+}
+
+extension AuthorizationService: SendingRequestsService {
+    var authorizationDelegate: AuthorizationDelegate? {
+        self
     }
 }
 

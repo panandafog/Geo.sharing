@@ -7,15 +7,15 @@
 
 import Alamofire
 
-class UsersService: AuthorizingService, SendingRequestsService {
+class UsersService {
     
     typealias UsersCompletion = (Result<[User], RequestError>) -> Void
     typealias SearchedUsersCompletion = (Result<[SearchedUser], RequestError>) -> Void
     typealias FriendsipsCompletion = (Result<[Friendship], RequestError>) -> Void
     typealias ImageCompletion = (Result<UIImage, RequestError>) -> Void
     
-    let authorizationService: AuthorizationService
-    let friendsService: FriendsService
+    private let authorizationService: AuthorizationService
+    private let friendsService: FriendsService
     
     init(authorizationService: AuthorizationService, friendsService: FriendsService) {
         self.authorizationService = authorizationService
@@ -98,7 +98,7 @@ class UsersService: AuthorizingService, SendingRequestsService {
     }
     
     func setProfilePicture(_ image: UIImage, completion: @escaping EmptyCompletion) {
-        guard let authorizationHeader = authorizationHeader else {
+        guard let authorizationHeader = authorizationDelegate?.authorizationHeader else {
             return
         }
         let headers: HTTPHeaders = [
@@ -135,7 +135,7 @@ class UsersService: AuthorizingService, SendingRequestsService {
     }
     
     func getProfilePicture(userID: String, completion: @escaping ImageCompletion) {
-        guard let authorizationHeader = authorizationHeader else {
+        guard let authorizationHeader = authorizationDelegate?.authorizationHeader else {
             return
         }
         let headers: HTTPHeaders = [
@@ -158,5 +158,11 @@ class UsersService: AuthorizingService, SendingRequestsService {
             }
             completion(.success(image))
         }
+    }
+}
+
+extension UsersService: SendingRequestsService {
+    var authorizationDelegate: AuthorizationDelegate? {
+        authorizationService
     }
 }
