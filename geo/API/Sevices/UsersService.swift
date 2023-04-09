@@ -13,6 +13,7 @@ class UsersService {
     typealias SearchedUsersCompletion = (Result<[SearchedUser], RequestError>) -> Void
     typealias FriendsipsCompletion = (Result<[Friendship], RequestError>) -> Void
     typealias ImageCompletion = (Result<UIImage, RequestError>) -> Void
+    typealias UploadProgressHandler = (Progress) -> Void
     
     private let authorizationService: AuthorizationService
     private let friendsService: FriendsService
@@ -97,7 +98,7 @@ class UsersService {
         }
     }
     
-    func setProfilePicture(_ image: UIImage, completion: @escaping EmptyCompletion) {
+    func setProfilePicture(_ image: UIImage, progressHandler: UploadProgressHandler?, completion: @escaping EmptyCompletion) {
         guard let authorizationHeader = authorizationDelegate?.authorizationHeader else {
             return
         }
@@ -123,7 +124,7 @@ class UsersService {
             headers: headers
         )
         .uploadProgress { progress in
-            print("Upload Progress: \(progress.fractionCompleted)")
+            progressHandler?(progress)
         }
         .response { response in
             guard response.value != nil else {

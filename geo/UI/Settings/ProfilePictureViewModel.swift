@@ -18,7 +18,9 @@ class ProfilePictureViewModel: ObservableObject {
     private let authorizationService: AuthorizationService
     private let usersService: UsersService
     
-    @Published var image = UIImage.emptyProfilePicture
+    @Published var image: UIImage?
+    @Published var isDownloadingImage = false
+    @Published var imageUploadProgress: Progress?
     
     private weak var delegate: ProfilePictureViewModelDelegate?
     
@@ -28,11 +30,13 @@ class ProfilePictureViewModel: ObservableObject {
         self.usersService = container.resolve(UsersService.self)!
     }
     
-    func downloadCurrnetImage() {
+    func downloadCurrentImage() {
         guard let userID = authorizationService.uid else {
             return
         }
+        isDownloadingImage = true
         usersService.getProfilePicture(userID: userID) { [weak self] result in
+            self?.isDownloadingImage = false
             switch result {
             case .success(let image):
                 self?.image = image
@@ -43,13 +47,20 @@ class ProfilePictureViewModel: ObservableObject {
     }
     
     func setProfilePicture(image: UIImage) {
-        usersService.setProfilePicture(image) { [weak self] result in
-            switch result {
-            case .success:
-                self?.image = image
-            case .failure(let error):
-                self?.delegate?.handleError(error: error)
+        usersService.setProfilePicture(
+            image,
+            progressHandler: { [weak self] progress in
+                self?.imageUploadProgress = progress
+            },
+            completion: { [weak self] result in
+                self?.imageUploadProgress = nil
+                switch result {
+                case .success:
+                    self?.image = image
+                case .failure(let error):
+                    self?.delegate?.handleError(error: error)
+                }
             }
-        }
+        )
     }
 }
