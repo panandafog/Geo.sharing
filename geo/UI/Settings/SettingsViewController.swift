@@ -84,26 +84,28 @@ extension SettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let entry = entry(indexPath)
+        var cell: UITableViewCell?
         
         if let actionEntry = entry as? SettingsActionEntry {
-            let cell = tableView.dequeueReusableCell(
+            let actionCell = tableView.dequeueReusableCell(
                 withIdentifier: SettingsActionCell.defaultReuseIdentifier,
                 for: indexPath
             ) as! SettingsActionCell
-            cell.setup(actionEntry)
-            return cell
+            actionCell.setup(actionEntry)
+            cell = actionCell
         }
         
         if let switchEntry = entry as? SettingsSwitchEntry {
-            let cell = tableView.dequeueReusableCell(
+            let switcherCell = tableView.dequeueReusableCell(
                 withIdentifier: SettingsSwitcherCell.defaultReuseIdentifier,
                 for: indexPath
             ) as! SettingsSwitcherCell
-            cell.setup(switchEntry)
-            return cell
+            switcherCell.setup(switchEntry)
+            cell = switcherCell
         }
         
-        return UITableViewCell()
+        cell?.selectionStyle = entry.isSelectable ? .default : .none
+        return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
