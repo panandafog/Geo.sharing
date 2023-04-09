@@ -30,11 +30,17 @@ class SettingsViewController: UIViewController, Storyboarded, NotificatingViewCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        table.rowHeight = UITableView.automaticDimension
+        table.sectionFooterHeight = UITableView.automaticDimension
+        table.sectionHeaderHeight = UITableView.automaticDimension
+        
         table.reloadData()
     }
     
     private func setupTable() {
-        table.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
+        table.register(UINib(nibName: "SettingsActionCell", bundle: nil), forCellReuseIdentifier: SettingsActionCell.defaultReuseIdentifier)
+        table.register(UINib(nibName: "SettingsSwitcherCell", bundle: nil), forCellReuseIdentifier: SettingsSwitcherCell.defaultReuseIdentifier)
+        
         table.delegate = self
         table.dataSource = self
         table.allowsSelection = true
@@ -43,18 +49,25 @@ class SettingsViewController: UIViewController, Storyboarded, NotificatingViewCo
     private func setupStyling() {
         navigationItem.title = "Settings"
     }
+    
+    private func entry(_ indexPath: IndexPath) -> SettingsEntry {
+        viewModel.settingGroups[indexPath.section].entries[indexPath.row]
+    }
 }
 
 extension SettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
-        let entry = viewModel.settingGroups[indexPath.section].entries[indexPath.row]
-        entry.action?()
+        
+        let entry = entry(indexPath)
+        if entry.isSelectable {
+            entry.action?()
+        }
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let entry = viewModel.settingGroups[indexPath.section].entries[indexPath.row]
+        let entry = entry(indexPath)
         return (entry.action == nil) ? nil : indexPath
     }
 }
@@ -70,14 +83,35 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsCell
-        let entry = viewModel.settingGroups[indexPath.section].entries[indexPath.row]
-        cell.setup(entry)
-        return cell
+        let entry = entry(indexPath)
+        
+        if let actionEntry = entry as? SettingsActionEntry {
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: SettingsActionCell.defaultReuseIdentifier,
+                for: indexPath
+            ) as! SettingsActionCell
+            cell.setup(actionEntry)
+            return cell
+        }
+        
+        if let switchEntry = entry as? SettingsSwitchEntry {
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: SettingsSwitcherCell.defaultReuseIdentifier,
+                for: indexPath
+            ) as! SettingsSwitcherCell
+            cell.setup(switchEntry)
+            return cell
+        }
+        
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        viewModel.settingGroups[section].title
+        viewModel.settingGroups[section].headerTitle
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        viewModel.settingGroups[section].footerTitle
     }
 }
 

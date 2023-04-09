@@ -7,16 +7,29 @@
 
 import UIKit
 
-class SettingsSwitcherCell: UITableViewCell {
+class SettingsSwitcherCell: UITableViewCell, ReusableView {
     
+    private var entry: SettingsSwitchEntry?
+    
+    @IBOutlet private var uiSwitch: UISwitch!
     @IBOutlet private var titleLabel: UILabel!
     
-    func setup() {
-        titleLabel.text = "test"
+    @IBAction private func switchValueChanged(_ sender: UISwitch) {
+        entry?.switchHandler(sender.isOn)
+    }
+    
+    func setup(_ entry: SettingsSwitchEntry) {
+        self.entry = entry
+        updateUI()
+    }
+    
+    private func updateUI() {
+        titleLabel.text = entry?.title
+        uiSwitch.isOn = entry?.switchUpdater() ?? false
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        titleLabel.text = nil
+        titleLabel.text = nil
     }
 }
