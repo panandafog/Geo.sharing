@@ -1,4 +1,4 @@
-# <img src="https://github.com/panandafog/Geo.sharing/blob/master/Images/icon.png" width="25"> Geo.sharing
+# <img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/icon.png" width="25"> Geo.sharing
 
 iOS application for sharing your geolocation with your friends in real time.
 
@@ -11,8 +11,10 @@ Currently available in [TestFlight](https://testflight.apple.com/join/oEfXra0e)
 
 ## Screenshots
 
-![Screenshot1](https://github.com/panandafog/Geo.sharing/blob/master/Images/screen_1.png)
-![Screenshot2](https://github.com/panandafog/Geo.sharing/blob/master/Images/screen_2.png)
+<p float="left">
+    <img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_1.png" width="200">
+    <img src="https://github.com/panandafog/Geo.sharing/blob/main/Images/screen_2.png" width="200">
+</p>
 
 ## Other
 
