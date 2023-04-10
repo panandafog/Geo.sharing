@@ -19,7 +19,6 @@ class SettingsService {
     
     @Published var backgroundLocationMode: LocationMode {
         didSet {
-            print("didset \(backgroundLocationMode)")
             defaults.set(
                 backgroundLocationMode.rawValue,
                 forKey: backgroundLocationModeKey

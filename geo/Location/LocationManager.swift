@@ -65,7 +65,6 @@ class LocationManager: NSObject, ObservableObject {
             break
         }
         
-        debugPrint("-=-=- start updates \(mode)")
         switch mode {
         case .precise:
             clLocationManager.startUpdatingLocation()
