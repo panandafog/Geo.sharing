@@ -12,6 +12,7 @@ target 'geo' do
   pod 'SnapKit', '~> 5.0.1'
   pod 'Swinject', '~> 2.8.3'
   pod 'NotificationBannerSwift', '~> 3.0.6'
+  pod 'ProgressHUD'
 
   pod 'SwiftLint'
 

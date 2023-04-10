@@ -49,6 +49,12 @@ enum Endpoints {
         return components
     }()
     
+    static let deleteUserComponents: URLComponents = {
+        var components = baseComponents
+        components.path = "/user/delete"
+        return components
+    }()
+    
     static let searchUsersComponents: URLComponents = {
         var components = baseComponents
         components.path = "/user/search"

@@ -18,10 +18,6 @@ class SettingsActionCell: UITableViewCell, ReusableView {
         valueLabel.text = entry.value?()
         iconImageView.image = entry.kind.image
         iconImageView.tintColor = entry.kind.iconColor
-        
-        if entry.action != nil {
-            accessoryType = .disclosureIndicator
-        }
     }
     
     override func prepareForReuse() {

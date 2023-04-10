@@ -160,6 +160,15 @@ class UsersService {
             completion(.success(image))
         }
     }
+    
+    func deleteProfilePicture(completion: @escaping EmptyCompletion) {
+        sendRequest(
+            method: .delete,
+            url: Endpoints.profilePictureRequestComponents.url!,
+            requiresAuthorization: true,
+            completion: completion
+        )
+    }
 }
 
 extension UsersService: SendingRequestsService {

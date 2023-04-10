@@ -5,6 +5,8 @@
 //  Created by Andrey on 06.02.2023.
 //
 
+import Combine
+import ProgressHUD
 import UIKit
 
 protocol SettingsViewControllerDelegate: AnyObject {
@@ -13,11 +15,12 @@ protocol SettingsViewControllerDelegate: AnyObject {
     func signOut()
 }
 
-class SettingsViewController: UIViewController, Storyboarded, NotificatingViewController {
+class SettingsViewController: UIViewController, Storyboarded, NotificatingViewController, ErrorHandling {
     
     weak var coordinator: SettingsViewControllerDelegate?
     private lazy var viewModel = SettingsViewModel(delegate: self)
-      
+    private var cancellables: Set<AnyCancellable> = []
+    
     @IBOutlet private var table: UITableView!
     
     override func viewDidLoad() {
@@ -48,6 +51,19 @@ class SettingsViewController: UIViewController, Storyboarded, NotificatingViewCo
     
     private func setupStyling() {
         navigationItem.title = "Settings"
+    }
+    
+    private func bindViewModel() {
+        viewModel.$loadingInProgress.sink { [weak self] loading in
+            DispatchQueue.main.async {
+                if loading {
+                    ProgressHUD.show()
+                } else {
+                    ProgressHUD.dismiss()
+                }
+            }
+        }
+        .store(in: &cancellables)
     }
     
     private func entry(_ indexPath: IndexPath) -> SettingsEntry {
@@ -105,6 +121,7 @@ extension SettingsViewController: UITableViewDataSource {
         }
         
         cell?.selectionStyle = entry.isSelectable ? .default : .none
+        cell?.accessoryType = entry.accessoryType
         return cell ?? UITableViewCell()
     }
     
@@ -118,6 +135,7 @@ extension SettingsViewController: UITableViewDataSource {
 }
 
 extension SettingsViewController: SettingsViewModelDelegate {
+    
     func showProfilePictureEdit() {
         coordinator?.showProfilePictureEdit()
     }
@@ -128,5 +146,59 @@ extension SettingsViewController: SettingsViewModelDelegate {
     
     func signOut() {
         coordinator?.signOut()
+    }
+    
+    func startSigningOut() {
+        let alert = UIAlertController(
+            title: "Are you sure you want to sign out?",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Sign out",
+                style: .destructive
+            ) { [weak self] _ in
+                self?.signOut()
+            }
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .cancel
+            )
+        )
+        present(
+            alert,
+            animated: true,
+            completion: nil
+        )
+    }
+    
+    func startDeletingAccount(confirmationHandler: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: "Are you sure you want to delete your account?",
+            message: "This action cannot be undone.",
+            preferredStyle: .actionSheet
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Delete my account",
+                style: .destructive
+            ) { _ in
+                confirmationHandler()
+            }
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .cancel
+            )
+        )
+        present(
+            alert,
+            animated: true,
+            completion: nil
+        )
     }
 }

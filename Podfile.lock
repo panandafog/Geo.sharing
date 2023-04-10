@@ -5,6 +5,7 @@ PODS:
   - NotificationBannerSwift (3.0.6):
     - MarqueeLabel (~> 4.0.5)
     - SnapKit (~> 5.0.1)
+  - ProgressHUD (13.6.2)
   - SnapKit (5.0.1)
   - SwiftLint (0.46.3)
   - Swinject (2.8.3)
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.6.2)
   - Kingfisher (~> 7.6.2)
   - NotificationBannerSwift (~> 3.0.6)
+  - ProgressHUD
   - SnapKit (~> 5.0.1)
   - SwiftLint
   - Swinject (~> 2.8.3)
@@ -23,6 +25,7 @@ SPEC REPOS:
     - Kingfisher
     - MarqueeLabel
     - NotificationBannerSwift
+    - ProgressHUD
     - SnapKit
     - SwiftLint
     - Swinject
@@ -32,10 +35,11 @@ SPEC CHECKSUMS:
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   NotificationBannerSwift: 7021be2338f8f29cf424b0aca43da462bf9e2a1a
+  ProgressHUD: 355915c8f033e626788fa9b0d99d06e8691595ab
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: ae76d82f056734f853c8cd0371503252c606c482
   Swinject: 893c9a543000ac2f10ee4cbaf0933c6992c935d5
 
-PODFILE CHECKSUM: a1523aca5c168c93c3a0cae5c9bb93a830b1a0b4
+PODFILE CHECKSUM: bfe444f3bd3575979443c5caa66936240a98ce94
 
 COCOAPODS: 1.11.3

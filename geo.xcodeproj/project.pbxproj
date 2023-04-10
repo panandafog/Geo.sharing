@@ -105,6 +105,7 @@
 		0BE75A8E2983152F00439A71 /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8D2983152F00439A71 /* Friendship.swift */; };
 		0BE75A90298321CB00439A71 /* UsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE75A8F298321CB00439A71 /* UsersService.swift */; };
 		0BEA75E029DF105B00DCAB72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA75DF29DF105B00DCAB72 /* LaunchScreen.storyboard */; };
+		0BFBF8F929E31B22008B52E7 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBF8F829E31B22008B52E7 /* ErrorHandling.swift */; };
 		1D23414E0C648D4AEF5FF521 /* Pods_geoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927EE68173E6C69037AD2A96 /* Pods_geoTests.framework */; };
 		84DB986A8032BC51F954F8C5 /* Pods_geo_geoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0ED5CE83357137C74DA5EA /* Pods_geo_geoUITests.framework */; };
 		A8796597F4E673643A6B660F /* Pods_geo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 390BC020885B6659755BF43A /* Pods_geo.framework */; };
@@ -232,6 +233,7 @@
 		0BE75A8D2983152F00439A71 /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
 		0BE75A8F298321CB00439A71 /* UsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersService.swift; sourceTree = "<group>"; };
 		0BEA75DF29DF105B00DCAB72 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0BFBF8F829E31B22008B52E7 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		390BC020885B6659755BF43A /* Pods_geo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_geo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47686FE51E40C09C2171301E /* Pods-geo-geoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-geo-geoUITests.release.xcconfig"; path = "Target Support Files/Pods-geo-geoUITests/Pods-geo-geoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		745940661317D44B806424B9 /* Pods-geoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-geoTests.debug.xcconfig"; path = "Target Support Files/Pods-geoTests/Pods-geoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 				0BB60E6F29991C590065AECB /* NotificatingViewController.swift */,
 				0B528CFC299A842400CA4A30 /* EmptyTableBackgroundView.swift */,
 				0B9ED51629E1782500C50F40 /* UIUtilities */,
+				0BFBF8F829E31B22008B52E7 /* ErrorHandling.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -927,6 +930,7 @@
 				0BA1C1EC29A774AE00387882 /* RequestPasswordResetViewModel.swift in Sources */,
 				0BB0A05529919C6400AB48DD /* SettingsViewController.swift in Sources */,
 				0BE4F60E29A8FD2E005D1CC5 /* LocationStatus.swift in Sources */,
+				0BFBF8F929E31B22008B52E7 /* ErrorHandling.swift in Sources */,
 				0BA1C1EA29A6C6CE00387882 /* ResetPasswordViewModel.swift in Sources */,
 				0B3490CB29DB4286009CCD02 /* UIStylingHelper.swift in Sources */,
 			);

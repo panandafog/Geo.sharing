@@ -19,6 +19,7 @@ class ProfilePictureViewModel: ObservableObject {
     private let usersService: UsersService
     
     @Published var image: UIImage?
+    @Published var userHasAvatar = false
     @Published var isDownloadingImage = false
     @Published var imageUploadProgress: Progress?
     
@@ -40,8 +41,10 @@ class ProfilePictureViewModel: ObservableObject {
             switch result {
             case .success(let image):
                 self?.image = image
+                self?.userHasAvatar = true
             case .failure:
                 self?.image = UIImage.emptyProfilePicture
+                self?.userHasAvatar = false
             }
         }
     }
@@ -57,10 +60,26 @@ class ProfilePictureViewModel: ObservableObject {
                 switch result {
                 case .success:
                     self?.image = image
+                    self?.userHasAvatar = true
                 case .failure(let error):
                     self?.delegate?.handleError(error: error)
                 }
             }
         )
+    }
+    
+    func deleteCurrentImage() {
+        isDownloadingImage = true
+        usersService.deleteProfilePicture { [weak self] result in
+            self?.isDownloadingImage = false
+            switch result {
+            case .success:
+                self?.image = UIImage.emptyProfilePicture
+                self?.userHasAvatar = false
+            case .failure(let error):
+                self?.userHasAvatar = true
+                self?.delegate?.handleError(error: error)
+            }
+        }
     }
 }

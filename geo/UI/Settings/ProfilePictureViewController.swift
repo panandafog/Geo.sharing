@@ -12,6 +12,16 @@ class ProfilePictureViewController: UIViewController, Storyboarded, Notificating
     
     lazy var viewModel = ProfilePictureViewModel(delegate: self)
     
+    private lazy var deleteImageItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(
+            barButtonSystemItem: .trash,
+            target: self,
+            action: #selector(startDeletingImage)
+        )
+        item.tintColor = .systemRed
+        return item
+    }()
+    
     private var cancellables: Set<AnyCancellable> = []
     
     @IBOutlet private var imageView: UIImageView!
@@ -26,6 +36,7 @@ class ProfilePictureViewController: UIViewController, Storyboarded, Notificating
         setupStyling()
         updateProgress(viewModel.imageUploadProgress, animated: false)
         updateActivityIndicator(downloadInProgress: viewModel.isDownloadingImage)
+        updateNavigationItem(userHasAvatar: viewModel.image != nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +56,12 @@ class ProfilePictureViewController: UIViewController, Storyboarded, Notificating
         viewModel.$image.sink { [weak self] output in
             DispatchQueue.main.async {
                 self?.imageView.image = output
+            }
+        }
+        .store(in: &cancellables)
+        viewModel.$userHasAvatar.sink { [weak self] output in
+            DispatchQueue.main.async {
+                self?.updateNavigationItem(userHasAvatar: output)
             }
         }
         .store(in: &cancellables)
@@ -87,6 +104,45 @@ class ProfilePictureViewController: UIViewController, Storyboarded, Notificating
         } else {
             activityIndicator.stopAnimating()
         }
+    }
+    
+    private func updateNavigationItem(userHasAvatar: Bool) {
+        if userHasAvatar {
+            navigationItem.rightBarButtonItems = [deleteImageItem]
+        } else {
+            navigationItem.rightBarButtonItems = []
+        }
+    }
+    
+    @objc private func startDeletingImage() {
+        let alert = UIAlertController(
+            title: "Are you sure you want to delete your profile picture?",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Delete",
+                style: .destructive
+            ) { [weak self] _ in
+                self?.deleteImage()
+            }
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .cancel
+            )
+        )
+        present(
+            alert,
+            animated: true,
+            completion: nil
+        )
+    }
+    
+    private func deleteImage() {
+        viewModel.deleteCurrentImage()
     }
 }
 

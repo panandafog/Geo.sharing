@@ -166,6 +166,15 @@ class AuthorizationService: ObservableObject {
             completion: completionHandler
         )
     }
+    
+    func deleteUser(completion: @escaping EmptyCompletion) {
+        sendRequest(
+            method: .delete,
+            url: Endpoints.deleteUserComponents.url!,
+            requiresAuthorization: true,
+            completion: completion
+        )
+    }
 }
 
 extension AuthorizationService: AuthorizationDelegate {

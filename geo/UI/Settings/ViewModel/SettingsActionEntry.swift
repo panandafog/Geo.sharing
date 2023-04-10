@@ -11,6 +11,10 @@ struct SettingsActionEntry: SettingsEntry {
     let kind: EntryKind
     let value: (() -> String?)?
     let action: (() -> Void)?
+    
+    var accessoryType: UITableViewCell.AccessoryType {
+        kind.accessoryType
+    }
 }
 
 extension SettingsActionEntry {
@@ -21,6 +25,7 @@ extension SettingsActionEntry {
         case email
         case password
         case signOut
+        case deleteAccount
         
         var title: String {
             switch self {
@@ -31,9 +36,11 @@ extension SettingsActionEntry {
             case .email:
                 return "Email"
             case .password:
-                return "Password"
+                return "Reset password"
             case .signOut:
                 return "Sign out"
+            case .deleteAccount:
+                return "Delete account"
             }
         }
         
@@ -49,6 +56,8 @@ extension SettingsActionEntry {
                 return UIImage(systemName: "lock")
             case .signOut:
                 return UIImage(systemName: "person.fill.xmark")
+            case .deleteAccount:
+                return UIImage(systemName: "trash")
             }
         }
         
@@ -56,8 +65,27 @@ extension SettingsActionEntry {
             switch self {
             case .signOut:
                 return .systemRed
+            case .deleteAccount:
+                return .systemRed
             default:
                 return .tintColor
+            }
+        }
+        
+        var accessoryType: UITableViewCell.AccessoryType {
+            switch self {
+            case .profilePicture:
+                return .disclosureIndicator
+            case .username:
+                return .none
+            case .email:
+                return .none
+            case .password:
+                return .disclosureIndicator
+            case .signOut:
+                return .none
+            case .deleteAccount:
+                return .none
             }
         }
     }

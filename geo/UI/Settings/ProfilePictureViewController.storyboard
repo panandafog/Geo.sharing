@@ -25,7 +25,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJC-3V-RH9">
-                                <rect key="frame" x="145.66666666666666" y="543.33333333333337" width="122.99999999999997" height="35"/>
+                                <rect key="frame" x="145.66666666666666" y="543.33333333333337" width="122.66666666666666" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Select image"/>
                                 <connections>

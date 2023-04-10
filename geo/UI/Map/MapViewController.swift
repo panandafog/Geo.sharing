@@ -10,6 +10,8 @@ import MapKit
 import SnapKit
 import UIKit
 
+import ProgressHUD
+
 protocol MapViewControllerDelegate: AnyObject {
     func showNotifications()
     func showSettings()

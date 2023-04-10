@@ -91,4 +91,3 @@ extension EmailConfirmationViewModel {
         case invalidCode
     }
 }
-
