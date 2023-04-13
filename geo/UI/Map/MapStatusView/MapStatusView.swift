@@ -10,6 +10,9 @@ import UIKit
 
 class MapStatusView: UIButton {
     
+    private let hidingAnimationDuration = 0.3
+    private let apperingAnimationDuration = 0.3
+    
     var viewModel: MapStatusViewModel?
     
     private var cancellables: Set<AnyCancellable> = []
@@ -37,10 +40,28 @@ class MapStatusView: UIButton {
     private func setStatus(_ status: MapStatus) {
         configuration = status.configuration
         isUserInteractionEnabled = status.action != nil
+        if status.shouldBeHidden != isHidden {
+            if status.shouldBeHidden {
+                UIView.animate(
+                    withDuration: hidingAnimationDuration,
+                    animations: { self.alpha = 0 },
+                    completion: { self.isHidden = $0 }
+                )
+            } else {
+                alpha = 0
+                isHidden = false
+                UIView.animate(withDuration: apperingAnimationDuration) {
+                    self.alpha = 1
+                }
+            }
+        }
     }
 }
 
 extension MapStatus {
+    var shouldBeHidden: Bool {
+        locationStatus == .ok && connectionStatus == .ok
+    }
     var configuration: UIButton.Configuration {
         if locationStatus == .noPermission {
             var configuration = UIButton.Configuration.filled()
