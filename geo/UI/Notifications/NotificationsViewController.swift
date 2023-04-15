@@ -17,7 +17,7 @@ class NotificationsViewController: UIViewController, Storyboarded, NotificatingV
     
     private let tableBackgroundView: EmptyTableBackgroundView = {
         let backgroundView = EmptyTableBackgroundView()
-        backgroundView.setup(title: "You don't have any notifications yet")
+        backgroundView.setup(title: "You don't have any friend requests yet")
         return backgroundView
     }()
     
@@ -78,7 +78,7 @@ class NotificationsViewController: UIViewController, Storyboarded, NotificatingV
     }
     
     private func setupStyling() {
-        navigationItem.title = "Notifications"
+        navigationItem.title = "Friend requests"
     }
     
     @objc private func refresh(_ sender: AnyObject) {
@@ -91,7 +91,7 @@ extension NotificationsViewController: UITableViewDelegate {
 
 extension NotificationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.cells.count
+        viewModel.cells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

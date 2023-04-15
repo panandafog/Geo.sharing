@@ -16,7 +16,6 @@ protocol MapViewModelDelegate: LocationManagerDelegate, AnyObject {
 
 class MapViewModel: ObservableObject, MapStatusViewModel {
     
-    private static let notificationsUpdateInterval = 5.0
     private static let friendshipsUpdateInterval = 2.0
     
     private let locationManager: LocationManager
@@ -27,11 +26,9 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     private weak var delegate: MapViewModelDelegate?
     
     private var friendshipsTimer: Timer?
-    private var notificationsTimer: Timer?
     
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var notificationsCount = 0
     @Published var friendships: [Friendship] = []
     
     @Published var mapStatus = MapStatus(
@@ -95,7 +92,6 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
         guard !authorizationService.authorized else {
             startUpdatingLocation()
             startUpdatingFriendships()
-            startUpdatingNotifications()
             return
         }
         
@@ -147,33 +143,6 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
         }
     }
     
-    // MARK: - Notifications
-    
-    func startUpdatingNotifications() {
-        notificationsTimer = Timer.scheduledTimer(
-            withTimeInterval: Self.notificationsUpdateInterval,
-            repeats: true
-        ) { [weak self] _ in
-            self?.updateNotifications()
-        }
-    }
-    
-    func stopUpdatingNotifications() {
-        notificationsTimer?.invalidate()
-    }
-    
-    private func updateNotifications() {
-        friendsService.getFriendshipRequests(type: .incoming) { [weak self] result in
-            switch result {
-            case .success(let friendshipRequests):
-                self?.notificationsCount = friendshipRequests.count
-                
-            case .failure:
-                break
-            }
-        }
-    }
-    
     // MARK: - ConnectionStatus
     
     func updateConnectionStatus() {
@@ -183,8 +152,7 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
         
         if mapStatus.action == nil {
             mapStatus.action = { [weak self] in
-                guard let self = self,
-                      let delegate = self.delegate else {
+                guard let self = self else {
                     return
                 }
                 self.locationManager.startUpdatingLocation()
@@ -197,7 +165,6 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     func signOut() {
         stopUpdatingLocation()
         stopUpdatingFriendships()
-        stopUpdatingNotifications()
         
         friendships = []
         authorizationService.signOut()
@@ -208,6 +175,5 @@ class MapViewModel: ObservableObject, MapStatusViewModel {
     func handleLoggigIn() {
         startUpdatingLocation()
         startUpdatingFriendships()
-        startUpdatingNotifications()
     }
 }

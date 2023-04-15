@@ -9,6 +9,7 @@ import UIKit
 
 protocol UsersViewControllerDelegate: AnyObject {
     func showOnMap(user: User)
+    func showNotifications()
 }
 
 class UsersViewController: UIViewController, Storyboarded, NotificatingViewController {
@@ -58,6 +59,13 @@ class UsersViewController: UIViewController, Storyboarded, NotificatingViewContr
         return backgroundView
     }()
     
+    private lazy var openRequestsItem = UIBarButtonItem(
+        title: "Friend requests",
+        style: .plain,
+        target: self,
+        action: #selector(openRequests)
+    )
+    
     private var tableBackgroundViewTitle: String {
         switch categoryToShow {
         case .friends:
@@ -75,7 +83,7 @@ class UsersViewController: UIViewController, Storyboarded, NotificatingViewContr
         setupTable()
         setupRefreshControl()
         setupSearch()
-        setupStyling()
+        setupNavigationItem()
         
         viewModel.reloadTable()
     }
@@ -103,8 +111,9 @@ class UsersViewController: UIViewController, Storyboarded, NotificatingViewContr
         navigationItem.searchController = searchController
     }
     
-    private func setupStyling() {
+    private func setupNavigationItem() {
         navigationItem.title = "People"
+        navigationItem.rightBarButtonItem = openRequestsItem
     }
     
     private func updateTable() {
@@ -124,6 +133,10 @@ class UsersViewController: UIViewController, Storyboarded, NotificatingViewContr
     
     @objc private func refresh(_ sender: AnyObject) {
         viewModel.reloadTable()
+    }
+    
+    @objc private func openRequests() {
+        coordinator?.showNotifications()
     }
 }
 
@@ -157,7 +170,11 @@ extension UsersViewController: UISearchResultsUpdating {
     }
 }
 
-extension UsersViewController: UISearchBarDelegate { }
+extension UsersViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        print(String(selectedScope))
+    }
+}
 
 extension UsersViewModel.FriendshipsData {
     var backgroundViewTitle: String? {

@@ -60,10 +60,6 @@ extension MainCoordinator: MapViewControllerDelegate {
         navigationController.pushViewController(usersVC, animated: true)
     }
     
-    func showNotifications() {
-        navigationController.pushViewController(notificationsVC, animated: true)
-    }
-    
     func showSettings() {
         settingsVC.coordinator = self
         navigationController.pushViewController(settingsVC, animated: true)
@@ -120,5 +116,9 @@ extension MainCoordinator: UsersViewControllerDelegate {
         }
         navigationController.popToRootViewController(animated: true)
         rootVC.show(user: user)
+    }
+    
+    func showNotifications() {
+        navigationController.pushViewController(notificationsVC, animated: true)
     }
 }

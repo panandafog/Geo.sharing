@@ -13,7 +13,6 @@ import UIKit
 import ProgressHUD
 
 protocol MapViewControllerDelegate: AnyObject {
-    func showNotifications()
     func showSettings()
     func showFriends()
     func showAuthorization()
@@ -27,7 +26,8 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     private var cancellables: Set<AnyCancellable> = []
     
     private let mapZoomOffset = 200
-    private let friendsBarHeight = 20
+    private let usersButtonPointSize: CGFloat = 21
+    private let usersButtonImageName = "person.2.fill"
     
     private var zoomMapToUserEnabled: Bool {
         get {
@@ -42,7 +42,6 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     }
     
     @IBOutlet private var map: MKMapView!
-    @IBOutlet private var notificationsButton: UIButton!
     @IBOutlet private var settingsButton: UIButton!
     @IBOutlet private var usersButton: UIButton!
     @IBOutlet private var myLocationButton: UIButton!
@@ -59,10 +58,6 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
         
         viewModel.authorizeAndStart()
         navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    @IBAction private func notificationsButtonTouched(_ sender: UIButton) {
-        coordinator?.showNotifications()
     }
     
     @IBAction private func settingsButtonTouched(_ sender: UIButton) {
@@ -83,13 +78,6 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     }
     
     private func bindViewModel() {
-        viewModel.$notificationsCount.sink { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.updateNotificationsButton()
-            }
-        }
-        .store(in: &cancellables)
-        
         viewModel.$friendships.sink { [weak self] _ in
             DispatchQueue.main.async {
                 self?.updateAnnotations()
@@ -120,12 +108,22 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
     // MARK: - UI
     
     private func setupStyling() {
-        UIStylingHelper.makeMapButton(notificationsButton)
         UIStylingHelper.makeMapButton(settingsButton)
         UIStylingHelper.makeMapButton(usersButton)
         UIStylingHelper.makeMapButton(myLocationButton)
         
         setLocationButtonConfiguration()
+        
+        let largeImageConfig = UIImage.SymbolConfiguration(
+            pointSize: usersButtonPointSize,
+            weight: .unspecified,
+            scale: .large
+        )
+        let largeImage = UIImage(
+            systemName: usersButtonImageName,
+            withConfiguration: largeImageConfig
+        )
+        usersButton.setImage(largeImage, for: .normal)
     }
     
     private func setLocationButtonConfiguration() {
@@ -193,14 +191,6 @@ class MapViewController: UIViewController, Storyboarded, NotificatingViewControl
                 }
                 map.addAnnotation(annotation)
             }
-        }
-    }
-    
-    private func updateNotificationsButton() {
-        if viewModel.notificationsCount > 0 {
-            notificationsButton.tintColor = .systemOrange
-        } else {
-            notificationsButton.tintColor = .systemGray
         }
     }
 }
